@@ -1,63 +1,77 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const pageTitle = "Sobre mí";
+const identity = {
+    firstName: "Bruno",
+    lastName: "Costanzo",
+    email: "dev.bcostanzo@gmail.com",
+    skills: ["Ruby", "Rails", "JavaScript", "HTML", "CSS"],
+};
 
+const fullName = `${identity.firstName} ${identity.lastName}`;
+
+const skillColor = "crimson";
 ---
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        <title>bruno.rb</title>
-    </head>
-    <body>
-        <a href="/">Inicio</a>
-        <a href="/about/">Sobre mí</a>
-        <h1>Sobre mí</h1>
-        <p>Hola 👋,</p>
-        <p>
-            Soy Bruno Costanzo, un desarrollador de software autodidacta
-            especializado en Ruby on Rails. Vivo en Zürich, Suiza. Hablo
-            español, inglés, algo de italiano y estoy -lentamente- aprendiendo
-            alemán. Soy hincha fanático de Boca Juniors.
-        </p>
-        <p>Estudié periodismo y durante cuatro años (2017-2021) trabajé en:</p>
-        <ul>
-            <li>
-                <a href="https://www.elcanciller.com" target="_blank">
-                    elCanciller</a
-                >: Redactor y después subeditor.
-            </li>
-            <li>
-                <a href="https://www.noticiasargentinas.com" target="_blank">
-                    Noticias Argentinas</a
-                >: Corresponsal en la Casa Rosada, sede del Poder Ejecutivo y
-                oficina del Presidente de Argentina.
-            </li>
-            <li>
-                <a
-                    href="https://www.youtube.com/@FueradeTiempo89.9"
-                    target="_blank"
-                >
-                    Fuera de Tiempo</a
-                >: Productor del programa radial conducido por Diego Genoud
-            </li>
-        </ul>
-        <p>
-            Mientras trabajaba como periodista, empecé a aprender programación
-            motivado por la curiosidad y facilidad para pasar tiempo en la
-            computadora. Durante ese tiempo, me dejé llevar sin un norte claro,
-            sólo por diversión y sin ponerme exigencias que pudieran llevarme a
-            una decepción.
-        </p>
+<BaseLayout pageTitle={pageTitle}>
+    <p>Hola 👋,</p>
+    <p>
+        Soy {fullName}, un desarrollador de software autodidacta especializado
+        en Ruby on Rails. Vivo en Zürich, Suiza. Hablo español, inglés, algo de
+        italiano y estoy -lentamente- aprendiendo alemán. Soy hincha fanático de
+        Boca Juniors.
+    </p>
+    <p>Estudié periodismo y durante cuatro años (2017-2021) trabajé en:</p>
+    <ul>
+        <li>
+            <a href="https://www.elcanciller.com" target="_blank">
+                elCanciller</a
+            >: Redactor y después subeditor.
+        </li>
+        <li>
+            <a href="https://www.noticiasargentinas.com" target="_blank">
+                Noticias Argentinas</a
+            >: Corresponsal en la Casa Rosada, sede del Poder Ejecutivo y
+            oficina del Presidente de Argentina.
+        </li>
+        <li>
+            <a
+                href="https://www.youtube.com/@FueradeTiempo89.9"
+                target="_blank"
+            >
+                Fuera de Tiempo</a
+            >: Productor del programa radial conducido por Diego Genoud
+        </li>
+    </ul>
+    <p>
+        Mientras trabajaba como periodista, empecé a aprender programación
+        motivado por la curiosidad y facilidad para pasar tiempo en la
+        computadora. Durante ese tiempo, me dejé llevar sin un norte claro, sólo
+        por diversión y sin ponerme exigencias que pudieran llevarme a una
+        decepción.
+    </p>
 
+    <p>
+        En 2021, decidí comenzar a buscar trabajo como desarrollador de software
+        Ruby on Rails. Para eso, ahorré el dinero necesario para poder estar
+        tres meses sin trabajar y dedicarme exclusivamente a aprender y
+        solicitar trabajos. La suerte y la época jugaron a mi favor: 10 días
+        después de renunciar al periodismo tuve que elegir entre dos empresas
+        para empezar a trabajar como programador.
+    </p>
+
+    <p>Tecnologías:</p>
+    <ul>
+        {identity.skills.map((skill) => <li class="skill">{skill}</li>)}
+    </ul>
+
+    <br />
+
+    <div>
         <p>
-            En 2021, decidí comenzar a buscar trabajo como desarrollador de
-            software Ruby on Rails. Para eso, ahorré el dinero necesario para
-            poder estar tres meses sin trabajar y dedicarme exclusivamente a
-            aprender y solicitar trabajos. La suerte y la época jugaron a mi
-            favor: 10 días después de renunciar al periodismo tuve que elegir
-            entre dos empresas para empezar a trabajar como programador.
+            Si te interesa contactarme, podés enviarme un email a <a
+                href={`mailto:${identity.email}`}>{identity.email}</a
+            >
         </p>
-    </body>
-</html>
+    </div>
+</BaseLayout>
