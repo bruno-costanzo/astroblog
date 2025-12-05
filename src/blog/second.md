@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/MarkdownPostLayout.astro
 title: 'Lo que el griego afirma en el cratilio'
 pubDate: 2022-07-01
 description: 'This is another astro blog post'
