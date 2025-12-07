@@ -1,0 +1,67 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Subtitle from "../components/Subtitle.astro";
+import { Icon } from "astro-icon/components";
+
+const projects = [
+    {
+        name: "Bolsillito",
+        description:
+            "Aplicación de Rails con PWA para gestionar gastos en pareja. Permite elegir métodos de división (50/50, manual, acorde a ingresos, etc) y crear categorías y proyectos de gastos personalizados.",
+        url: "https://bolsillito.club/",
+        image: "https://placehold.co/600x400/8B4513/FFF?text=Bolsillito",
+        tags: ["Rails", "PWA", "Finanzas"],
+    },
+    {
+        name: "Fripa",
+        description:
+            "Gema open source de Rails para utilizar la API JSON-RPC de FreeIPA. Facilita la integración de aplicaciones Rails con servidores FreeIPA para gestión de identidades.",
+        url: "https://github.com/renuo/fripa",
+        image: "https://placehold.co/600x400/333/FFF?text=Fripa",
+        tags: ["Rails", "Gem", "Open Source"],
+    },
+];
+---
+
+<Layout pageTitle="Proyectos">
+    <div class="container mx-auto p-8 max-w-4xl">
+        <Subtitle text="Proyectos" />
+
+        <p class="mt-4 opacity-80">
+            Algunos proyectos en los que he trabajado, tanto personales como contribuciones open source.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+            {
+                projects.map((project) => (
+                    <a
+                        href={project.url}
+                        target="_blank"
+                        rel="noopener"
+                        class="card bg-base-100 shadow-sm hover:shadow-md transition-shadow"
+                    >
+                        <figure class="aspect-video">
+                            <img
+                                src={project.image}
+                                alt={project.name}
+                                class="w-full h-full object-cover"
+                            />
+                        </figure>
+                        <div class="card-body">
+                            <h2 class="card-title">
+                                {project.name}
+                                <Icon name="lucide:external-link" class="w-4 h-4 opacity-60" />
+                            </h2>
+                            <p class="opacity-80">{project.description}</p>
+                            <div class="card-actions justify-end mt-2">
+                                {project.tags.map((tag) => (
+                                    <span class="badge badge-outline">{tag}</span>
+                                ))}
+                            </div>
+                        </div>
+                    </a>
+                ))
+            }
+        </div>
+    </div>
+</Layout>

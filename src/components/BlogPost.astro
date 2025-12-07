@@ -1,0 +1,17 @@
+---
+const { url, title, description, image, tags, date } = Astro.props;
+---
+
+<a href={url} class="card bg-base-100 shadow-sm">
+    <figure class="relative aspect-video">
+        <img src={image} alt={title} class="w-full h-full object-cover" />
+        <div class="badge badge-neutral absolute bottom-2 right-2">{date}</div>
+    </figure>
+    <div class="card-body">
+        <h2 class="card-title">{title}</h2>
+        <p>{description}</p>
+        <div class="card-actions justify-end">
+            {tags.map((tag) => <div class="badge badge-outline">{tag}</div>)}
+        </div>
+    </div>
+</a>

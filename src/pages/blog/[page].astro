@@ -1,0 +1,77 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import BlogPost from "../../components/BlogPost.astro";
+import Subtitle from "../../components/Subtitle.astro";
+
+export async function getStaticPaths() {
+    const allPosts = (await getCollection("blog"))
+        .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+    const postsPerPage = 6;
+    const totalPages = Math.ceil(allPosts.length / postsPerPage);
+
+    return Array.from({ length: totalPages }, (_, i) => ({
+        params: { page: String(i + 1) },
+        props: {
+            posts: allPosts.slice(i * postsPerPage, (i + 1) * postsPerPage),
+            currentPage: i + 1,
+            totalPages,
+        },
+    }));
+}
+
+const { posts, currentPage, totalPages } = Astro.props;
+---
+
+<Layout pageTitle={`Blog - Página ${currentPage}`}>
+    <div class="container mx-auto p-8 max-w-4xl">
+        <Subtitle text="Blog" />
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-4">
+            {
+                posts.map((post) => (
+                    <BlogPost
+                        url={`/blog/${post.id}/`}
+                        title={post.data.title}
+                        description={post.data.description}
+                        image={post.data.image.url}
+                        tags={post.data.tags}
+                        date={post.data.pubDate.toLocaleDateString("es-ES", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                        })}
+                    />
+                ))
+            }
+        </div>
+
+        {totalPages > 1 && (
+            <div class="flex justify-center mt-12">
+                <div class="join">
+                    <a
+                        href={currentPage === 1 ? "#" : currentPage === 2 ? "/blog" : `/blog/${currentPage - 1}`}
+                        class:list={["join-item btn", { "btn-disabled": currentPage === 1 }]}
+                    >
+                        «
+                    </a>
+                    {Array.from({ length: totalPages }, (_, i) => (
+                        <a
+                            href={i === 0 ? "/blog" : `/blog/${i + 1}`}
+                            class:list={["join-item btn", { "btn-active": i + 1 === currentPage }]}
+                        >
+                            {i + 1}
+                        </a>
+                    ))}
+                    <a
+                        href={currentPage === totalPages ? "#" : `/blog/${currentPage + 1}`}
+                        class:list={["join-item btn", { "btn-disabled": currentPage === totalPages }]}
+                    >
+                        »
+                    </a>
+                </div>
+            </div>
+        )}
+    </div>
+</Layout>

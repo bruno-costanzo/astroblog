@@ -1,0 +1,26 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<footer class="flex items-center justify-between px-4 py-4">
+    <span>© {new Date().getFullYear()} Bruno Costanzo</span>
+    <nav class="flex gap-4">
+        <a href="mailto:dev.bcostanzo@gmail.com">
+            <Icon name="lucide:mail" class="w-5 h-5" />
+        </a>
+        <a
+            href="https://github.com/bruno-costanzo"
+            target="_blank"
+            rel="noopener"
+        >
+            <Icon name="lucide:github" class="w-5 h-5" />
+        </a>
+        <a
+            href="https://www.linkedin.com/in/brunocostanzo/"
+            target="_blank"
+            rel="noopener"
+        >
+            <Icon name="lucide:linkedin" class="w-5 h-5" />
+        </a>
+    </nav>
+</footer>

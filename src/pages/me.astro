@@ -1,0 +1,80 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Subtitle from "../components/Subtitle.astro";
+import { Icon } from "astro-icon/components";
+
+const identity = {
+    firstName: "Bruno",
+    lastName: "Costanzo",
+    email: "dev.bcostanzo@gmail.com",
+    skills: ["Ruby", "Rails", "JavaScript", "HTML", "CSS"],
+};
+
+const fullName = `${identity.firstName} ${identity.lastName}`;
+---
+
+<Layout pageTitle="Sobre mí">
+    <div class="container mx-auto p-8 max-w-4xl">
+        <Subtitle text="Sobre mí" />
+
+        <div class="prose prose-lg max-w-none mt-4">
+            <p>Hola,</p>
+
+            <p>
+                Soy {fullName}, un desarrollador de software autodidacta especializado
+                en Ruby on Rails. Vivo en Zürich, Suiza. Hablo español, inglés, algo de
+                italiano y estoy -lentamente- aprendiendo alemán. Soy hincha fanático de
+                Boca Juniors.
+            </p>
+
+            <p>Estudié periodismo y durante cuatro años (2017-2021) trabajé en:</p>
+
+            <ul>
+                <li>
+                    <a href="https://www.elcanciller.com" target="_blank" rel="noopener">elCanciller</a>:
+                    Redactor y después subeditor.
+                </li>
+                <li>
+                    <a href="https://www.noticiasargentinas.com" target="_blank" rel="noopener">Noticias Argentinas</a>:
+                    Corresponsal en la Casa Rosada, sede del Poder Ejecutivo y oficina del Presidente de Argentina.
+                </li>
+                <li>
+                    <a href="https://www.youtube.com/@FueradeTiempo89.9" target="_blank" rel="noopener">Fuera de Tiempo</a>:
+                    Productor del programa radial conducido por Diego Genoud.
+                </li>
+            </ul>
+
+            <p>
+                Mientras trabajaba como periodista, empecé a aprender programación
+                motivado por la curiosidad y facilidad para pasar tiempo en la
+                computadora. Durante ese tiempo, me dejé llevar sin un norte claro, sólo
+                por diversión y sin ponerme exigencias que pudieran llevarme a una
+                decepción.
+            </p>
+
+            <p>
+                En 2021, decidí comenzar a buscar trabajo como desarrollador de software
+                Ruby on Rails. Para eso, ahorré el dinero necesario para poder estar
+                tres meses sin trabajar y dedicarme exclusivamente a aprender y
+                solicitar trabajos. La suerte y la época jugaron a mi favor: 10 días
+                después de renunciar al periodismo tuve que elegir entre dos empresas
+                para empezar a trabajar como programador.
+            </p>
+        </div>
+
+        <Subtitle text="Tecnologías" class="mt-12" />
+
+        <div class="flex flex-wrap gap-2 mt-4">
+            {identity.skills.map((skill) => (
+                <span class="badge badge-lg badge-outline">{skill}</span>
+            ))}
+        </div>
+
+        <Subtitle text="Contacto" class="mt-12" />
+
+        <p class="mt-4">
+            Si te interesa contactarme, podés enviarme un email a{" "}
+            <a href={`mailto:${identity.email}`} class="link link-primary">{identity.email}</a>
+        </p>
+    </div>
+</Layout>
