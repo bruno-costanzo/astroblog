@@ -57,11 +57,11 @@ Por ejemplo:
 
 Luego, el problema es solamente iterar sobre cada rango, aplicar estos filtros, y sumar los números que cumplen con la condición.
 
-## Part 2
+## Parte 2
 
 ### Consigna
 
-Now, an ID is invalid if it is made only of some sequence of digits repeated at least twice. So, 12341234 (1234 two times), 123123123 (123 three times), 1212121212 (12 five times), and 1111111 (1 seven times) are all invalid IDs.
+Ahora, un ID es inválido si está compuesto únicamente por alguna secuencia de dígitos repetida al menos dos veces. Por ejemplo, 12341234 (1234 dos veces), 123123123 (123 tres veces), 1212121212 (12 cinco veces), y 1111111 (1 siete veces) son todos IDs inválidos.
 
 ### Solución
 
