@@ -1,6 +1,6 @@
 ---
 title: 'Advent of Code 2025: Día 1'
-pubDate: 2025-12-08
+pubDate: 2025-12-07
 description: 'Mi solución al primer día del Advent of Code 2025, resolviendo el problema del dial circular.'
 author: 'Bruno Costanzo'
 image:
