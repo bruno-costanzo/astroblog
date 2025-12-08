@@ -14,7 +14,7 @@ const formattedDate = frontmatter.pubDate.toLocaleDateString("es-ES", {
     description={frontmatter.description}
     image={frontmatter.image.url}
 >
-    <article class="container mx-auto p-8 max-w-4xl">
+    <article class="container mx-auto p-8 max-w-6xl">
         <header class="mb-8">
             <div class="flex items-center gap-2 text-sm opacity-60 mb-2">
                 <time datetime={frontmatter.pubDate.toISOString()}
@@ -28,7 +28,10 @@ const formattedDate = frontmatter.pubDate.toLocaleDateString("es-ES", {
             <div class="flex gap-2 mt-4">
                 {
                     frontmatter.tags.map((tag: string) => (
-                        <a href={`/tags/${tag}`} class="badge badge-outline hover:badge-primary">
+                        <a
+                            href={`/tags/${tag}`}
+                            class="badge badge-outline hover:badge-primary"
+                        >
                             {tag}
                         </a>
                     ))

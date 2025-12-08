@@ -1,6 +1,6 @@
 ---
 title: 'Objetos que no merecen un ID: Usando composed_of en Rails'
-pubDate: 2025-12-07
+pubDate: 2025-07-07
 description: 'El método composed_of está en Rails desde sus comienzos, sin embargo, no es muy utilizado debido a que no es muy intuitivo.'
 author: 'Bruno Costanzo'
 image:

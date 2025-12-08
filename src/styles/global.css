@@ -1,6 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @plugin "daisyui";
+
+body {
+  font-family: "Rubik", sans-serif;
+}
 
 @plugin "daisyui/theme" {
   name: "autumn";
@@ -42,26 +47,26 @@
   default: false;
   prefersdark: true;
   color-scheme: "dark";
-  --color-base-100: oklch(25% 0.02 30);
-  --color-base-200: oklch(20% 0.02 30);
-  --color-base-300: oklch(15% 0.02 30);
-  --color-base-content: oklch(90% 0 0);
-  --color-primary: oklch(50.723% 0.161 17.53);
-  --color-primary-content: oklch(95% 0.032 17.53);
-  --color-secondary: oklch(65.676% 0.169 23.865);
-  --color-secondary-content: oklch(15% 0.033 23.865);
-  --color-accent: oklch(73.425% 0.094 60.729);
-  --color-accent-content: oklch(14.685% 0.018 60.729);
-  --color-neutral: oklch(40% 0.037 51.902);
-  --color-neutral-content: oklch(90.873% 0.007 51.902);
-  --color-info: oklch(69.224% 0.097 207.284);
-  --color-info-content: oklch(13.844% 0.019 207.284);
-  --color-success: oklch(60.995% 0.08 174.616);
-  --color-success-content: oklch(12.199% 0.016 174.616);
-  --color-warning: oklch(70.081% 0.164 56.844);
-  --color-warning-content: oklch(14.016% 0.032 56.844);
-  --color-error: oklch(53.07% 0.241 24.16);
-  --color-error-content: oklch(90.614% 0.048 24.16);
+  --color-base-100: oklch(22% 0.015 250);
+  --color-base-200: oklch(18% 0.015 250);
+  --color-base-300: oklch(14% 0.015 250);
+  --color-base-content: oklch(92% 0.01 250);
+  --color-primary: oklch(55% 0.14 17.53);
+  --color-primary-content: oklch(95% 0.02 17.53);
+  --color-secondary: oklch(65% 0.12 250);
+  --color-secondary-content: oklch(15% 0.02 250);
+  --color-accent: oklch(70% 0.13 170);
+  --color-accent-content: oklch(15% 0.02 170);
+  --color-neutral: oklch(35% 0.02 250);
+  --color-neutral-content: oklch(90% 0.01 250);
+  --color-info: oklch(70% 0.1 230);
+  --color-info-content: oklch(15% 0.02 230);
+  --color-success: oklch(65% 0.15 145);
+  --color-success-content: oklch(15% 0.02 145);
+  --color-warning: oklch(75% 0.15 85);
+  --color-warning-content: oklch(15% 0.03 85);
+  --color-error: oklch(60% 0.2 25);
+  --color-error-content: oklch(95% 0.03 25);
   --radius-selector: 1rem;
   --radius-field: 0.5rem;
   --radius-box: 1rem;
@@ -70,4 +75,8 @@
   --border: 1px;
   --depth: 1;
   --noise: 0;
+}
+
+.card-body {
+  padding: 1rem;
 }

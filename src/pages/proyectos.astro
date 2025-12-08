@@ -24,11 +24,12 @@ const projects = [
 ---
 
 <Layout pageTitle="Proyectos">
-    <div class="container mx-auto p-8 max-w-4xl">
+    <div class="container mx-auto p-8 max-w-6xl">
         <Subtitle text="Proyectos" />
 
         <p class="mt-4 opacity-80">
-            Algunos proyectos en los que he trabajado, tanto personales como contribuciones open source.
+            Algunos proyectos en los que he trabajado, tanto personales como
+            contribuciones open source.
         </p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
@@ -50,12 +51,17 @@ const projects = [
                         <div class="card-body">
                             <h2 class="card-title">
                                 {project.name}
-                                <Icon name="lucide:external-link" class="w-4 h-4 opacity-60" />
+                                <Icon
+                                    name="lucide:external-link"
+                                    class="w-4 h-4 opacity-60"
+                                />
                             </h2>
                             <p class="opacity-80">{project.description}</p>
                             <div class="card-actions justify-end mt-2">
                                 {project.tags.map((tag) => (
-                                    <span class="badge badge-outline">{tag}</span>
+                                    <span class="badge badge-outline">
+                                        {tag}
+                                    </span>
                                 ))}
                             </div>
                         </div>

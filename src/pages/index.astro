@@ -5,7 +5,7 @@ import BlogPost from "../components/BlogPost.astro";
 import Subtitle from "../components/Subtitle.astro";
 const latestPosts = (await getCollection("blog"))
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-    .slice(0, 3);
+    .slice(0, 4);
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
@@ -13,7 +13,7 @@ const latestPosts = (await getCollection("blog"))
 
 <Layout>
     <div class="bg-base-200 min-h-[calc(100vh-8rem)]">
-        <div class="container mx-auto p-8 max-w-4xl">
+        <div class="container mx-auto p-8 max-w-6xl">
             <Subtitle text="Sobre mí" />
             <h1 class="text-3xl font-bold mt-2">Bruno Costanzo</h1>
             <p class="mt-2 opacity-80">
@@ -21,7 +21,7 @@ const latestPosts = (await getCollection("blog"))
             </p>
 
             <Subtitle text="Últimos artículos" class="mt-12" />
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-2">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
                 {
                     latestPosts.map((post) => (
                         <BlogPost
