@@ -56,3 +56,63 @@ Por ejemplo:
 ### Juntando todo
 
 Luego, el problema es solamente iterar sobre cada rango, aplicar estos filtros, y sumar los números que cumplen con la condición.
+
+## Part 2
+
+### Consigna
+
+Now, an ID is invalid if it is made only of some sequence of digits repeated at least twice. So, 12341234 (1234 two times), 123123123 (123 three times), 1212121212 (12 five times), and 1111111 (1 seven times) are all invalid IDs.
+
+### Solución
+
+La diferencia con la parte 1 es sutil pero importante. Antes buscábamos números que fueran **exactamente** dos mitades iguales. Ahora buscamos números que sean **cualquier secuencia repetida al menos dos veces**.
+
+Esto significa que `123123123` es inválido porque es `123` repetido 3 veces, aunque no se pueda dividir en dos mitades iguales.
+
+### El cambio de perspectiva
+
+En lugar de solo dividir en 2, necesitamos probar todas las divisiones posibles:
+- ¿Se puede dividir en 2 partes iguales?
+- ¿Se puede dividir en 3 partes iguales?
+- ¿Se puede dividir en 4 partes iguales?
+- ... y así sucesivamente
+
+### La implementación
+
+```ruby
+def equal_splits(num)
+  s = num.to_s
+  len = s.length
+  results = []
+
+  (2..len).each do |parts|
+    next unless (len % parts).zero?
+
+    size = len / parts
+    results << s.chars.each_slice(size).map { _1.join.to_i }
+  end
+
+  results
+end
+```
+
+Esta función genera todas las formas posibles de dividir un número en partes iguales. Por ejemplo, para `123123`:
+- Con 2 partes: `[123, 123]`
+- Con 3 partes: `[12, 31, 23]` - no aplica porque 6/3=2 dígitos cada uno
+- Con 6 partes: `[1, 2, 3, 1, 2, 3]`
+
+El truco está en `each_slice(size)` que divide el array de caracteres en grupos del tamaño calculado.
+
+### La verificación final
+
+```ruby
+def part_two
+  count_matching { |number| equal_splits(number).any? { |split| split.uniq.size == 1 } }
+end
+```
+
+Para cada división posible, verificamos si todas las partes son iguales usando `uniq.size == 1`. Si después de eliminar duplicados solo queda un elemento, significa que todas las partes eran iguales.
+
+Por ejemplo:
+- `[123, 123].uniq` -> `[123]` -> tamaño 1 -> ¡inválido!
+- `[12, 34].uniq` -> `[12, 34]` -> tamaño 2 -> válido
