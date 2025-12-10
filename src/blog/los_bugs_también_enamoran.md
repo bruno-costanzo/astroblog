@@ -4,7 +4,7 @@ pubDate: 2025-12-10
 description: 'Cómo un bug en las rutas de nuestra aplicación se convirtió en una feature que los usuarios adoptaron sin saberlo.'
 author: 'Bruno Costanzo'
 image:
-    url: '/los-bugs-enamoran.png'
+    url: '/los-bugs-enamoran.webp'
     alt: 'Los bugs también enamoran'
 tags: ["rails", "bugs", "deuda-tecnica", "experiencia"]
 ---

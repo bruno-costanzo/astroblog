@@ -4,7 +4,7 @@ pubDate: 2025-12-08
 description: 'Mi solución al segundo día del Advent of Code 2025, encontrando números con mitades iguales dentro de rangos.'
 author: 'Bruno Costanzo'
 image:
-    url: '/elves.png'
+    url: '/elves.webp'
     alt: 'Elves'
 tags: ["ruby", "advent-of-code", "coding"]
 ---

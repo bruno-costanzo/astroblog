@@ -4,7 +4,7 @@ pubDate: 2025-12-07
 description: 'Mi solución al primer día del Advent of Code 2025, resolviendo el problema del dial circular.'
 author: 'Bruno Costanzo'
 image:
-    url: '/dial_lock.png'
+    url: '/dial_lock.webp'
     alt: 'Dial lock'
 tags: ["ruby", "advent-of-code", "coding"]
 ---
