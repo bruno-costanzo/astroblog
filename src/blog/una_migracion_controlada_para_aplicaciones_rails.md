@@ -6,7 +6,7 @@ author: 'Bruno Costanzo'
 image:
     url: '/migrating-a-rails-application.jpg'
     alt: 'Migración de aplicaciones Rails'
-tags: ["rails", "ruby", "cloud", "guide"]
+tags: ["rails", "cloud", "guide"]
 ---
 
 Cuando se trata de migrar una aplicación Rails es importante comprender bien los pasos necesarios para garantizar un proceso claro. Si no dedicamos un poco de tiempo a este análisis, es probable que en algún momento tengamos la sensación de estar pisando terreno no seguro. Cuando se trata de movimientos tectónicos como servidores y bases de datos, estas inseguridades pueden resultar directamente en un bloqueo: lo que está en juego no es un bug más o menos, sino la pérdida de información de nuestros usuarios.

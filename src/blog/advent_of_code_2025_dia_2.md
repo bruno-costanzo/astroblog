@@ -1,5 +1,5 @@
 ---
-title: 'Advent of Code 2025: Día 2'
+title: 'AoC 2025 Día 2: Mitades que se encuentran'
 pubDate: 2025-12-08
 description: 'Mi solución al segundo día del Advent of Code 2025, encontrando números con mitades iguales dentro de rangos.'
 author: 'Bruno Costanzo'

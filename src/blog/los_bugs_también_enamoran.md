@@ -6,7 +6,7 @@ author: 'Bruno Costanzo'
 image:
     url: '/los-bugs-enamoran.webp'
     alt: 'Los bugs también enamoran'
-tags: ["rails", "bugs", "deuda-tecnica", "experiencia"]
+tags: ["rails", "bugs", "experiencia"]
 ---
 
 Siempre viví en casas viejas y hay algo a lo que le tengo cierto apego culposo: las cosas que dejaron de funcionar como debían y pasaron a funcionar con algún truquito, un parche que funciona como un código secreto entre los que conocemos el artefacto. Puertas y ventanas que a la vista parecen trabadas, pero hay que hacer cierto movimiento y la magia ocurre; cadenas de inodoros que si el botón no se aprieta de cierta manera quedan perdiendo agua; o llaves que solo una persona puede hacer girar. En nuestras aplicaciones sucede lo mismo, pero no es tan placentero. La gente comienza a utilizar algo que funciona, pero tiene un error en la implementación. Entonces cambiarlo se puede volver difícil y hasta peligroso, porque podemos romper algo que muchos usuarios ya están utilizando.
