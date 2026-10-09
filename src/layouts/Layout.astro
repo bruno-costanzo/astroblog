@@ -44,6 +44,14 @@ const imageURL = new URL(site.photo, Astro.site);
         <meta property="og:image" content={imageURL} />
         <meta name="twitter:card" content="summary" />
 
+        <script
+            is:inline
+            defer
+            src="https://cloud.umami.is/script.js"
+            data-website-id="871cec29-806f-4a76-806b-8cf2b57fef21"
+            data-domains="costanzo.blog"
+        ></script>
+
         <script is:inline>
             const stored = localStorage.getItem("theme");
             const dark = stored ? stored === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
