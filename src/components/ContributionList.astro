@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { formatDate } from "../lib/content";
+
+interface Props {
+    contributions: CollectionEntry<"opensource">[];
+    showRepo?: boolean;
+}
+
+const { contributions, showRepo = false } = Astro.props;
+---
+
+<ul class="divide-y divide-border border-y border-border">
+    {
+        contributions.map(({ data }) => (
+            <li>
+                <a href={data.url} class="group grid sm:grid-cols-[1fr_auto] gap-x-6 gap-y-1 py-4">
+                    <div>
+                        {showRepo && <span class="font-mono text-xs text-muted">{data.repo}</span>}
+                        <p class="leading-snug group-hover:text-accent transition-colors">{data.title}</p>
+                    </div>
+                    <div class="flex items-center gap-3 text-sm text-muted sm:justify-end">
+                        <span
+                            class:list={[
+                                "rounded-full border px-2 py-0.5 text-xs",
+                                data.status === "merged" ? "border-accent/40 text-accent" : "border-border",
+                            ]}
+                        >
+                            {data.status === "merged" ? "Mergeado" : "En revisión"}
+                        </span>
+                        <time datetime={data.date.toISOString()} class="tabular-nums whitespace-nowrap">
+                            {formatDate(data.date)}
+                        </time>
+                    </div>
+                </a>
+            </li>
+        ))
+    }
+</ul>

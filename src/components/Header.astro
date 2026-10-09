@@ -1,58 +1,62 @@
 ---
+import { Icon } from "astro-icon/components";
+import { site } from "../lib/site";
 
+const links = [
+    { href: "/blog", label: "Blog" },
+    { href: "/proyectos", label: "Proyectos" },
+    { href: "/open-source", label: "Open Source" },
+    { href: "/sobre-mi", label: "Sobre mí" },
+];
+
+const path = Astro.url.pathname;
+const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
 ---
 
-<div class="navbar bg-base-100 shadow-sm">
-    <div class="navbar-start">
-        <div class="dropdown">
-            <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M4 6h16M4 12h8m-8 6h16"></path>
-                </svg>
-            </div>
-            <ul
-                tabindex="-1"
-                class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-            >
-                <li><a href="/">Inicio</a></li>
-                <li><a href="/blog">Blog</a></li>
-                <li><a href="/proyectos">Proyectos</a></li>
-                <li><a href="/me">Sobre mí</a></li>
-                <li><a href="/contact">Contacto</a></li>
-            </ul>
-        </div>
-        <a href="/" class="btn btn-ghost text-xl">
-            <div class="avatar">
-                <div class="w-10 rounded">
-                    <img src="/me.webp" alt="Bruno Costanzo" />
-                </div>
-            </div>
+<header class="border-b border-border">
+    <div class="max-w-2xl mx-auto px-5 sm:px-6 py-5 flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+        <a href="/" class="font-serif text-xl font-semibold tracking-tight hover:text-accent transition-colors">
+            {site.name}
         </a>
+        <nav class="flex items-center gap-5 text-sm">
+            {
+                links.map((link) => (
+                    <a
+                        href={link.href}
+                        class:list={[
+                            "transition-colors hover:text-text",
+                            isActive(link.href) ? "text-text font-medium" : "text-muted",
+                        ]}
+                    >
+                        {link.label}
+                    </a>
+                ))
+            }
+            <button
+                id="theme-toggle"
+                type="button"
+                aria-label="Cambiar tema"
+                class="text-muted hover:text-text transition-colors cursor-pointer"
+            >
+                <Icon name="lucide:moon" class="w-4 h-4 dark-hidden" />
+                <Icon name="lucide:sun" class="w-4 h-4 light-hidden" />
+            </button>
+        </nav>
     </div>
-    <div class="navbar-center hidden lg:flex">
-        <ul class="menu menu-horizontal px-1">
-            <li><a href="/">Inicio</a></li>
-            <li><a href="/blog">Blog</a></li>
-            <li><a href="/proyectos">Proyectos</a></li>
-            <li><a href="/me">Sobre mí</a></li>
-            <li><a href="/contact">Contacto</a></li>
-        </ul>
-    </div>
-    <div class="navbar-end">
-        <input
-            type="checkbox"
-            value="autumn-dark"
-            class="toggle theme-controller"
-        />
-    </div>
-</div>
+</header>
+
+<style>
+    :global([data-theme="dark"]) .dark-hidden,
+    :global([data-theme="light"]) .light-hidden {
+        display: none;
+    }
+</style>
+
+<script>
+    document.getElementById("theme-toggle")?.addEventListener("click", () => {
+        const root = document.documentElement;
+        const next = root.dataset.theme === "dark" ? "light" : "dark";
+        root.dataset.theme = next;
+        localStorage.setItem("theme", next);
+    });
+</script>

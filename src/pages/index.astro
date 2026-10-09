@@ -1,52 +1,32 @@
 ---
-import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
-import BlogPost from "../components/BlogPost.astro";
-import Subtitle from "../components/Subtitle.astro";
-const latestPosts = (await getCollection("blog"))
-    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-    .slice(0, 4);
+import Intro from "../components/Intro.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import PostList from "../components/PostList.astro";
+import ProjectList from "../components/ProjectList.astro";
+import ContributionList from "../components/ContributionList.astro";
+import { getContributions, getPosts, getProjects } from "../lib/content";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const posts = (await getPosts()).slice(0, 5);
+const projects = (await getProjects()).filter((project) => project.data.featured);
+const contributions = (await getContributions()).slice(0, 5);
 ---
 
 <Layout>
-    <div class="bg-base-200 min-h-[calc(100vh-8rem)]">
-        <div class="container mx-auto p-8 max-w-6xl">
-            <Subtitle text="Sobre mí" />
-            <h1 class="text-3xl font-bold mt-2">Bruno Costanzo</h1>
-            <p class="mt-2 opacity-80">
-                Escribo sobre Ruby, Rails y arquitectura de software.
-            </p>
+    <Intro />
 
-            <Subtitle text="Últimos artículos" class="mt-12" />
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
-                {
-                    latestPosts.map((post) => (
-                        <BlogPost
-                            url={`/blog/${post.id}/`}
-                            title={post.data.title}
-                            description={post.data.description}
-                            image={post.data.image.url}
-                            tags={post.data.tags}
-                            date={post.data.pubDate.toLocaleDateString(
-                                "es-ES",
-                                {
-                                    day: "numeric",
-                                    month: "short",
-                                    year: "numeric",
-                                },
-                            )}
-                        />
-                    ))
-                }
-            </div>
-            <div class="mt-6 text-center">
-                <a href="/blog" class="link link-hover opacity-70 hover:opacity-100">
-                    Ver todos los artículos →
-                </a>
-            </div>
-        </div>
-    </div>
+    <section class="mt-20">
+        <SectionHeading title="Escritos" href="/blog" />
+        <PostList posts={posts} />
+    </section>
+
+    <section class="mt-20">
+        <SectionHeading title="Proyectos destacados" href="/proyectos" />
+        <ProjectList projects={projects} />
+    </section>
+
+    <section class="mt-20">
+        <SectionHeading title="Open source reciente" href="/open-source" />
+        <ContributionList contributions={contributions} showRepo />
+    </section>
 </Layout>

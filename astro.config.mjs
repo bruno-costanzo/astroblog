@@ -7,6 +7,15 @@ import icon from "astro-icon";
 export default defineConfig({
   site: "https://costanzo.blog",
   integrations: [icon()],
+  redirects: {
+    "/me": "/sobre-mi",
+    "/contact": "/sobre-mi",
+  },
+  markdown: {
+    shikiConfig: {
+      themes: { light: "github-light", dark: "github-dark" },
+    },
+  },
   vite: {
     plugins: [tailwindcss()],
   },

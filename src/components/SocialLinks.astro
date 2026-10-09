@@ -1,0 +1,21 @@
+---
+import { Icon } from "astro-icon/components";
+import { site } from "../lib/site";
+
+const links = [
+    { href: `mailto:${site.email}`, icon: "lucide:mail", label: "Email" },
+    { href: site.github, icon: "lucide:github", label: "GitHub" },
+    { href: site.linkedin, icon: "lucide:linkedin", label: "LinkedIn" },
+    { href: "/rss.xml", icon: "lucide:rss", label: "RSS" },
+];
+---
+
+<nav class="flex items-center gap-4 text-muted">
+    {
+        links.map((link) => (
+            <a href={link.href} aria-label={link.label} title={link.label} class="hover:text-text transition-colors">
+                <Icon name={link.icon} class="w-[18px] h-[18px]" />
+            </a>
+        ))
+    }
+</nav>

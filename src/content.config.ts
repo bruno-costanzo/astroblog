@@ -1,21 +1,38 @@
-// Import the glob loader
 import { glob } from "astro/loaders";
-// Import utilities from `astro:content`
 import { z, defineCollection } from "astro:content";
-// Define a `loader` and `schema` for each collection
+
 const blog = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.md", base: "./src/blog" }),
+  loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/blog" }),
   schema: z.object({
     title: z.string(),
     pubDate: z.date(),
     description: z.string(),
-    author: z.string(),
-    image: z.object({
-      url: z.string(),
-      alt: z.string(),
-    }),
     tags: z.array(z.string()),
   }),
 });
-// Export a single `collections` object to register your collection(s)
-export const collections = { blog };
+
+const projects = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/projects" }),
+  schema: z.object({
+    name: z.string(),
+    description: z.string(),
+    year: z.number(),
+    stack: z.array(z.string()),
+    repo: z.string().url().optional(),
+    url: z.string().url().optional(),
+    featured: z.boolean().default(false),
+  }),
+});
+
+const opensource = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/opensource" }),
+  schema: z.object({
+    title: z.string(),
+    repo: z.string(),
+    url: z.string().url(),
+    date: z.date(),
+    status: z.enum(["merged", "open"]),
+  }),
+});
+
+export const collections = { blog, projects, opensource };

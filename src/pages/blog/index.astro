@@ -1,70 +1,22 @@
 ---
-import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
-import BlogPost from "../../components/BlogPost.astro";
-import Subtitle from "../../components/Subtitle.astro";
+import PostList from "../../components/PostList.astro";
+import { getPosts, groupBy } from "../../lib/content";
 
-const allPosts = (await getCollection("blog")).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
-
-const postsPerPage = 6;
-const totalPages = Math.ceil(allPosts.length / postsPerPage);
-const currentPage = 1;
-const posts = allPosts.slice(0, postsPerPage);
+const posts = await getPosts();
+const years = groupBy(posts, (post) => post.data.pubDate.getFullYear());
 ---
 
-<Layout pageTitle="Blog">
-    <div class="container mx-auto p-8 max-w-6xl">
-        <Subtitle text="Blog" />
+<Layout pageTitle="Blog" description="Artículos sobre Ruby, Rails y arquitectura de software.">
+    <h1 class="font-serif text-4xl font-semibold tracking-tight">Blog</h1>
+    <p class="mt-3 text-lg text-muted">Notas sobre Ruby, Rails y arquitectura de software.</p>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-            {
-                posts.map((post) => (
-                    <BlogPost
-                        url={`/blog/${post.id}/`}
-                        title={post.data.title}
-                        description={post.data.description}
-                        image={post.data.image.url}
-                        tags={post.data.tags}
-                        date={post.data.pubDate.toLocaleDateString("es-ES", {
-                            day: "numeric",
-                            month: "short",
-                            year: "numeric",
-                        })}
-                    />
-                ))
-            }
-        </div>
-
-        {
-            totalPages > 1 && (
-                <div class="flex justify-center mt-12">
-                    <div class="join">
-                        <a class="join-item btn btn-disabled">«</a>
-                        {Array.from({ length: totalPages }, (_, i) => (
-                            <a
-                                href={i === 0 ? "/blog" : `/blog/${i + 1}`}
-                                class:list={[
-                                    "join-item btn",
-                                    { "btn-active": i + 1 === currentPage },
-                                ]}
-                            >
-                                {i + 1}
-                            </a>
-                        ))}
-                        <a
-                            href="/blog/2"
-                            class:list={[
-                                "join-item btn",
-                                { "btn-disabled": totalPages === 1 },
-                            ]}
-                        >
-                            »
-                        </a>
-                    </div>
-                </div>
-            )
-        }
-    </div>
+    {
+        [...years].map(([year, yearPosts]) => (
+            <section class="mt-14">
+                <h2 class="mb-4 text-xs font-medium uppercase tracking-[0.14em] text-muted">{year}</h2>
+                <PostList posts={yearPosts} />
+            </section>
+        ))
+    }
 </Layout>

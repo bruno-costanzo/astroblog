@@ -1,26 +1,16 @@
 ---
-import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
-import BlogPost from "../../components/BlogPost.astro";
-import Subtitle from "../../components/Subtitle.astro";
+import PostList from "../../components/PostList.astro";
+import { getPosts } from "../../lib/content";
 
 export async function getStaticPaths() {
-    const allPosts = await getCollection("blog");
-    const uniqueTags = [
-        ...new Set(allPosts.map((post) => post.data.tags).flat()),
-    ];
+    const posts = await getPosts();
+    const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
 
-    return uniqueTags.map((tag) => {
-        const filteredPosts = allPosts
-            .filter((post) => post.data.tags.includes(tag))
-            .sort(
-                (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-            );
-        return {
-            params: { tag },
-            props: { posts: filteredPosts },
-        };
-    });
+    return tags.map((tag) => ({
+        params: { tag },
+        props: { posts: posts.filter((post) => post.data.tags.includes(tag)) },
+    }));
 }
 
 const { tag } = Astro.params;
@@ -28,30 +18,11 @@ const { posts } = Astro.props;
 ---
 
 <Layout pageTitle={`#${tag}`}>
-    <div class="container mx-auto p-8 max-w-6xl">
-        <Subtitle text={`#${tag}`} />
-        <p class="mt-2 opacity-60">
-            {posts.length}
-            {posts.length === 1 ? "artículo" : "artículos"}
-        </p>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-            {
-                posts.map((post) => (
-                    <BlogPost
-                        url={`/blog/${post.id}/`}
-                        title={post.data.title}
-                        description={post.data.description}
-                        image={post.data.image.url}
-                        tags={post.data.tags}
-                        date={post.data.pubDate.toLocaleDateString("es-ES", {
-                            day: "numeric",
-                            month: "short",
-                            year: "numeric",
-                        })}
-                    />
-                ))
-            }
-        </div>
+    <h1 class="font-serif text-4xl font-semibold tracking-tight">#{tag}</h1>
+    <p class="mt-3 text-muted">
+        {posts.length} {posts.length === 1 ? "artículo" : "artículos"}
+    </p>
+    <div class="mt-10">
+        <PostList posts={posts} />
     </div>
 </Layout>

@@ -1,21 +1,20 @@
 import rss from "@astrojs/rss";
-import { getCollection } from "astro:content";
 import type { APIContext } from "astro";
+import { getPosts } from "../lib/content";
+import { site } from "../lib/site";
 
 export async function GET(context: APIContext) {
-    const posts = await getCollection("blog");
+  const posts = await getPosts();
 
-    return rss({
-        title: "Bruno Costanzo",
-        description: "Escribo sobre Ruby, Rails y arquitectura de software.",
-        site: context.site ?? "https://brunocostanzo.com",
-        items: posts
-            .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-            .map((post) => ({
-                title: post.data.title,
-                pubDate: post.data.pubDate,
-                description: post.data.description,
-                link: `/blog/${post.id}/`,
-            })),
-    });
+  return rss({
+    title: site.name,
+    description: site.description,
+    site: context.site!,
+    items: posts.map((post) => ({
+      title: post.data.title,
+      pubDate: post.data.pubDate,
+      description: post.data.description,
+      link: `/blog/${post.id}/`,
+    })),
+  });
 }
