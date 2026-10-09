@@ -1,8 +1,9 @@
 ---
 title: 'Objetos que no merecen un ID: Usando composed_of en Rails'
 pubDate: 2025-07-07
-description: 'El método composed_of está en Rails desde sus comienzos, sin embargo, no es muy utilizado debido a que no es muy intuitivo.'
+description: 'Cómo usar composed_of para modelar value objects en Rails.'
 tags: ["rails", "ruby", "coding"]
+translationKey: composed-of
 ---
 
 En el mundo real (y en el código), hay entidades que se sitúan en algún lugar entre un escalar simple y un objeto completo. ¿Qué significan realmente cosas como _80 kilogramos_, _25 kilómetros por hora_ o _25×25×50 cm_? Claramente no son escalares en el sentido estricto—no pueden reducirse a un valor único como _25_ o _"Buenos Aires"_. Pero también comparten un rasgo clave con los escalares: no existen por sí solos en la realidad. _80 kilogramos_ describe el peso de algo, así como _25 km/h_ representa la velocidad de algo. Las dimensiones describen una caja, un mueble o un piano—pero significan poco por sí solas.

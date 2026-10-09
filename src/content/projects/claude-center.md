@@ -1,7 +1,9 @@
 ---
 name: Claude Center
-description: Un call center virtual para agentes de IA. Cuando un agente se traba, te suena el teléfono, lo hablás con él y sigue trabajando.
+description:
+  es: "Cuando un agente de IA se traba, te llama por teléfono para que lo destrabes."
+  en: "When an AI agent gets stuck, it calls your phone so you can unblock it."
 year: 2026
-stack: [AI agents, Voz]
+stack: [AI agents]
 repo: https://github.com/bruno-costanzo/claude-center
 ---

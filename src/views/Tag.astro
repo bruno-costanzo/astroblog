@@ -1,0 +1,25 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import PostList from "../components/PostList.astro";
+import { useTranslations, type Lang } from "../i18n";
+
+interface Props {
+    lang: Lang;
+    tag: string;
+    posts: CollectionEntry<"blog">[];
+}
+
+const { lang, tag, posts } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Layout lang={lang} pageTitle={`#${tag}`}>
+    <h1 class="font-serif text-4xl font-semibold tracking-tight">#{tag}</h1>
+    <p class="mt-3 text-muted">
+        {posts.length} {posts.length === 1 ? t("tag.count.one") : t("tag.count.other")}
+    </p>
+    <div class="mt-10">
+        <PostList lang={lang} posts={posts} />
+    </div>
+</Layout>

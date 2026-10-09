@@ -1,32 +1,5 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Intro from "../components/Intro.astro";
-import SectionHeading from "../components/SectionHeading.astro";
-import PostList from "../components/PostList.astro";
-import ProjectList from "../components/ProjectList.astro";
-import ContributionList from "../components/ContributionList.astro";
-import { getContributions, getPosts, getProjects } from "../lib/content";
-
-const posts = (await getPosts()).slice(0, 5);
-const projects = (await getProjects()).filter((project) => project.data.featured);
-const contributions = (await getContributions()).slice(0, 5);
+import Home from "../views/Home.astro";
 ---
 
-<Layout>
-    <Intro />
-
-    <section class="mt-20">
-        <SectionHeading title="Escritos" href="/blog" />
-        <PostList posts={posts} />
-    </section>
-
-    <section class="mt-20">
-        <SectionHeading title="Proyectos destacados" href="/proyectos" />
-        <ProjectList projects={projects} />
-    </section>
-
-    <section class="mt-20">
-        <SectionHeading title="Open source reciente" href="/open-source" />
-        <ContributionList contributions={contributions} showRepo />
-    </section>
-</Layout>
+<Home lang="es" />

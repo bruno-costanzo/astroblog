@@ -1,12 +1,10 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import PostList from "../../components/PostList.astro";
+import Tag from "../../views/Tag.astro";
 import { getPosts } from "../../lib/content";
 
 export async function getStaticPaths() {
-    const posts = await getPosts();
+    const posts = await getPosts("es");
     const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
-
     return tags.map((tag) => ({
         params: { tag },
         props: { posts: posts.filter((post) => post.data.tags.includes(tag)) },
@@ -17,12 +15,4 @@ const { tag } = Astro.params;
 const { posts } = Astro.props;
 ---
 
-<Layout pageTitle={`#${tag}`}>
-    <h1 class="font-serif text-4xl font-semibold tracking-tight">#{tag}</h1>
-    <p class="mt-3 text-muted">
-        {posts.length} {posts.length === 1 ? "artículo" : "artículos"}
-    </p>
-    <div class="mt-10">
-        <PostList posts={posts} />
-    </div>
-</Layout>
+<Tag lang="es" tag={tag} posts={posts} />

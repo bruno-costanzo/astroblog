@@ -1,22 +1,5 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import PostList from "../../components/PostList.astro";
-import { getPosts, groupBy } from "../../lib/content";
-
-const posts = await getPosts();
-const years = groupBy(posts, (post) => post.data.pubDate.getFullYear());
+import Blog from "../../views/Blog.astro";
 ---
 
-<Layout pageTitle="Blog" description="Artículos sobre Ruby, Rails y arquitectura de software.">
-    <h1 class="font-serif text-4xl font-semibold tracking-tight">Blog</h1>
-    <p class="mt-3 text-lg text-muted">Notas sobre Ruby, Rails y arquitectura de software.</p>
-
-    {
-        [...years].map(([year, yearPosts]) => (
-            <section class="mt-14">
-                <h2 class="mb-4 text-xs font-medium uppercase tracking-[0.14em] text-muted">{year}</h2>
-                <PostList posts={yearPosts} />
-            </section>
-        ))
-    }
-</Layout>
+<Blog lang="es" />

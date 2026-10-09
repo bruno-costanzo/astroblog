@@ -1,0 +1,90 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import ContactLinks from "../components/ContactLinks.astro";
+import { site } from "../lib/site";
+import { localizePath, otherLang, useTranslations, type Lang } from "../i18n";
+
+interface Props {
+    lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const experience = [
+    { company: "Renuo", url: "https://www.renuo.ch", role: "Full-Stack Engineer", from: 2025 },
+    { company: "Unagi", url: "https://unagisoftware.com", role: "Full-Stack Engineer", from: 2022, to: 2025 },
+    { company: "Smart One", role: "Full-Stack Developer", from: 2020, to: 2022 },
+];
+
+const linkClass = "underline underline-offset-4 decoration-border hover:text-accent hover:decoration-accent";
+---
+
+<Layout lang={lang} altPath={localizePath("/sobre-mi", otherLang(lang))} pageTitle={t("about.title")}>
+    <div class="flex items-center gap-6">
+        <img
+            src={site.photo}
+            alt={site.name}
+            width="96"
+            height="96"
+            class="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border border-border"
+        />
+        <div>
+            <h1 class="font-serif text-4xl font-semibold tracking-tight">{t("about.title")}</h1>
+            <p class="mt-1 text-muted">{t("site.role")} · Zürich</p>
+        </div>
+    </div>
+
+    <div class="prose prose-lg max-w-none mt-10">
+        {
+            lang === "es" ? (
+                <>
+                    <p>Trabajo con Ruby on Rails desde 2020. Hoy estoy en Renuo, en Zúrich.</p>
+                    <p>
+                        Antes fui periodista. Entre 2017 y 2021 trabajé en <a href="https://www.elcanciller.com">elCanciller</a> y
+                        en <a href="https://www.noticiasargentinas.com">Noticias Argentinas</a>. En ese tiempo empecé a
+                        programar, y en 2021 cambié de profesión.
+                    </p>
+                    <p>Hablo español, inglés e italiano.</p>
+                </>
+            ) : (
+                <>
+                    <p>I have worked with Ruby on Rails since 2020. Now I work at Renuo, in Zürich.</p>
+                    <p>
+                        Before that I was a journalist. From 2017 to 2021 I worked at <a href="https://www.elcanciller.com">elCanciller</a> and
+                        <a href="https://www.noticiasargentinas.com">Noticias Argentinas</a>. In that time I started to program,
+                        and in 2021 I changed careers.
+                    </p>
+                    <p>I speak Spanish, English and Italian.</p>
+                </>
+            )
+        }
+    </div>
+
+    <section class="mt-16">
+        <SectionHeading title={t("about.experience")} />
+        <ol class="divide-y divide-border border-y border-border">
+            {
+                experience.map((job) => (
+                    <li class="py-4 flex flex-wrap items-baseline justify-between gap-x-4">
+                        <div>
+                            <span class="font-serif text-lg font-medium">
+                                {job.url ? <a href={job.url} class={linkClass}>{job.company}</a> : job.company}
+                            </span>
+                            <span class="ml-2 text-sm text-muted">{job.role}</span>
+                        </div>
+                        <span class="text-sm text-muted tabular-nums">
+                            {job.from}–{job.to ?? t("about.now")}
+                        </span>
+                    </li>
+                ))
+            }
+        </ol>
+    </section>
+
+    <section class="mt-16">
+        <SectionHeading title={t("about.contact")} />
+        <ContactLinks />
+    </section>
+</Layout>

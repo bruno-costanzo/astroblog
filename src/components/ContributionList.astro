@@ -1,13 +1,16 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { formatDate } from "../lib/content";
+import { useTranslations, type Lang } from "../i18n";
 
 interface Props {
+    lang: Lang;
     contributions: CollectionEntry<"opensource">[];
     showRepo?: boolean;
 }
 
-const { contributions, showRepo = false } = Astro.props;
+const { lang, contributions, showRepo = false } = Astro.props;
+const t = useTranslations(lang);
 ---
 
 <ul class="divide-y divide-border border-y border-border">
@@ -26,10 +29,10 @@ const { contributions, showRepo = false } = Astro.props;
                                 data.status === "merged" ? "border-accent/40 text-accent" : "border-border",
                             ]}
                         >
-                            {data.status === "merged" ? "Mergeado" : "En revisión"}
+                            {data.status === "merged" ? t("opensource.merged") : t("opensource.open")}
                         </span>
                         <time datetime={data.date.toISOString()} class="tabular-nums whitespace-nowrap">
-                            {formatDate(data.date)}
+                            {formatDate(data.date, lang)}
                         </time>
                     </div>
                 </a>

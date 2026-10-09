@@ -1,29 +1,5 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import ContributionList from "../components/ContributionList.astro";
-import { getContributions, groupBy } from "../lib/content";
-
-const contributions = await getContributions();
-const repos = groupBy(contributions, (contribution) => contribution.data.repo);
-const merged = contributions.filter((contribution) => contribution.data.status === "merged");
-const mergedRepos = new Set(merged.map((contribution) => contribution.data.repo)).size;
+import OpenSource from "../views/OpenSource.astro";
 ---
 
-<Layout pageTitle="Open Source" description="Contribuciones de Bruno Costanzo a proyectos open source.">
-    <h1 class="font-serif text-4xl font-semibold tracking-tight">Open Source</h1>
-    <p class="mt-3 text-lg leading-relaxed text-muted">
-        Pull requests a proyectos del ecosistema Ruby y Rails: {merged.length} mergeados en {mergedRepos} repositorios,
-        y otros en revisión.
-    </p>
-
-    {
-        [...repos].map(([repo, repoContributions]) => (
-            <section class="mt-12">
-                <h2 class="mb-3 font-mono text-sm">
-                    <a href={`https://github.com/${repo}`} class="hover:text-accent transition-colors">{repo}</a>
-                </h2>
-                <ContributionList contributions={repoContributions} />
-            </section>
-        ))
-    }
-</Layout>
+<OpenSource lang="es" />

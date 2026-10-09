@@ -1,0 +1,74 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import PostList from "../components/PostList.astro";
+import ProjectList from "../components/ProjectList.astro";
+import ContributionList from "../components/ContributionList.astro";
+import ContactLinks from "../components/ContactLinks.astro";
+import { getContributions, getPosts, getProjects } from "../lib/content";
+import { site } from "../lib/site";
+import { localizePath, otherLang, useTranslations, type Lang } from "../i18n";
+
+interface Props {
+    lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const posts = (await getPosts(lang)).slice(0, 5);
+const projects = (await getProjects()).filter((project) => project.data.featured);
+const contributions = (await getContributions()).slice(0, 5);
+
+const intro = {
+    es: {
+        title: "Hola, soy Bruno.",
+        body: "Soy desarrollador Ruby on Rails. Vivo en Zúrich y trabajo en Renuo.",
+        note: "Antes fui periodista. Acá escribo sobre Rails.",
+    },
+    en: {
+        title: "Hi, I'm Bruno.",
+        body: "I'm a Ruby on Rails developer. I live in Zürich and work at Renuo.",
+        note: "I used to be a journalist. Here I write about Rails.",
+    },
+}[lang];
+---
+
+<Layout lang={lang} altPath={localizePath("/", otherLang(lang))}>
+    <section class="flex flex-col-reverse sm:flex-row sm:items-center gap-8">
+        <div class="flex-1">
+            <h1 class="font-serif text-4xl sm:text-[2.75rem] font-semibold tracking-tight leading-tight">{intro.title}</h1>
+            <p class="mt-5 text-lg leading-relaxed">{intro.body}</p>
+            <p class="mt-2 text-lg leading-relaxed text-muted">{intro.note}</p>
+            <div class="mt-7">
+                <ContactLinks />
+            </div>
+        </div>
+        <img
+            src={site.photo}
+            alt={site.name}
+            width="128"
+            height="128"
+            class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border border-border"
+        />
+    </section>
+
+    {
+        posts.length > 0 && (
+            <section class="mt-20">
+                <SectionHeading title={t("home.posts")} href={localizePath("/blog", lang)} linkLabel={t("home.all")} />
+                <PostList lang={lang} posts={posts} />
+            </section>
+        )
+    }
+
+    <section class="mt-20">
+        <SectionHeading title={t("home.projects")} href={localizePath("/proyectos", lang)} linkLabel={t("home.all")} />
+        <ProjectList lang={lang} projects={projects} />
+    </section>
+
+    <section class="mt-20">
+        <SectionHeading title={t("home.opensource")} href={localizePath("/open-source", lang)} linkLabel={t("home.all")} />
+        <ContributionList lang={lang} contributions={contributions} showRepo />
+    </section>
+</Layout>

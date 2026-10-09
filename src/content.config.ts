@@ -8,6 +8,7 @@ const blog = defineCollection({
     pubDate: z.date(),
     description: z.string(),
     tags: z.array(z.string()),
+    translationKey: z.string().optional(),
   }),
 });
 
@@ -15,7 +16,7 @@ const projects = defineCollection({
   loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/projects" }),
   schema: z.object({
     name: z.string(),
-    description: z.string(),
+    description: z.object({ es: z.string(), en: z.string() }),
     year: z.number(),
     stack: z.array(z.string()),
     repo: z.string().url().optional(),

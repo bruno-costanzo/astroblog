@@ -1,6 +1,8 @@
 ---
 name: Fripa
-description: Cliente Ruby para la API JSON-RPC de FreeIPA. Lo creé y lo mantengo en Renuo, donde lo usamos en producción para gestionar usuarios, grupos y vaults.
+description:
+  es: "Cliente Ruby para la API JSON-RPC de FreeIPA. Lo mantengo en Renuo."
+  en: "Ruby client for the FreeIPA JSON-RPC API. I maintain it at Renuo."
 year: 2025
 stack: [Ruby, FreeIPA, JSON-RPC]
 repo: https://github.com/renuo/fripa

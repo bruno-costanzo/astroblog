@@ -1,19 +1,5 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import ProjectList from "../components/ProjectList.astro";
-import { getProjects } from "../lib/content";
-import { site } from "../lib/site";
-
-const projects = await getProjects();
+import Projects from "../views/Projects.astro";
 ---
 
-<Layout pageTitle="Proyectos" description="Gems y proyectos personales de Bruno Costanzo.">
-    <h1 class="font-serif text-4xl font-semibold tracking-tight">Proyectos</h1>
-    <p class="mt-3 text-lg leading-relaxed text-muted">
-        Gems y herramientas que hice para resolver problemas reales, casi todas en Ruby.
-        Hay más en <a href={site.github} class="underline underline-offset-4 decoration-border hover:text-accent hover:decoration-accent">GitHub</a>.
-    </p>
-    <div class="mt-12">
-        <ProjectList projects={projects} />
-    </div>
-</Layout>
+<Projects lang="es" />

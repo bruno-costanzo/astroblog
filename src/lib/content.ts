@@ -1,9 +1,32 @@
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
+import { localizePath, type Lang } from "../i18n";
 
-export async function getPosts() {
-  return (await getCollection("blog")).sort(
+type Post = CollectionEntry<"blog">;
+
+// English posts live in src/content/blog/en/, so their id starts with "en/".
+export function postLang(post: Post): Lang {
+  return post.id.startsWith("en/") ? "en" : "es";
+}
+
+export function postSlug(post: Post) {
+  return post.id.replace(/^en\//, "");
+}
+
+export function postUrl(post: Post) {
+  return localizePath(`/blog/${postSlug(post)}/`, postLang(post));
+}
+
+export async function getPosts(lang: Lang) {
+  return (await getCollection("blog", (post) => postLang(post) === lang)).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
   );
+}
+
+export async function getTranslation(post: Post) {
+  const key = post.data.translationKey;
+  if (!key) return undefined;
+  const posts = await getCollection("blog");
+  return posts.find((other) => other.data.translationKey === key && postLang(other) !== postLang(post));
 }
 
 export async function getProjects() {
@@ -21,17 +44,16 @@ export async function getContributions() {
   );
 }
 
-export function formatDate(date: Date, month: "short" | "long" = "short") {
-  return date.toLocaleDateString("es-ES", {
+export function formatDate(date: Date, lang: Lang, month: "short" | "long" = "short") {
+  return date.toLocaleDateString(lang === "es" ? "es-ES" : "en-GB", {
     day: "numeric",
     month,
     year: "numeric",
   });
 }
 
-export function readingTime(body = "") {
-  const words = body.trim().split(/\s+/).length;
-  return `${Math.max(1, Math.round(words / 220))} min de lectura`;
+export function readingMinutes(body = "") {
+  return Math.max(1, Math.round(body.trim().split(/\s+/).length / 220));
 }
 
 export function groupBy<T, K>(items: T[], key: (item: T) => K) {

@@ -7,6 +7,11 @@ import icon from "astro-icon";
 export default defineConfig({
   site: "https://costanzo.blog",
   integrations: [icon()],
+  i18n: {
+    defaultLocale: "es",
+    locales: ["es", "en"],
+    routing: { prefixDefaultLocale: false },
+  },
   redirects: {
     "/me": "/sobre-mi",
     "/contact": "/sobre-mi",

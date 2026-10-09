@@ -1,21 +1,31 @@
 ---
 import { Icon } from "astro-icon/components";
 import { site } from "../lib/site";
+import { localizePath, otherLang, useTranslations, type Lang } from "../i18n";
+
+interface Props {
+    lang: Lang;
+    altPath?: string;
+}
+
+const { lang, altPath } = Astro.props;
+const t = useTranslations(lang);
 
 const links = [
-    { href: "/blog", label: "Blog" },
-    { href: "/proyectos", label: "Proyectos" },
-    { href: "/open-source", label: "Open Source" },
-    { href: "/sobre-mi", label: "Sobre mí" },
+    { href: localizePath("/blog", lang), label: t("nav.blog") },
+    { href: localizePath("/proyectos", lang), label: t("nav.projects") },
+    { href: localizePath("/open-source", lang), label: t("nav.opensource") },
+    { href: localizePath("/sobre-mi", lang), label: t("nav.about") },
 ];
 
 const path = Astro.url.pathname;
 const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
+const switchHref = altPath ?? localizePath("/", otherLang(lang));
 ---
 
 <header class="border-b border-border">
     <div class="max-w-2xl mx-auto px-5 sm:px-6 py-5 flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
-        <a href="/" class="font-serif text-xl font-semibold tracking-tight hover:text-accent transition-colors">
+        <a href={localizePath("/", lang)} class="font-serif text-xl font-semibold tracking-tight hover:text-accent transition-colors">
             {site.name}
         </a>
         <nav class="flex items-center gap-5 text-sm">
@@ -32,10 +42,13 @@ const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
                     </a>
                 ))
             }
+            <a href={switchHref} hreflang={otherLang(lang)} lang={otherLang(lang)} title={t("nav.switch")} class="font-mono text-xs uppercase text-muted hover:text-text transition-colors">
+                {otherLang(lang)}
+            </a>
             <button
                 id="theme-toggle"
                 type="button"
-                aria-label="Cambiar tema"
+                aria-label={t("nav.theme")}
                 class="text-muted hover:text-text transition-colors cursor-pointer"
             >
                 <Icon name="lucide:moon" class="w-4 h-4 dark-hidden" />

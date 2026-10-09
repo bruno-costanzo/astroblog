@@ -3,28 +3,35 @@ import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { site } from "../lib/site";
+import { otherLang, useTranslations, type Lang } from "../i18n";
 
 interface Props {
+    lang: Lang;
+    // Path of this page in the other language. Without it, the switch goes to the other home.
+    altPath?: string;
     pageTitle?: string;
     description?: string;
     type?: "website" | "article";
 }
 
-const { pageTitle, description = site.description, type = "website" } = Astro.props;
+const { lang, altPath, pageTitle, type = "website" } = Astro.props;
+const t = useTranslations(lang);
+const description = Astro.props.description ?? t("site.description");
 
-const title = pageTitle ? `${pageTitle} · ${site.name}` : `${site.name} · ${site.role}`;
+const title = pageTitle ? `${pageTitle} · ${site.name}` : `${site.name} · ${t("site.role")}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const imageURL = new URL(site.photo, Astro.site);
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href={site.photo} />
         <link rel="canonical" href={canonicalURL} />
-        <link rel="alternate" type="application/rss+xml" title={site.name} href="/rss.xml" />
+        {altPath && <link rel="alternate" hreflang={otherLang(lang)} href={new URL(altPath, Astro.site)} />}
+        <link rel="alternate" type="application/rss+xml" title={site.name} href={lang === "es" ? "/rss.xml" : "/en/rss.xml"} />
         <meta name="generator" content={Astro.generator} />
 
         <title>{title}</title>
@@ -44,10 +51,10 @@ const imageURL = new URL(site.photo, Astro.site);
         </script>
     </head>
     <body class="min-h-screen flex flex-col">
-        <Header />
+        <Header lang={lang} altPath={altPath} />
         <main class="flex-1 w-full max-w-2xl mx-auto px-5 sm:px-6 py-12 sm:py-16">
             <slot />
         </main>
-        <Footer />
+        <Footer lang={lang} />
     </body>
 </html>
