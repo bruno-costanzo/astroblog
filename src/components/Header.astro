@@ -24,11 +24,12 @@ const switchHref = altPath ?? localizePath("/", otherLang(lang));
 ---
 
 <header class="border-b border-border">
-    <div class="max-w-2xl mx-auto px-5 sm:px-6 py-5 flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+    <!-- Mobile: name + controls on the first row, links on the second. Desktop: one row. -->
+    <div class="max-w-2xl mx-auto px-5 sm:px-6 py-4 sm:py-5 flex flex-wrap items-center gap-x-5 gap-y-3">
         <a href={localizePath("/", lang)} class="font-serif text-xl font-semibold tracking-tight hover:text-accent transition-colors">
             {site.name}
         </a>
-        <nav class="flex items-center gap-5 text-sm">
+        <nav class="order-last sm:order-none w-full sm:w-auto sm:ml-auto flex items-center justify-between sm:justify-start gap-3 sm:gap-5 text-sm whitespace-nowrap">
             {
                 links.map((link) => (
                     <a
@@ -42,6 +43,8 @@ const switchHref = altPath ?? localizePath("/", otherLang(lang));
                     </a>
                 ))
             }
+        </nav>
+        <div class="ml-auto sm:ml-0 flex items-center gap-4">
             <a href={switchHref} hreflang={otherLang(lang)} lang={otherLang(lang)} title={t("nav.switch")} class="font-mono text-xs uppercase text-muted hover:text-text transition-colors">
                 {otherLang(lang)}
             </a>
@@ -54,7 +57,7 @@ const switchHref = altPath ?? localizePath("/", otherLang(lang));
                 <Icon name="lucide:moon" class="w-4 h-4 dark-hidden" />
                 <Icon name="lucide:sun" class="w-4 h-4 light-hidden" />
             </button>
-        </nav>
+        </div>
     </div>
 </header>
 
