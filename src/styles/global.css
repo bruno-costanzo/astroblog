@@ -35,6 +35,11 @@
   --color-accent: var(--accent);
 }
 
+html {
+  /* Grow text and spacing on very wide screens; laptops keep 16px */
+  font-size: clamp(1rem, 0.5rem + 0.42vw, 1.5rem);
+}
+
 body {
   @apply bg-bg text-text font-sans antialiased;
 }
