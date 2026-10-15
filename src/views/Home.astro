@@ -18,7 +18,7 @@ const t = useTranslations(lang);
 
 const posts = (await getPosts(lang)).slice(0, 5);
 const projects = (await getProjects()).filter((project) => project.data.featured);
-const contributions = (await getContributions()).slice(0, 5);
+const contributions = (await getContributions()).filter(({ data }) => data.kind === "pr").slice(0, 5);
 
 const intro = {
     es: {

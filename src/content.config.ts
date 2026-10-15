@@ -29,10 +29,12 @@ const opensource = defineCollection({
   loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/opensource" }),
   schema: z.object({
     title: z.string(),
+    kind: z.enum(["pr", "issue"]).default("pr"),
     repo: z.string(),
     url: z.string().url(),
     date: z.date(),
-    status: z.enum(["merged", "open"]),
+    // PRs: open or merged. Issues: open or fixed.
+    status: z.enum(["merged", "open", "fixed"]),
   }),
 });
 

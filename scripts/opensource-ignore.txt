@@ -1,0 +1,23 @@
+# PRs and issues that os:sync must not add to the site.
+# One entry per line: "owner/*", "owner/repo" or "owner/repo#123".
+
+# Own repos and work projects
+bruno-costanzo/*
+lead-intelligence/*
+firstcontributions/*
+renuo/fripa
+renuo/deploio-guides
+renuo/dato-rails
+renuo/ssh-public.renuo.ch
+renuo/moirai#74
+renuo/rails_api_logger#35
+unagisoftware/ruberto#2
+
+# Closed without merge (os:sync appends here so it reports each one only once)
+rails/mission_control-jobs#361
+rails/mission_control-jobs#359
+rails/mission_control-jobs#354
+coorasse/cancancan#912
+excid3/simple_calendar#370
+excid3/simple_calendar#368
+ilyakatz/data-migrate#324

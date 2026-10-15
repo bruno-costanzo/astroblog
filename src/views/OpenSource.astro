@@ -14,11 +14,12 @@ const t = useTranslations(lang);
 const contributions = await getContributions();
 const repos = groupBy(contributions, (contribution) => contribution.data.repo);
 const merged = contributions.filter((contribution) => contribution.data.status === "merged");
+const issues = contributions.filter((contribution) => contribution.data.kind === "issue").length;
 const mergedRepos = new Set(merged.map((contribution) => contribution.data.repo)).size;
 
 const intro = {
-    es: `${merged.length} pull requests mergeados en ${mergedRepos} repositorios.`,
-    en: `${merged.length} merged pull requests in ${mergedRepos} repositories.`,
+    es: `${merged.length} pull requests mergeados en ${mergedRepos} repositorios y ${issues} issues reportados.`,
+    en: `${merged.length} merged pull requests in ${mergedRepos} repositories and ${issues} reported issues.`,
 }[lang];
 ---
 

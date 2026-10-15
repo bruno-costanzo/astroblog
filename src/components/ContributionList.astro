@@ -11,6 +11,14 @@ interface Props {
 
 const { lang, contributions, showRepo = false } = Astro.props;
 const t = useTranslations(lang);
+
+const statusLabel = {
+    merged: t("opensource.merged"),
+    fixed: t("opensource.fixed"),
+    open: t("opensource.open"),
+};
+const label = (data: CollectionEntry<"opensource">["data"]) =>
+    data.kind === "issue" && data.status === "open" ? t("opensource.issueOpen") : statusLabel[data.status];
 ---
 
 <ul class="divide-y divide-border border-y border-border">
@@ -20,16 +28,21 @@ const t = useTranslations(lang);
                 <a href={data.url} class="group grid sm:grid-cols-[1fr_auto] gap-x-6 gap-y-1 py-4">
                     <div>
                         {showRepo && <span class="font-mono text-xs text-muted">{data.repo}</span>}
-                        <p class="leading-snug group-hover:text-accent transition-colors">{data.title}</p>
+                        <p class="leading-snug group-hover:text-accent transition-colors">
+                            {data.kind === "issue" && (
+                                <span class="mr-1.5 font-mono text-xs uppercase tracking-wide text-muted">{t("opensource.issue")}</span>
+                            )}
+                            {data.title}
+                        </p>
                     </div>
                     <div class="flex items-center gap-3 text-sm text-muted sm:justify-end">
                         <span
                             class:list={[
                                 "rounded-full border px-2 py-0.5 text-xs",
-                                data.status === "merged" ? "border-accent/40 text-accent" : "border-border",
+                                data.status === "open" ? "border-border" : "border-accent/40 text-accent",
                             ]}
                         >
-                            {data.status === "merged" ? t("opensource.merged") : t("opensource.open")}
+                            {label(data)}
                         </span>
                         <time datetime={data.date.toISOString()} class="tabular-nums whitespace-nowrap">
                             {formatDate(data.date, lang)}
