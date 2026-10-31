@@ -38,6 +38,25 @@ export async function getProjects() {
   );
 }
 
+type Case = CollectionEntry<"cases">;
+
+// English cases live in src/content/cases/en/, like English posts.
+export function caseLang(entry: Case): Lang {
+  return entry.id.startsWith("en/") ? "en" : "es";
+}
+
+export function caseSlug(entry: Case) {
+  return entry.id.replace(/^en\//, "");
+}
+
+export function caseUrl(entry: Case) {
+  return localizePath(`/proyectos/${caseSlug(entry)}/`, caseLang(entry));
+}
+
+export async function getCases(lang: Lang) {
+  return (await getCollection("cases", (entry) => caseLang(entry) === lang)).sort((a, b) => a.data.order - b.data.order);
+}
+
 export async function getContributions() {
   return (await getCollection("opensource")).sort(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),

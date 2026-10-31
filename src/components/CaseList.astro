@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+import { caseUrl } from "../lib/content";
+
+interface Props {
+    cases: CollectionEntry<"cases">[];
+}
+
+const { cases } = Astro.props;
+---
+
+<ul class="divide-y divide-border border-y border-border">
+    {
+        cases.map((entry) => (
+            <li class="py-6">
+                <a href={caseUrl(entry)} class="group grid gap-5 sm:grid-cols-[14rem_1fr] sm:items-start">
+                    <Image
+                        src={entry.data.cover}
+                        alt={entry.data.coverAlt}
+                        widths={[448, 896]}
+                        sizes="(min-width: 640px) 14rem, 100vw"
+                        class="w-full aspect-[16/10] object-cover object-top rounded-md border border-border"
+                    />
+                    <div>
+                        <div class="flex items-baseline justify-between gap-4">
+                            <h3 class="font-serif text-xl font-medium group-hover:text-accent transition-colors">
+                                {entry.data.name}
+                            </h3>
+                            <span class="text-sm text-muted tabular-nums">{entry.data.year}</span>
+                        </div>
+                        <p class="mt-1 text-sm text-muted">{entry.data.client}</p>
+                        <p class="mt-2 text-[0.95rem] leading-relaxed">{entry.data.summary}</p>
+                    </div>
+                </a>
+            </li>
+        ))
+    }
+</ul>

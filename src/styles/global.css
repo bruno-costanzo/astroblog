@@ -44,6 +44,13 @@ body {
   @apply bg-bg text-text font-sans antialiased;
 }
 
+/* Wider than the reading column, centered on it. Used for screenshots and videos in a case. */
+.bleed {
+  --bleed: min(68rem, 100vw - 2.5rem);
+  width: var(--bleed);
+  margin-left: calc(50% - var(--bleed) / 2);
+}
+
 ::selection {
   background: color-mix(in srgb, var(--accent) 20%, transparent);
 }

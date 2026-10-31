@@ -25,6 +25,39 @@ const projects = defineCollection({
   }),
 });
 
+// Client work told as a case: the problem, what was built, and screens of it working.
+// Spanish cases live in src/content/cases/, English ones in src/content/cases/en/ with the same file name.
+const cases = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/cases" }),
+  schema: ({ image }) =>
+    z.object({
+      name: z.string(),
+      summary: z.string(),
+      client: z.string(),
+      year: z.number(),
+      role: z.string(),
+      stack: z.array(z.string()),
+      url: z.string().url().optional(),
+      order: z.number(),
+      cover: image(),
+      coverAlt: z.string(),
+      video: z.object({
+        desktop: z.string(),
+        mobile: z.string().optional(),
+        label: z.string(),
+      }),
+      features: z.array(
+        z.object({
+          title: z.string(),
+          body: z.string(),
+          desktop: image().optional(),
+          mobile: image().optional(),
+          alt: z.string(),
+        }),
+      ),
+    }),
+});
+
 const opensource = defineCollection({
   loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/opensource" }),
   schema: z.object({
@@ -38,4 +71,4 @@ const opensource = defineCollection({
   }),
 });
 
-export const collections = { blog, projects, opensource };
+export const collections = { blog, projects, cases, opensource };

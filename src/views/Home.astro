@@ -3,9 +3,10 @@ import Layout from "../layouts/Layout.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import PostList from "../components/PostList.astro";
 import ProjectList from "../components/ProjectList.astro";
+import CaseList from "../components/CaseList.astro";
 import ContributionList from "../components/ContributionList.astro";
 import ContactLinks from "../components/ContactLinks.astro";
-import { getContributions, getPosts, getProjects } from "../lib/content";
+import { getCases, getContributions, getPosts, getProjects } from "../lib/content";
 import { site } from "../lib/site";
 import { localizePath, otherLang, useTranslations, type Lang } from "../i18n";
 
@@ -17,6 +18,7 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 
 const posts = (await getPosts(lang)).slice(0, 5);
+const cases = await getCases(lang);
 const projects = (await getProjects()).filter((project) => project.data.featured);
 const contributions = (await getContributions()).filter(({ data }) => data.kind === "pr").slice(0, 5);
 
@@ -64,7 +66,10 @@ const intro = {
 
     <section class="mt-20">
         <SectionHeading title={t("home.projects")} href={localizePath("/proyectos", lang)} linkLabel={t("home.all")} />
-        <ProjectList lang={lang} projects={projects} />
+        <CaseList cases={cases} />
+        <div class="mt-8">
+            <ProjectList lang={lang} projects={projects} />
+        </div>
     </section>
 
     <section class="mt-20">
