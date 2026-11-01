@@ -41,6 +41,10 @@ const cases = defineCollection({
       order: z.number(),
       cover: image(),
       coverAlt: z.string(),
+      // Phone screenshot shown next to the cover on the home page.
+      coverMobile: image().optional(),
+      // One sentence: how things worked before the product.
+      before: z.string().optional(),
       video: z.object({
         desktop: z.string(),
         mobile: z.string().optional(),

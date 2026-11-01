@@ -1,6 +1,6 @@
 ---
 name: Celledig Store
-summary: A web storefront for a tech shop in Viedma, Argentina. It replaces the Excel price list the shop sent over WhatsApp, without changing how the shop sells.
+summary: A web storefront for a tech shop in Viedma, Argentina. Peso prices update on their own with the day's dollar rate, and orders still arrive on WhatsApp.
 client: Celledig, a tech shop in Viedma
 year: 2026
 role: Design, development and operations, solo
@@ -9,6 +9,8 @@ url: https://celledigstore.com.ar
 order: 1
 cover: ../../../assets/cases/celledig/home-desktop.webp
 coverAlt: The celledigstore.com.ar home page with featured devices
+coverMobile: ../../../assets/cases/celledig/home-mobile.webp
+before: "The price list was an Excel file of 130 devices, sent over WhatsApp and redone every time the dollar moved."
 video:
   desktop: /cases/celledig/demo-desktop.mp4
   mobile: /cases/celledig/demo-mobile.mp4

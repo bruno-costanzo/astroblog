@@ -1,6 +1,6 @@
 ---
 name: Celledig Store
-summary: Una vidriera web para un local de tecnología de Viedma. Reemplaza la lista de precios en Excel que se mandaba por WhatsApp, sin cambiar la forma de vender.
+summary: Una vidriera web para un local de tecnología de Viedma. Los precios en pesos se recalculan solos con el dólar del día, y los pedidos siguen llegando por WhatsApp.
 client: Celledig, local de tecnología en Viedma
 year: 2026
 role: Diseño, desarrollo y operación, solo
@@ -9,6 +9,8 @@ url: https://celledigstore.com.ar
 order: 1
 cover: ../../assets/cases/celledig/home-desktop.webp
 coverAlt: Portada de celledigstore.com.ar con los equipos destacados
+coverMobile: ../../assets/cases/celledig/home-mobile.webp
+before: "La lista de precios era un Excel de 130 equipos que se mandaba por WhatsApp y había que rehacer cada vez que se movía el dólar."
 video:
   desktop: /cases/celledig/demo-desktop.mp4
   mobile: /cases/celledig/demo-mobile.mp4

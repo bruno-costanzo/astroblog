@@ -9,6 +9,8 @@ url: https://lacaniosa.com
 order: 2
 cover: ../../assets/cases/lacaniosa/semana-desktop.webp
 coverAlt: Vista semanal de la agenda de Lacaniosa con los turnos de cada día
+coverMobile: ../../assets/cases/lacaniosa/agenda-mobile.webp
+before: "Turnos en una agenda de papel, notas en un cuaderno, cobros en una planilla y arreglos con los pacientes en WhatsApp."
 video:
   desktop: /cases/lacaniosa/demo-desktop.mp4
   mobile: /cases/lacaniosa/demo-mobile.mp4

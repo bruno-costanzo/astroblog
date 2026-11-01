@@ -1,0 +1,74 @@
+---
+import type { CollectionEntry } from "astro:content";
+import DeviceShot from "./DeviceShot.astro";
+import { caseUrl } from "../lib/content";
+import type { Lang } from "../i18n";
+
+// Large case blocks for the home page. Image and text swap sides on each row.
+interface Props {
+    cases: CollectionEntry<"cases">[];
+    lang: Lang;
+}
+
+const { cases, lang } = Astro.props;
+const copy = {
+    es: { before: "Antes", now: "Ahora", own: "Producto propio", see: "Ver el caso" },
+    en: { before: "Before", now: "Now", own: "Own product", see: "Read the case" },
+}[lang];
+const host = (url?: string) => (url ? new URL(url).host : undefined);
+---
+
+<ol class="space-y-20 sm:space-y-28">
+    {
+        cases.map((entry, index) => {
+            const own = entry.data.role.startsWith(lang === "es" ? "Producto propio" : "Own product");
+            return (
+                <li class="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
+                    <a
+                        href={caseUrl(entry)}
+                        class:list={["block transition-transform duration-300 hover:-translate-y-1", index % 2 === 1 && "lg:order-last"]}
+                        tabindex="-1"
+                        aria-hidden="true"
+                    >
+                        <DeviceShot
+                            desktop={entry.data.cover}
+                            mobile={entry.data.coverMobile}
+                            alt={entry.data.coverAlt}
+                            host={host(entry.data.url) ?? entry.data.name.toLowerCase()}
+                        />
+                    </a>
+                    <div>
+                        <p class="text-sm text-muted">
+                            {own ? copy.own : entry.data.client} · {entry.data.year}
+                        </p>
+                        <h3 class="mt-2 font-serif text-3xl sm:text-4xl font-semibold tracking-tight">
+                            <a href={caseUrl(entry)} class="hover:text-accent transition-colors">
+                                {entry.data.name}
+                            </a>
+                        </h3>
+                        {entry.data.before && (
+                            <dl class="mt-6 space-y-4 text-[1.02rem] leading-relaxed">
+                                <div>
+                                    <dt class="text-xs font-medium uppercase tracking-[0.14em] text-muted">{copy.before}</dt>
+                                    <dd class="mt-1 text-muted">{entry.data.before}</dd>
+                                </div>
+                                <div>
+                                    <dt class="text-xs font-medium uppercase tracking-[0.14em] text-accent">{copy.now}</dt>
+                                    <dd class="mt-1">{entry.data.summary}</dd>
+                                </div>
+                            </dl>
+                        )}
+                        {!entry.data.before && <p class="mt-4 text-[1.02rem] leading-relaxed">{entry.data.summary}</p>}
+                        <p class="mt-5 text-xs text-muted">{entry.data.stack.slice(0, 4).join(" · ")}</p>
+                        <a
+                            href={caseUrl(entry)}
+                            class="mt-6 inline-flex items-center gap-1.5 font-medium underline decoration-border underline-offset-4 hover:text-accent hover:decoration-accent"
+                        >
+                            {copy.see} <span aria-hidden="true">→</span>
+                        </a>
+                    </div>
+                </li>
+            );
+        })
+    }
+</ol>

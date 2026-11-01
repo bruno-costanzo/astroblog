@@ -12,9 +12,11 @@ interface Props {
     pageTitle?: string;
     description?: string;
     type?: "website" | "article";
+    // Wider main column, for the home page.
+    wide?: boolean;
 }
 
-const { lang, altPath, pageTitle, type = "website" } = Astro.props;
+const { lang, altPath, pageTitle, type = "website", wide = false } = Astro.props;
 const t = useTranslations(lang);
 const description = Astro.props.description ?? t("site.description");
 
@@ -59,10 +61,10 @@ const imageURL = new URL(site.photo, Astro.site);
         </script>
     </head>
     <body class="min-h-screen flex flex-col">
-        <Header lang={lang} altPath={altPath} />
-        <main class="flex-1 w-full max-w-3xl mx-auto px-5 sm:px-6 py-12 sm:py-16">
+        <Header lang={lang} altPath={altPath} wide={wide} />
+        <main class:list={["flex-1 w-full mx-auto px-5 sm:px-6 py-12 sm:py-16", wide ? "max-w-6xl" : "max-w-3xl"]}>
             <slot />
         </main>
-        <Footer lang={lang} />
+        <Footer lang={lang} wide={wide} />
     </body>
 </html>

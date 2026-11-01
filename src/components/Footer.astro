@@ -4,14 +4,15 @@ import { site } from "../lib/site";
 import type { Lang } from "../i18n";
 
 interface Props {
+    wide?: boolean;
     lang: Lang;
 }
 
-const { lang } = Astro.props;
+const { lang , wide = false } = Astro.props;
 ---
 
 <footer class="border-t border-border">
-    <div class="max-w-3xl mx-auto px-5 sm:px-6 py-8 flex flex-wrap items-center justify-between gap-4 text-sm text-muted">
+    <div class:list={[wide ? "max-w-6xl" : "max-w-3xl", "mx-auto px-5 sm:px-6 py-8 flex flex-wrap items-center justify-between gap-4 text-sm text-muted"]}>
         <span>© {new Date().getFullYear()} {site.name}</span>
         <SocialLinks lang={lang} />
     </div>

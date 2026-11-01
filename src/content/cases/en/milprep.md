@@ -9,6 +9,8 @@ url: https://milprep.club
 order: 3
 cover: ../../../assets/cases/milprep/semana-desktop.webp
 coverAlt: Milprep's weekly plan with each person's portions
+coverMobile: ../../../assets/cases/milprep/semana-mobile.webp
+before: "Everyone eats differently, and deciding what to cook, how much and what to buy was a chore every Sunday."
 video:
   desktop: /cases/milprep/demo-desktop.mp4
   mobile: /cases/milprep/demo-mobile.mp4

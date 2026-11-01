@@ -9,6 +9,8 @@ url: https://milprep.club
 order: 3
 cover: ../../assets/cases/milprep/semana-desktop.webp
 coverAlt: Plan semanal de Milprep con las porciones de cada persona
+coverMobile: ../../assets/cases/milprep/semana-mobile.webp
+before: "Cada uno come distinto, y decidir qué cocinar, cuánto y qué comprar era la tarea de todos los domingos."
 video:
   desktop: /cases/milprep/demo-desktop.mp4
   mobile: /cases/milprep/demo-mobile.mp4

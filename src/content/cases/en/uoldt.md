@@ -8,6 +8,8 @@ stack: [Rust, Loco, PostgreSQL, htmx, WebAssembly, iOS and Android, Kamal]
 order: 4
 cover: ../../../assets/cases/uoldt/live-desktop.webp
 coverAlt: A live UolDT match with the pitch, the momentum chart and the radio commentary
+coverMobile: ../../../assets/cases/uoldt/live-mobile.webp
+before: "UOL DT closed in 2006. By March 2004 it already had 26,000 teams."
 video:
   desktop: /cases/uoldt/demo-desktop.mp4
   mobile: /cases/uoldt/demo-mobile.mp4

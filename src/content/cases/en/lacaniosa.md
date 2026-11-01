@@ -9,6 +9,8 @@ url: https://lacaniosa.com
 order: 2
 cover: ../../../assets/cases/lacaniosa/semana-desktop.webp
 coverAlt: Lacaniosa's weekly schedule with each day's sessions
+coverMobile: ../../../assets/cases/lacaniosa/agenda-mobile.webp
+before: "Appointments in a paper diary, notes in a notebook, payments in a spreadsheet and arrangements with patients on WhatsApp."
 video:
   desktop: /cases/lacaniosa/demo-desktop.mp4
   mobile: /cases/lacaniosa/demo-mobile.mp4
