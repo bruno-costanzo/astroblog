@@ -2,11 +2,10 @@
 import Layout from "../layouts/Layout.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import PostList from "../components/PostList.astro";
-import ProjectList from "../components/ProjectList.astro";
 import CaseList from "../components/CaseList.astro";
 import ContributionList from "../components/ContributionList.astro";
-import ContactLinks from "../components/ContactLinks.astro";
-import { getCases, getContributions, getPosts, getProjects } from "../lib/content";
+import ProjectContact from "../components/ProjectContact.astro";
+import { caseUrl, getCases, getContributions, getPosts } from "../lib/content";
 import { site } from "../lib/site";
 import { localizePath, otherLang, useTranslations, type Lang } from "../i18n";
 
@@ -17,60 +16,145 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-const posts = (await getPosts(lang)).slice(0, 5);
+const posts = (await getPosts(lang)).slice(0, 3);
 const cases = await getCases(lang);
-const projects = (await getProjects()).filter((project) => project.data.featured);
-const contributions = (await getContributions()).filter(({ data }) => data.kind === "pr").slice(0, 5);
+const contributions = (await getContributions()).filter(({ data }) => data.kind === "pr").slice(0, 3);
+const caseLink = (slug: string) => {
+    const entry = cases.find((c) => c.id.replace(/^en\//, "") === slug);
+    return entry ? { href: caseUrl(entry), name: entry.data.name } : undefined;
+};
 
-const intro = {
+const copy = {
     es: {
-        title: "Hola, soy Bruno.",
-        body: "Soy desarrollador Ruby on Rails. Vivo en Zúrich y trabajo en Renuo.",
-        note: "Antes fui periodista. Acá escribo sobre Rails.",
+        title: "Tu sistema a medida, que funcione y a un precio justo.",
+        body: "Construyo software para negocios, profesionales y comunidades que hoy se arreglan con planillas, cuadernos y mensajes de WhatsApp.",
+        belief: "Tener un sistema propio no tiene que ser un lujo de las empresas grandes.",
+        me: "Soy Bruno Costanzo, desarrollador Ruby on Rails. Vivo en Zúrich y trabajo en español y en inglés.",
+        cases: "Casos",
+        whatTitle: "Qué puedo construir para vos",
+        what: [
+            { title: "Sistemas de gestión", body: "Turnos, clientes, cobros y gastos en un solo lugar, para usar desde el teléfono o la computadora.", case: "lacaniosa" },
+            { title: "Tiendas y catálogos", body: "Tu lista de precios en una web con buscador, fotos y pedidos que llegan por WhatsApp.", case: "celledig" },
+            { title: "Apps para iOS y Android", body: "La misma aplicación en la web, en iPhone y en Android, hecha una sola vez.", case: "milprep" },
+            { title: "Inteligencia artificial donde sirve", body: "Cargar un producto desde un link, pasar un audio a texto, armar un plan. Siempre con una persona que revisa.", case: "celledig" },
+        ],
+        seeCase: "Ver",
+        howTitle: "Cómo trabajo",
+        how: [
+            { title: "Barato de mantener", body: "Uso Ruby on Rails y SQLite en un solo servidor. No hay servicios caros en la nube que pagar todos los meses." },
+            { title: "Que funcione", body: "Cada función tiene tests automáticos, y nada se publica si los tests fallan." },
+            { title: "Que lo puedas usar solo", body: "Cuando hace falta, te queda un panel para cargar productos, precios o datos sin depender de mí." },
+            { title: "A tu medida de verdad", body: "El sistema se adapta a cómo trabajás hoy. Si vendés por WhatsApp, el sistema vende por WhatsApp." },
+        ],
+        closeTitle: "¿Tenés una idea?",
+        closeBody: "Contame qué hacés hoy a mano y vemos juntos cómo resolverlo.",
     },
     en: {
-        title: "Hi, I'm Bruno.",
-        body: "I'm a Ruby on Rails developer. I live in Zürich and work at Renuo.",
-        note: "I used to be a journalist. Here I write about Rails.",
+        title: "Custom software that works, at a fair price.",
+        body: "I build software for businesses, professionals and communities that today get by with spreadsheets, notebooks and WhatsApp messages.",
+        belief: "Having your own system should not be a luxury for big companies.",
+        me: "I'm Bruno Costanzo, a Ruby on Rails developer. I live in Zürich and work in Spanish and English.",
+        cases: "Case studies",
+        whatTitle: "What I can build for you",
+        what: [
+            { title: "Management systems", body: "Appointments, clients, payments and expenses in one place, on a phone or a computer.", case: "lacaniosa" },
+            { title: "Shops and catalogs", body: "Your price list on the web, with search, photos and orders that arrive on WhatsApp.", case: "celledig" },
+            { title: "iOS and Android apps", body: "The same app on the web, on iPhone and on Android, built once.", case: "milprep" },
+            { title: "AI where it helps", body: "Add a product from a link, turn audio into text, put a plan together. Always with a person who checks.", case: "celledig" },
+        ],
+        seeCase: "See",
+        howTitle: "How I work",
+        how: [
+            { title: "Cheap to run", body: "I use Ruby on Rails and SQLite on a single server. No expensive cloud services to pay every month." },
+            { title: "It works", body: "Every feature has automated tests, and nothing ships if the tests fail." },
+            { title: "You can run it yourself", body: "When it makes sense, you get an admin panel to manage products, prices or data without me." },
+            { title: "Really made to measure", body: "The system fits how you work today. If you sell on WhatsApp, the system sells on WhatsApp." },
+        ],
+        closeTitle: "Got an idea?",
+        closeBody: "Tell me what you do by hand today and we'll work out how to solve it together.",
     },
 }[lang];
 ---
 
 <Layout lang={lang} altPath={localizePath("/", otherLang(lang))}>
-    <section class="flex flex-col-reverse sm:flex-row sm:items-center gap-8">
-        <div class="flex-1">
-            <h1 class="font-serif text-4xl sm:text-[2.75rem] font-semibold tracking-tight leading-tight">{intro.title}</h1>
-            <p class="mt-5 text-lg leading-relaxed">{intro.body}</p>
-            <p class="mt-2 text-lg leading-relaxed text-muted">{intro.note}</p>
-            <div class="mt-7">
-                <ContactLinks />
-            </div>
+    <section>
+        <h1 class="font-serif text-4xl sm:text-[3.25rem] font-semibold tracking-tight leading-[1.08] text-balance">{copy.title}</h1>
+        <p class="mt-6 text-lg sm:text-xl leading-relaxed">{copy.body}</p>
+        <p class="mt-4 font-serif text-xl italic leading-relaxed text-accent">{copy.belief}</p>
+        <div class="mt-8">
+            <ProjectContact lang={lang} />
         </div>
-        <img
-            src={site.photo}
-            alt={site.name}
-            width="128"
-            height="128"
-            class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border border-border"
-        />
+        <div class="mt-10 flex items-center gap-4 border-t border-border pt-6">
+            <img src={site.photo} alt={site.name} width="56" height="56" class="w-14 h-14 rounded-full object-cover border border-border" />
+            <p class="text-[0.95rem] leading-relaxed text-muted">{copy.me}</p>
+        </div>
+    </section>
+
+    <section class="mt-20">
+        <SectionHeading title={copy.cases} href={localizePath("/proyectos", lang)} linkLabel={t("home.all")} />
+        <CaseList cases={cases} />
+    </section>
+
+    <section class="mt-20">
+        <h2 class="font-serif text-3xl font-semibold tracking-tight">{copy.whatTitle}</h2>
+        <dl class="mt-8 grid gap-x-10 gap-y-8 sm:grid-cols-2">
+            {
+                copy.what.map((item) => {
+                    const link = caseLink(item.case);
+                    return (
+                        <div>
+                            <dt class="font-medium">{item.title}</dt>
+                            <dd class="mt-2 text-[0.95rem] leading-relaxed text-muted">
+                                {item.body}
+                                {link && (
+                                    <>
+                                        {" "}
+                                        <a href={link.href} class="text-text underline underline-offset-4 decoration-border hover:text-accent hover:decoration-accent">
+                                            {copy.seeCase} {link.name}
+                                        </a>
+                                    </>
+                                )}
+                            </dd>
+                        </div>
+                    );
+                })
+            }
+        </dl>
+    </section>
+
+    <section class="mt-20 rounded-lg bg-surface px-6 py-8 sm:px-10 sm:py-10">
+        <h2 class="font-serif text-3xl font-semibold tracking-tight">{copy.howTitle}</h2>
+        <ol class="mt-8 grid gap-x-10 gap-y-7 sm:grid-cols-2">
+            {
+                copy.how.map((item, index) => (
+                    <li class="flex gap-4">
+                        <span class="font-serif text-2xl leading-none text-accent tabular-nums" aria-hidden="true">{index + 1}</span>
+                        <div>
+                            <p class="font-medium">{item.title}</p>
+                            <p class="mt-1.5 text-[0.95rem] leading-relaxed text-muted">{item.body}</p>
+                        </div>
+                    </li>
+                ))
+            }
+        </ol>
+    </section>
+
+    <section class="mt-20">
+        <h2 class="font-serif text-3xl font-semibold tracking-tight">{copy.closeTitle}</h2>
+        <p class="mt-3 text-lg leading-relaxed text-muted">{copy.closeBody}</p>
+        <div class="mt-6">
+            <ProjectContact lang={lang} />
+        </div>
     </section>
 
     {
         posts.length > 0 && (
-            <section class="mt-20">
+            <section class="mt-24">
                 <SectionHeading title={t("home.posts")} href={localizePath("/blog", lang)} linkLabel={t("home.all")} />
                 <PostList lang={lang} posts={posts} />
             </section>
         )
     }
-
-    <section class="mt-20">
-        <SectionHeading title={t("home.projects")} href={localizePath("/proyectos", lang)} linkLabel={t("home.all")} />
-        <CaseList cases={cases} />
-        <div class="mt-8">
-            <ProjectList lang={lang} projects={projects} />
-        </div>
-    </section>
 
     <section class="mt-20">
         <SectionHeading title={t("home.opensource")} href={localizePath("/open-source", lang)} linkLabel={t("home.all")} />

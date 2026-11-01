@@ -4,7 +4,7 @@ export type Lang = (typeof languages)[number];
 export const ui = {
   es: {
     "site.role": "Desarrollador Ruby on Rails",
-    "site.description": "Desarrollador Ruby on Rails en Zúrich. Escribo sobre Rails y desarrollo de software.",
+    "site.description": "Software a medida para negocios, profesionales y comunidades. Sistemas de gestión, tiendas y apps que funcionan, a un precio justo.",
     "nav.blog": "Blog",
     "nav.projects": "Proyectos",
     "nav.opensource": "Open Source",
@@ -22,7 +22,7 @@ export const ui = {
     "tag.count.one": "artículo",
     "tag.count.other": "artículos",
     "projects.title": "Proyectos",
-    "projects.intro": "Productos que construí para clientes, y gems y proyectos personales.",
+    "projects.intro": "Productos que construí para clientes y productos propios. Más abajo, gems y proyectos chicos.",
     "projects.cases": "Casos",
     "projects.side": "Gems y proyectos personales",
     "projects.more": "Hay más en",
@@ -49,7 +49,7 @@ export const ui = {
   },
   en: {
     "site.role": "Ruby on Rails developer",
-    "site.description": "Ruby on Rails developer in Zürich. I write about Rails and software development.",
+    "site.description": "Custom software for businesses, professionals and communities. Management systems, shops and apps that work, at a fair price.",
     "nav.blog": "Blog",
     "nav.projects": "Projects",
     "nav.opensource": "Open Source",
@@ -67,8 +67,8 @@ export const ui = {
     "tag.count.one": "article",
     "tag.count.other": "articles",
     "projects.title": "Projects",
-    "projects.intro": "Products I built for clients, and gems and side projects.",
-    "projects.cases": "Client work",
+    "projects.intro": "Products I built for clients and products of my own. Further down, gems and small projects.",
+    "projects.cases": "Case studies",
     "projects.side": "Gems and side projects",
     "projects.more": "More on",
     "projects.code": "Code",
