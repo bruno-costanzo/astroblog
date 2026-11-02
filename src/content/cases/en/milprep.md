@@ -61,16 +61,18 @@ features:
 
 ## The problem
 
-In many households everyone eats differently. One person is vegetarian, another wants to lose weight, another trains and needs more protein. Deciding what to cook all week, how much of it, and what to buy turns into a Sunday chore.
+In many households everyone eats differently. One person is vegetarian, another wants to lose weight, another trains and needs more protein. Working out what to cook for the week, how much and what to buy takes a good while every Sunday.
 
-Diet apps think about one person. Recipe apps do not know who eats at your table.
+Diet apps are made for one person. Recipe apps don't know who eats at your table.
 
-## The solution
+## What I built
 
-Milprep plans for the whole household. Each week it puts lunches and dinners together, with recipes the household already knows and enough variety. Each person gets their version of the dish and their portion.
+Milprep plans the week's lunches and dinners for the whole household, with recipes the household already knows. Everyone eats the same dish, and each person gets their own version and portion.
 
-- **AI proposes, AI does not do the maths.** The plan comes from a single AI call. Portions, nutrients and the shopping list are calculated with formulas, without AI.
-- **Change it in a sentence.** "I have no pasta" or "two friends are coming on Saturday" adjusts the plan.
-- **Web, iPhone and Android.** The apps come from the same screens as the web.
+The AI proposes the plan in a single call. Portions, nutrients and the shopping list are calculated with formulas, without AI.
 
-It is live at [milprep.club](https://milprep.club). Access is by invitation or from the waitlist.
+If something changes, you write it in a sentence, like "I have no pasta" or "two friends are coming on Saturday", and the plan adjusts. It works on the web, on iPhone and on Android.
+
+## Where it is today
+
+It is live at [milprep.club](https://milprep.club). For now, access is by invitation or from the waitlist.

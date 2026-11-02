@@ -74,24 +74,20 @@ features:
 
 ## The problem
 
-Celledig sells phones, laptops, consoles and cameras, new and used, from a shop in the centre of Viedma. The price list lived in an Excel file with about 130 devices. When someone asked, the Excel file went out over WhatsApp.
+Celledig is a shop in Viedma, Argentina, that sells phones, laptops, consoles and cameras, new and used. The price list was an Excel file with about 130 devices. When someone asked on WhatsApp, they got the Excel file.
 
-That caused three problems:
+Each device had a price in dollars, one in pesos at the day's rate and one for bank transfer. When the dollar moved, the list had to be redone. The spreadsheet also didn't say how much battery a used phone had left or whether it came with the box, so those questions came in all day.
 
-- **Prices changed every day.** Each device has a price in dollars, one in pesos at the day's rate and one for bank transfers. When the dollar moved, the list had to be redone.
-- **The same questions, all day.** How much battery is left? Does it come with the box? Is it scratched? None of that was in the Excel file.
-- **Finding a device was hard.** A spreadsheet has no search and no filters, and it is hard to read on a phone.
+The owner didn't want to sell online. Sales had to keep closing in the shop or over chat.
 
-The owner did not want to sell online. Sales close in the shop or in a chat, and that had to stay.
+## What we built
 
-## The solution
+A website where people look for a device on their phone, see the photos and the specs, and tap Buy. A short form opens, and when they send it the full order arrives on the shop's WhatsApp.
 
-A storefront, not a shop. People come in from their phone, filter, look at photos and specs, and tap **Buy**. A short form puts the whole order together and sends it over WhatsApp. The shop gets a message with everything it needs to answer.
+Each model, for example "iPhone 15 128GB", is added once. Then the units in the shop are added to it. Used units have their own photos, battery and warranty. When a unit sells, stock goes down.
 
-Three decisions made the difference:
+The owner enters the day's dollar rate and the peso prices update. To avoid typing 130 devices by hand, we imported the Excel file at the start. Inventory and sales can be exported to Excel again when needed.
 
-- **Models and units.** A model, for example "iPhone 15 128GB", is entered once. Then units are added: one per box if it is new, one per device if it is used, with its own battery health, real photos and warranty. When one sells, stock goes down by itself.
-- **One exchange rate.** The owner enters the day's dollar rate and every price in pesos is recalculated.
-- **The Excel file came in once.** We imported the spreadsheet so nobody had to type the devices in. Inventory and sales can still be exported to Excel when needed.
+## Where it is today
 
-The site is live at [celledigstore.com.ar](https://celledigstore.com.ar). The shop manages devices, prices and offers from its own admin panel, on a computer or a phone.
+The site is live at [celledigstore.com.ar](https://celledigstore.com.ar). The shop adds devices, prices and offers from its own panel, on a computer or a phone.

@@ -1,30 +1,40 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Instrument+Sans:ital,wght@0,400..600;1,400..600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap");
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
 :root {
-  --bg: #fbfaf8;
-  --surface: #f3f1ed;
-  --text: #1c1b19;
-  --muted: #6b6760;
-  --border: #e4e0d9;
-  --accent: #9b2c1f;
+  /* Paper, navy ink, celeste and the sun: the colors of a 1950s poster */
+  --bg: #f6f2e9;
+  --surface: #ece6d8;
+  --text: #15233f;
+  --muted: #586379;
+  --border: #dcd3c1;
+  --accent: #1d5296;
+  --sky: #75aadb;
+  --sky-soft: #d5e5f4;
+  --sun: #f0b23a;
   color-scheme: light;
 }
 
 [data-theme="dark"] {
-  --bg: #141414;
-  --surface: #1d1d1c;
-  --text: #ecebe8;
-  --muted: #9a968f;
-  --border: #2c2b29;
-  --accent: #e5826f;
+  --bg: #0f1a2d;
+  --surface: #16243c;
+  --text: #f2eee5;
+  --muted: #9cadc6;
+  --border: #253757;
+  --accent: #8fc1ee;
+  --sky: #75aadb;
+  --sky-soft: #1d3558;
+  --sun: #f0b23a;
   color-scheme: dark;
 }
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Newsreader", ui-serif, Georgia, serif;
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  /* Headings */
+  --font-serif: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  /* Short italic lines, like a note in the margin */
+  --font-hand: "Instrument Serif", ui-serif, Georgia, serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   --color-bg: var(--bg);
@@ -33,6 +43,9 @@
   --color-muted: var(--muted);
   --color-border: var(--border);
   --color-accent: var(--accent);
+  --color-sky: var(--sky);
+  --color-sky-soft: var(--sky-soft);
+  --color-sun: var(--sun);
 }
 
 html {
@@ -42,6 +55,24 @@ html {
 
 body {
   @apply bg-bg text-text font-sans antialiased;
+  /* Light paper grain */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+h1, h2, h3 {
+  font-variation-settings: "opsz" 72;
+}
+
+/* A marker stroke under a few words */
+.mark {
+  background: linear-gradient(transparent 62%, var(--sky-soft) 62%, var(--sky-soft) 92%, transparent 92%);
+  padding: 0 0.1em;
+}
+
+/* Celeste, white, celeste */
+.flag {
+  height: 6px;
+  background: linear-gradient(var(--sky) 33.3%, #fff 33.3%, #fff 66.6%, var(--sky) 66.6%);
 }
 
 /* Wider than the reading column, centered on it. Used for screenshots and videos in a case. */
@@ -69,7 +100,7 @@ body {
   --tw-prose-pre-bg: var(--surface);
   --tw-prose-th-borders: var(--border);
   --tw-prose-td-borders: var(--border);
-  @apply font-serif;
+  @apply font-sans;
 }
 
 .prose :where(h2, h3, h4) {

@@ -62,16 +62,18 @@ features:
 
 ## La idea
 
-UOL DT fue un juego argentino de manager de fútbol que se jugaba en el navegador. Salió en 2003 y cerró en 2006. En marzo de 2004 ya tenía 26.000 equipos.
+UOL DT era un juego argentino de manager de fútbol que se jugaba en el navegador. Salió en 2003 y cerró en 2006. En marzo de 2004 tenía 26.000 equipos.
 
-UolDT lo vuelve a hacer, sin relación con UOL ni con la empresa original. Lo que se sabe de las reglas del juego original está documentado, y cada regla dice si viene del original o si es diseño nuevo.
+UolDT es una versión nueva que estoy haciendo yo. No tiene relación con UOL ni con la empresa original. Junté lo que se sabe de las reglas del juego original y anoté, regla por regla, cuál viene del original y cuál es nueva.
 
-## Cómo está hecho
+## Cómo funciona
 
-Cada técnico maneja un club: 13 jugadores y 5 juveniles de inferiores. Arma la formación, entrena, compra y vende, y juega torneos. Un reloj del servidor arranca los torneos, juega los partidos y corre el entrenamiento de cada día.
+Cada técnico tiene un club con 13 jugadores y 5 juveniles. Arma la formación, entrena, compra, vende y juega torneos. Un reloj en el servidor arranca los torneos, juega los partidos y corre el entrenamiento de cada día.
 
-- **Un motor de partidos predecible.** El motor está escrito en Rust y no depende de la base de datos ni del reloj. Las mismas formaciones con la misma semilla dan siempre el mismo partido. Así se puede probar y calibrar con miles de partidos simulados.
-- **Todo el texto en archivos de idioma.** El juego está en castellano de Argentina y en inglés. Un test falla si a un idioma le falta un texto.
-- **Web, iPhone y Android** desde las mismas pantallas.
+El motor de partidos está escrito en Rust y no depende de la base de datos ni del reloj. Con las mismas formaciones y la misma semilla, el partido sale siempre igual. Así lo puedo probar y ajustar con miles de partidos simulados.
 
-Está en desarrollo.
+El juego está en castellano de Argentina y en inglés, y anda en la web, en iPhone y en Android.
+
+## Cómo está hoy
+
+Está en desarrollo y todavía no tiene una dirección pública.

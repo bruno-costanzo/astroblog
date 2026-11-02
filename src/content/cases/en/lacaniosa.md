@@ -56,22 +56,22 @@ features:
 
 ## The problem
 
-Lacaniosa is a community of psychologists that started on social media. It wanted to give its members a tool for their daily work, not only content.
+Lacaniosa is a community of psychologists that started on social media. They wanted to give their members something useful for everyday work, not only content.
 
-A psychologist in private practice runs it alone. There is no assistant. The information about the work was spread out: sessions in a paper diary, notes in a notebook, arrangements with patients in WhatsApp, money in a spreadsheet, and the rest in their head.
+A psychologist with a private practice usually has no assistant. Appointments were in a paper diary, notes in a notebook, arrangements with patients on WhatsApp and the accounts in a spreadsheet.
 
-And the time to keep all of that in order is short. Between one patient and the next there are five or ten minutes, often standing up with a phone in hand. That is when the note gets written, the next patient checked, a session moved or a payment recorded. At the end of the week, at a computer, it is time to review the schedule and do the accounts.
+Between one patient and the next there are five or ten minutes. In that time you write down what happened in the session, check who is next or move an appointment, almost always on the phone. The week and the accounts get reviewed later, on a computer.
 
-There is one more condition: what gets written belongs to someone else. The notes are about patients who did not choose to be in the app. They have to be stored with care, and they must not show up on a screen someone glances at by chance.
+The notes are also about patients. They have to be stored carefully and must not be on show to anyone.
 
-## The solution
+## What we built
 
-One app, in Spanish, that works the same on a phone and on a computer. On the phone, frequent tasks take one or two taps. On the computer there is room to see the full week and the month's balance.
+An app in Spanish that works the same on a phone and on a computer. On the phone, frequent tasks take one or two taps. On the computer you see the whole week and the month's balance.
 
-- **Sessions created automatically** from each patient's usual time.
-- **Text or voice notes**, kept with the session.
-- **Clear accounts:** each patient has a balance, and the month shows income, expenses and debts.
-- **A community space**, where colleagues can ask each other for advice without exposing themselves.
-- **Private by default.** Notes, transcripts and clinical histories are stored encrypted. Only the person who recorded an audio note can play it. There is a backup every day.
+Appointments are created from each patient's usual schedule. Notes are typed or recorded, and stay with the session. Each patient has a balance, and the month shows income, expenses and debts. There is also a space where colleagues can ask each other for advice.
+
+Notes, transcripts and clinical records are stored encrypted. Only the person who recorded an audio can listen to it. There is a backup every day.
+
+## Where it is today
 
 The app is live at [lacaniosa.com](https://lacaniosa.com).

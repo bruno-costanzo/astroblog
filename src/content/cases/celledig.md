@@ -74,24 +74,20 @@ features:
 
 ## El problema
 
-Celledig vende celulares, notebooks, consolas y cámaras, nuevos y usados, en un local del centro de Viedma. La lista de precios vivía en un Excel de unos 130 equipos. Cuando alguien preguntaba, el Excel salía por WhatsApp.
+Celledig es un local de Viedma que vende celulares, notebooks, consolas y cámaras, nuevos y usados. La lista de precios estaba en un Excel con unos 130 equipos. Cuando alguien preguntaba por WhatsApp, le mandaban el Excel.
 
-Eso traía tres problemas:
+Cada equipo tenía un precio en dólares, uno en pesos al dólar del día y otro con transferencia. Cuando se movía el dólar, había que rehacer la lista. La planilla tampoco decía cuánta batería le quedaba a un usado o si tenía caja, así que esas preguntas llegaban todo el día.
 
-- **Los precios cambiaban todos los días.** Cada equipo tiene un precio en dólares, uno en pesos al dólar del día y otro con transferencia. Si se movía el dólar, había que rehacer la lista.
-- **Las mismas preguntas, todo el día.** ¿Cuánta batería le queda? ¿Tiene caja? ¿Está rayado? Nada de eso estaba en el Excel.
-- **Encontrar un equipo costaba.** Una planilla no tiene buscador ni filtros, y en un teléfono se lee mal.
+El dueño no quería vender online. Quería seguir cerrando las ventas en el local o por chat.
 
-El dueño no quería vender online. La venta se cierra en el local o por chat, y así tenía que seguir.
+## Qué hicimos
 
-## La solución
+Una web donde la gente busca el equipo desde el teléfono, mira las fotos y la ficha, y toca Comprar. Se abre un formulario corto, y al enviarlo el pedido completo llega al WhatsApp del local.
 
-Una vidriera web, no una tienda. La gente entra desde el teléfono, filtra, mira fotos y la ficha técnica, y toca **Comprar**. Un formulario corto arma el pedido completo y lo manda por WhatsApp. El local recibe el mensaje con todo lo que necesita para contestar.
+Cada modelo, por ejemplo «iPhone 15 128GB», se carga una vez. Después se suman las unidades que hay en el local. Los usados tienen sus propias fotos, su batería y su garantía. Cuando se vende una unidad, el stock baja.
 
-Tres decisiones hicieron la diferencia:
+El dueño carga el dólar del día y los precios en pesos se recalculan. Para no cargar 130 equipos a mano, al principio importamos el Excel. El inventario y las ventas se pueden volver a bajar en Excel cuando haga falta.
 
-- **Modelos y unidades.** Un modelo, por ejemplo «iPhone 15 128GB», se carga una vez. Después se agregan unidades: una por caja si es nuevo, una por equipo si es usado, con su batería, sus fotos reales y su garantía. Cuando se vende una, el stock baja solo.
-- **Un solo tipo de cambio.** El dueño carga el dólar del día y todos los precios en pesos se recalculan.
-- **El Excel entró una sola vez.** Importamos la planilla para no cargar los equipos a mano. Si hace falta, el inventario y las ventas se exportan a Excel otra vez.
+## Cómo está hoy
 
-El sitio está en producción en [celledigstore.com.ar](https://celledigstore.com.ar). El local carga equipos, precios y ofertas desde su propio panel, desde la computadora o el teléfono.
+La web está en [celledigstore.com.ar](https://celledigstore.com.ar). El local carga equipos, precios y ofertas desde su panel, en la computadora o en el teléfono.

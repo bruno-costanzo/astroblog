@@ -60,16 +60,18 @@ features:
 
 ## The idea
 
-UOL DT was an Argentine football-manager game played in the browser. It launched in 2003 and closed in 2006. By March 2004 it already had 26,000 teams.
+UOL DT was an Argentine football-manager game played in the browser. It launched in 2003 and closed in 2006. In March 2004 it had 26,000 teams.
 
-UolDT builds it again, with no link to UOL or the original company. What is known about the original rules is documented, and every rule says whether it comes from the original or is new design.
+UolDT is a new version that I am building. It has no link to UOL or the original company. I collected what is known about the original rules and noted, rule by rule, which ones come from the original and which ones are new.
 
-## How it is built
+## How it works
 
-Each manager runs a club: 13 players and 5 youth players. They set the lineup, train, buy and sell, and play leagues. A clock on the server starts leagues, plays matches and runs each day's training.
+Each manager has a club with 13 players and 5 youth players. They set the lineup, train, buy, sell and play leagues. A clock on the server starts the leagues, plays the matches and runs each day's training.
 
-- **A predictable match engine.** The engine is written in Rust and does not depend on the database or the clock. The same lineups with the same seed always give the same match. That makes it possible to test and calibrate it with thousands of simulated matches.
-- **All text in language files.** The game is in Argentine Spanish and in English. A test fails if a language is missing a text.
-- **Web, iPhone and Android** from the same screens.
+The match engine is written in Rust and does not depend on the database or the clock. With the same lineups and the same seed, the match always comes out the same. That lets me test and tune it with thousands of simulated matches.
 
-It is in development.
+The game is in Argentine Spanish and in English, and it runs on the web, on iPhone and on Android.
+
+## Where it is today
+
+It is in development and does not have a public address yet.

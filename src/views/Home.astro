@@ -22,60 +22,69 @@ const contributions = (await getContributions()).filter(({ data }) => data.kind 
 const copy = {
     es: {
         hello: "Hola, soy Bruno.",
-        title: "Hago sistemas a medida para gente que hoy se arregla con planillas, cuadernos y WhatsApp.",
+        title: ["Hago software ", "a medida", " para gente que no tiene un equipo de sistemas."],
         story: [
-            "Fui periodista hasta 2021. Mientras escribía notas aprendí a programar, y desde entonces trabajo con Ruby on Rails. Hoy vivo en Zúrich y contribuyo a Rails.",
-            "Por fuera de eso hago sistemas para negocios, profesionales y comunidades. Que funcionen bien y que cuesten un precio justo.",
+            "Fui periodista hasta 2021. Trabajé en elCanciller y en Noticias Argentinas, y en esos años aprendí a programar. Hoy vivo en Zúrich y trabajo con Ruby on Rails.",
+            "Además de mi trabajo, hago sistemas para clientes y productos propios. Abajo te muestro cuatro.",
         ],
-        belief: "Creo que tener un sistema propio no tiene que ser un lujo de las empresas grandes.",
-        cases: "Lo que construí",
-        casesBody: "Dos sistemas para clientes y dos productos propios. Cada uno empezó con una forma de trabajar que ya no alcanzaba.",
+        belief: "Creo que un sistema propio no debería ser algo que solo pueden pagar las empresas grandes.",
+        cases: "Proyectos",
+        casesBody: "Dos son de clientes y dos son míos. En cada uno cuento cómo se hacían las cosas antes y qué cambió.",
         howTitle: "Cómo trabajo",
         how: [
-            "Primero quiero entender cómo trabajás hoy, con tus planillas, tus cuadernos y tus chats. El sistema se arma alrededor de eso. Si vendés por WhatsApp, el sistema vende por WhatsApp.",
-            "Puede ser un sistema de gestión, una tienda, una app para el teléfono o una parte con inteligencia artificial. Uso Ruby on Rails y SQLite en un solo servidor, así mantenerlo cuesta poco cada mes.",
-            "Cada función tiene tests automáticos, y nada se publica si los tests fallan. Cuando hace falta, te queda un panel para cargar productos, precios o datos sin depender de mí.",
+            "Empezamos con una charla. Me contás cómo hacés las cosas hoy y qué es lo que más tiempo te lleva.",
+            "Uso Ruby on Rails y SQLite en un solo servidor. Es una forma simple de armar un sistema, y por eso mantenerlo cuesta poco por mes.",
+            "Cada parte tiene tests automáticos. Si un test falla, el cambio no se publica.",
+            "Si querés cargar productos, precios o datos vos mismo, te dejo un panel para hacerlo.",
         ],
-        closeTitle: "¿Qué hacés hoy a mano?",
-        closeBody: "Contámelo. Te contesto yo, y vemos juntos si un sistema lo resuelve.",
-        writing: "También escribo sobre lo que aprendo y mando arreglos a Rails y a otras gems que uso.",
+        closeTitle: "Contame qué querés resolver.",
+        closeBody: "Escribime. Te contesto yo.",
+        writing: "En el blog escribo sobre cosas que aprendo trabajando. De vez en cuando también mando arreglos a Rails y a otras gems.",
     },
     en: {
         hello: "Hi, I'm Bruno.",
-        title: "I build custom software for people who get by with spreadsheets, notebooks and WhatsApp.",
+        title: ["I build ", "custom software", " for people who don't have an IT team."],
         story: [
-            "I was a journalist until 2021. While I wrote news stories I learned to program, and since then I have worked with Ruby on Rails. Today I live in Zürich and contribute to Rails.",
-            "Outside of that I build systems for businesses, professionals and communities. Systems that work well and cost a fair price.",
+            "I was a journalist until 2021. I worked at elCanciller and Noticias Argentinas, and in those years I learned to program. Today I live in Zürich and work with Ruby on Rails.",
+            "Besides my job, I build systems for clients and products of my own. Here are four of them.",
         ],
-        belief: "I believe having your own system should not be a luxury for big companies.",
-        cases: "What I built",
-        casesBody: "Two systems for clients and two products of my own. Each one started with a way of working that no longer did the job.",
+        belief: "I believe your own system shouldn't be something only big companies can pay for.",
+        cases: "Projects",
+        casesBody: "Two are for clients and two are mine. For each one I explain how things worked before and what changed.",
         howTitle: "How I work",
         how: [
-            "First I want to understand how you work today, with your spreadsheets, notebooks and chats. The system is built around that. If you sell on WhatsApp, the system sells on WhatsApp.",
-            "It can be a management system, a shop, a phone app or a part that uses AI. I use Ruby on Rails and SQLite on a single server, so it costs little to run each month.",
-            "Every feature has automated tests, and nothing ships if the tests fail. When it makes sense, you get an admin panel to manage products, prices or data without me.",
+            "We start with a call. You tell me how you do things today and what takes up most of your time.",
+            "I use Ruby on Rails and SQLite on a single server. It is a simple way to build a system, so it costs little to run each month.",
+            "Every part has automated tests. If a test fails, the change does not ship.",
+            "If you want to manage products, prices or data yourself, you get a panel for it.",
         ],
-        closeTitle: "What do you still do by hand?",
-        closeBody: "Tell me. I answer myself, and we'll see together whether a system can solve it.",
-        writing: "I also write about what I learn and send fixes to Rails and other gems I use.",
+        closeTitle: "Tell me what you want to solve.",
+        closeBody: "Write to me. I answer myself.",
+        writing: "On the blog I write about things I learn at work. Now and then I also send fixes to Rails and other gems.",
     },
 }[lang];
 ---
 
 <Layout lang={lang} altPath={localizePath("/", otherLang(lang))} wide>
-    <section class="max-w-3xl lg:pt-4">
-        <div class="flex items-center gap-5">
-            <img src={site.photo} alt={site.name} width="112" height="112" class="w-20 h-20 sm:w-28 sm:h-28 rounded-full object-cover border border-border" />
-            <p class="font-serif text-2xl sm:text-3xl italic">{copy.hello}</p>
+    <section class="grid items-center gap-10 lg:grid-cols-[1.6fr_1fr] lg:gap-16 lg:pt-4">
+        <div>
+        <div class="flex items-center gap-4">
+            <img src={site.photo} alt={site.name} width="64" height="64" class="lg:hidden w-16 h-16 rounded-full object-cover border border-border" />
+            <p class="font-hand text-3xl sm:text-4xl italic">{copy.hello}</p>
         </div>
-        <h1 class="mt-8 font-serif text-[2.4rem] sm:text-[3.4rem] font-semibold tracking-tight leading-[1.06] text-balance">{copy.title}</h1>
+        <h1 class="mt-8 font-serif text-[2.4rem] sm:text-[3.4rem] font-semibold tracking-tight leading-[1.04] text-balance">{copy.title[0]}<span class="mark">{copy.title[1]}</span>{copy.title[2]}</h1>
         <div class="mt-8 space-y-4 text-lg sm:text-xl leading-relaxed">
             {copy.story.map((paragraph) => <p>{paragraph}</p>)}
         </div>
-        <p class="mt-6 font-serif text-xl sm:text-2xl italic leading-relaxed text-accent">{copy.belief}</p>
+        <p class="mt-6 border-l-4 border-sun pl-4 font-hand text-2xl sm:text-[1.7rem] italic leading-snug text-accent">{copy.belief}</p>
         <div class="mt-8">
             <ProjectContact lang={lang} />
+        </div>
+        </div>
+        <div class="relative mx-auto hidden w-full max-w-sm lg:block" aria-hidden="true">
+            <div class="absolute inset-0 translate-x-5 translate-y-5 rounded-full bg-sky"></div>
+            <img src={site.photo} alt="" width="400" height="400" class="relative aspect-square w-full rounded-full object-cover" />
+            <svg viewBox="0 0 24 24" class="absolute -left-6 -top-4 w-24 h-24 text-sun" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor" /><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1" /></g></svg>
         </div>
     </section>
 
@@ -96,20 +105,28 @@ const copy = {
         <div>
             <h2 class="font-serif text-4xl font-semibold tracking-tight">{copy.howTitle}</h2>
         </div>
-        <div class="space-y-5 font-serif text-xl leading-relaxed">
-            {copy.how.map((paragraph) => <p>{paragraph}</p>)}
-        </div>
+        <ol class="space-y-6">
+            {
+                copy.how.map((paragraph, index) => (
+                    <li class="flex gap-5">
+                        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-sky-soft font-serif text-base font-semibold text-accent" aria-hidden="true">{index + 1}</span>
+                        <p class="pt-1 text-lg leading-relaxed">{paragraph}</p>
+                    </li>
+                ))
+            }
+        </ol>
     </section>
 
-    <section class="mt-28 sm:mt-36 rounded-xl bg-surface px-6 py-12 sm:px-14 sm:py-16">
-        <h2 class="font-serif text-4xl sm:text-5xl font-semibold tracking-tight text-balance">{copy.closeTitle}</h2>
-        <p class="mt-4 text-lg leading-relaxed text-muted">{copy.closeBody}</p>
+    <section class="relative mt-28 sm:mt-36 overflow-hidden rounded-2xl bg-sky-soft px-6 py-12 sm:px-14 sm:py-16">
+        <svg viewBox="0 0 24 24" class="pointer-events-none absolute -right-10 -top-10 w-56 h-56 text-sun opacity-80" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor" /><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1" /></g></svg>
+        <h2 class="relative max-w-xl font-serif text-4xl sm:text-5xl font-semibold tracking-tight text-balance">{copy.closeTitle}</h2>
+        <p class="relative mt-4 text-lg leading-relaxed">{copy.closeBody}</p>
         <div class="mt-8">
             <ProjectContact lang={lang} />
         </div>
     </section>
 
-    <p class="mt-28 max-w-2xl font-serif text-2xl leading-relaxed">{copy.writing}</p>
+    <p class="mt-28 max-w-2xl font-hand text-[1.7rem] italic leading-snug">{copy.writing}</p>
     <div class="mt-10 grid gap-16 lg:grid-cols-2 lg:gap-14">
         {
             posts.length > 0 && (

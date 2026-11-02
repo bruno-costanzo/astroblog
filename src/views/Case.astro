@@ -100,7 +100,7 @@ const altPath = localizePath(`/proyectos/${caseSlug(entry)}/`, otherLang(lang));
                 data.features.map((feature) => (
                     <li>
                         <h3 class="font-serif text-2xl font-semibold tracking-tight">{feature.title}</h3>
-                        <p class="mt-3 font-serif text-lg leading-relaxed">{feature.body}</p>
+                        <p class="mt-3 text-lg leading-relaxed">{feature.body}</p>
                         <div class:list={["bleed mt-6 grid gap-4 items-start", feature.desktop && feature.mobile && "sm:grid-cols-[3fr_1fr]"]}>
                             {feature.desktop && (
                                 <Image

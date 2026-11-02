@@ -61,16 +61,18 @@ features:
 
 ## El problema
 
-En muchas casas cada uno come distinto. Una persona es vegetariana, otra quiere bajar de peso, otra entrena y necesita más proteína. Decidir qué cocinar toda la semana, en qué cantidad y qué comprar se vuelve una tarea de todos los domingos.
+En muchas casas cada uno come distinto. Uno es vegetariano, otro quiere bajar de peso, otro entrena y necesita más proteína. Pensar qué cocinar en la semana, cuánto y qué comprar lleva un buen rato cada domingo.
 
-Las apps de dieta piensan en una persona sola. Las de recetas no saben quién come en tu casa.
+Las apps de dieta están pensadas para una persona. Las de recetas no saben quién come en tu casa.
 
-## La solución
+## Qué hice
 
-Milprep planifica para la casa entera. Cada semana arma los almuerzos y las cenas, con recetas que la casa ya conoce y variedad. Cada persona recibe su versión del plato y su porción.
+Milprep arma los almuerzos y las cenas de la semana para toda la casa, con recetas que la casa ya conoce. Todos comen el mismo plato, y cada uno tiene su versión y su porción.
 
-- **La IA propone, las cuentas no las hace la IA.** El plan sale de una sola llamada a la IA. Las porciones, los nutrientes y la lista del súper se calculan con fórmulas, sin IA.
-- **Se cambia en una frase.** «No tengo fideos» o «el sábado vienen dos amigos» ajustan el plan.
-- **Web, iPhone y Android.** Las apps salen de las mismas pantallas que la web.
+La IA propone el plan con una sola llamada. Las porciones, los nutrientes y la lista del súper se calculan con fórmulas, sin IA.
 
-Está en [milprep.club](https://milprep.club). Se entra con invitación o desde la lista de espera.
+Si algo cambia, se escribe en una frase, como «no tengo fideos» o «el sábado vienen dos amigos», y el plan se ajusta. Funciona en la web, en iPhone y en Android.
+
+## Cómo está hoy
+
+Está en [milprep.club](https://milprep.club). Por ahora se entra con invitación o desde la lista de espera.

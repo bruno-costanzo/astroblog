@@ -57,22 +57,22 @@ features:
 
 ## El problema
 
-Lacaniosa es una comunidad de psicólogos que nació en redes sociales. Quería darles a sus miembros una herramienta para el trabajo de todos los días, no solo contenido.
+Lacaniosa es una comunidad de psicólogos que empezó en redes sociales. Querían darles a sus miembros algo útil para el trabajo de todos los días, además del contenido.
 
-Un psicólogo con consultorio propio se administra solo. No tiene secretaría. La información de su trabajo estaba repartida: los turnos en una agenda de papel, las notas en un cuaderno, los arreglos con los pacientes en WhatsApp, las cuentas en una planilla y el resto en la memoria.
+Un psicólogo con consultorio propio no suele tener secretaria. Los turnos estaban en una agenda de papel, las notas en un cuaderno, los arreglos con los pacientes en WhatsApp y las cuentas en una planilla.
 
-Y el tiempo para ordenar todo eso es corto. Entre un paciente y el siguiente hay cinco o diez minutos, muchas veces de pie y con el teléfono en la mano. Ahí hay que anotar lo que pasó en la sesión, ver quién viene, mover un turno o registrar un pago. Al final de la semana, sentado frente a la computadora, toca revisar la agenda y hacer las cuentas.
+Entre un paciente y el siguiente hay cinco o diez minutos. En ese rato hay que anotar lo que pasó en la sesión, ver quién viene o mover un turno, casi siempre desde el teléfono. La semana y las cuentas se revisan después, en la computadora.
 
-Hay una condición más: lo que se escribe es de otra persona. Las notas hablan de pacientes que no eligieron estar en la app. Tienen que estar guardadas con cuidado y no pueden aparecer en una pantalla que alguien mira de casualidad.
+Las notas, además, hablan de pacientes. Tienen que estar bien guardadas y no pueden quedar a la vista de cualquiera.
 
-## La solución
+## Qué hicimos
 
-Una sola aplicación, en español, que funciona igual en el teléfono y en la computadora. En el teléfono, las tareas frecuentes se resuelven en uno o dos toques. En la computadora hay espacio para ver la semana completa y el balance del mes.
+Una app en español que anda igual en el teléfono y en la computadora. En el teléfono, lo que se hace seguido está a uno o dos toques. En la computadora se ve la semana entera y el balance del mes.
 
-- **Turnos que se crean solos** a partir del horario habitual de cada paciente.
-- **Notas de texto o de voz**, que quedan junto a la sesión.
-- **Cuentas claras:** cada paciente tiene su saldo y el mes muestra ingresos, gastos y deudas.
-- **Un espacio de comunidad**, para que los colegas se consulten entre ellos sin exponerse.
-- **Privacidad por defecto.** Las notas, las transcripciones y la historia clínica se guardan cifradas. Los audios solo los escucha quien los grabó. Hay una copia de seguridad todos los días.
+Los turnos se crean solos a partir del horario de cada paciente. Las notas se escriben o se graban, y quedan junto a la sesión. Cada paciente tiene su saldo, y el mes muestra ingresos, gastos y deudas. También hay un espacio para que los colegas se consulten entre ellos.
 
-La app está en producción en [lacaniosa.com](https://lacaniosa.com).
+Las notas, las transcripciones y la historia clínica se guardan cifradas. Los audios solo los escucha quien los grabó. Todos los días se hace una copia de seguridad.
+
+## Cómo está hoy
+
+La app está en [lacaniosa.com](https://lacaniosa.com).
