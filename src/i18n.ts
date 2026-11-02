@@ -3,8 +3,8 @@ export type Lang = (typeof languages)[number];
 
 export const ui = {
   es: {
-    "site.role": "Desarrollador Ruby on Rails",
-    "site.description": "Software a medida para negocios, profesionales y comunidades. Sistemas de gestión, tiendas y apps que funcionan, a un precio justo.",
+    "site.role": "Desarrollador de software",
+    "site.description": "Software a medida para negocios, profesionales y comunidades. Sistemas nuevos y arreglos de sistemas que ya existen.",
     "nav.blog": "Blog",
     "nav.projects": "Proyectos",
     "nav.opensource": "Open Source",
@@ -48,8 +48,8 @@ export const ui = {
     "about.now": "hoy",
   },
   en: {
-    "site.role": "Ruby on Rails developer",
-    "site.description": "Custom software for businesses, professionals and communities. Management systems, shops and apps that work, at a fair price.",
+    "site.role": "Software developer",
+    "site.description": "Custom software for businesses, professionals and communities. New systems, and fixes for the ones you already have.",
     "nav.blog": "Blog",
     "nav.projects": "Projects",
     "nav.opensource": "Open Source",

@@ -59,7 +59,6 @@ const host = (url?: string) => (url ? new URL(url).host : undefined);
                             </dl>
                         )}
                         {!entry.data.before && <p class="mt-4 text-[1.02rem] leading-relaxed">{entry.data.summary}</p>}
-                        <p class="mt-5 text-xs text-muted">{entry.data.stack.slice(0, 4).join(" · ")}</p>
                         <a
                             href={caseUrl(entry)}
                             class="mt-6 inline-flex items-center gap-1.5 font-medium underline decoration-border underline-offset-4 hover:text-accent hover:decoration-accent"

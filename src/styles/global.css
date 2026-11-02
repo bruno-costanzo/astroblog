@@ -71,8 +71,32 @@ h1, h2, h3 {
 
 /* Celeste, white, celeste */
 .flag {
-  height: 6px;
+  height: 9px;
   background: linear-gradient(var(--sky) 33.3%, #fff 33.3%, #fff 66.6%, var(--sky) 66.6%);
+}
+
+/* A photo inside an escarapela: celeste, white, celeste */
+.escarapela {
+  box-shadow:
+    0 0 0 9px var(--sky),
+    0 0 0 18px #fff,
+    0 0 0 27px var(--sky);
+}
+
+.sun-spin {
+  animation: sun-spin 140s linear infinite;
+}
+
+@keyframes sun-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sun-spin {
+    animation: none;
+  }
 }
 
 /* Wider than the reading column, centered on it. Used for screenshots and videos in a case. */

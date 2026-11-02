@@ -5,6 +5,7 @@ import PostList from "../components/PostList.astro";
 import CaseShowcase from "../components/CaseShowcase.astro";
 import ContributionList from "../components/ContributionList.astro";
 import ProjectContact from "../components/ProjectContact.astro";
+import Sun from "../components/Sun.astro";
 import { getCases, getContributions, getPosts } from "../lib/content";
 import { site } from "../lib/site";
 import { localizePath, otherLang, useTranslations, type Lang } from "../i18n";
@@ -24,16 +25,18 @@ const copy = {
         hello: "Hola, soy Bruno.",
         title: ["Hago software ", "a medida", " para gente que no tiene un equipo de sistemas."],
         story: [
-            "Fui periodista hasta 2021. Trabajé en elCanciller y en Noticias Argentinas, y en esos años aprendí a programar. Hoy vivo en Zúrich y trabajo con Ruby on Rails.",
-            "Además de mi trabajo, hago sistemas para clientes y productos propios. Abajo te muestro cuatro.",
+            "Fui periodista hasta 2021. Trabajé en elCanciller y en Noticias Argentinas, y en esos años aprendí a programar. Hoy vivo en Zúrich y trabajo como desarrollador.",
+            "Además de mi trabajo, hago sistemas para clientes. A veces son nuevos, y a veces hay que arreglar o reemplazar uno que ya existe. Abajo te muestro cuatro proyectos.",
         ],
         belief: "Creo que un sistema propio no debería ser algo que solo pueden pagar las empresas grandes.",
+        quote: "Mejor que decir es hacer, y mejor que prometer es realizar.",
         cases: "Proyectos",
         casesBody: "Dos son de clientes y dos son míos. En cada uno cuento cómo se hacían las cosas antes y qué cambió.",
         howTitle: "Cómo trabajo",
         how: [
             "Empezamos con una charla. Me contás cómo hacés las cosas hoy y qué es lo que más tiempo te lleva.",
-            "Uso Ruby on Rails y SQLite en un solo servidor. Es una forma simple de armar un sistema, y por eso mantenerlo cuesta poco por mes.",
+            "No me caso con ninguna tecnología. Uso la que mejor le sirva a tu proyecto, y busco que mantenerlo cueste poco por mes.",
+            "Si ya tenés un sistema viejo, no hace falta tirarlo. Se puede arreglar, mejorar o cambiar de a poco.",
             "Cada parte tiene tests automáticos. Si un test falla, el cambio no se publica.",
             "Si querés cargar productos, precios o datos vos mismo, te dejo un panel para hacerlo.",
         ],
@@ -45,16 +48,18 @@ const copy = {
         hello: "Hi, I'm Bruno.",
         title: ["I build ", "custom software", " for people who don't have an IT team."],
         story: [
-            "I was a journalist until 2021. I worked at elCanciller and Noticias Argentinas, and in those years I learned to program. Today I live in Zürich and work with Ruby on Rails.",
-            "Besides my job, I build systems for clients and products of my own. Here are four of them.",
+            "I was a journalist until 2021. I worked at elCanciller and Noticias Argentinas, and in those years I learned to program. Today I live in Zürich and work as a developer.",
+            "Besides my job, I build systems for clients. Sometimes they are new, and sometimes an existing one needs to be fixed or replaced. Here are four projects.",
         ],
         belief: "I believe your own system shouldn't be something only big companies can pay for.",
+        quote: "Better than saying is doing, and better than promising is achieving.",
         cases: "Projects",
         casesBody: "Two are for clients and two are mine. For each one I explain how things worked before and what changed.",
         howTitle: "How I work",
         how: [
             "We start with a call. You tell me how you do things today and what takes up most of your time.",
-            "I use Ruby on Rails and SQLite on a single server. It is a simple way to build a system, so it costs little to run each month.",
+            "I'm not tied to any technology. I use whatever works best for your project, and I aim to keep it cheap to run each month.",
+            "If you already have an old system, you don't have to throw it away. It can be fixed, improved or replaced step by step.",
             "Every part has automated tests. If a test fails, the change does not ship.",
             "If you want to manage products, prices or data yourself, you get a panel for it.",
         ],
@@ -81,16 +86,19 @@ const copy = {
             <ProjectContact lang={lang} />
         </div>
         </div>
-        <div class="relative mx-auto hidden w-full max-w-sm lg:block" aria-hidden="true">
-            <div class="absolute inset-0 translate-x-5 translate-y-5 rounded-full bg-sky"></div>
-            <img src={site.photo} alt="" width="400" height="400" class="relative aspect-square w-full rounded-full object-cover" />
-            <svg viewBox="0 0 24 24" class="absolute -left-6 -top-4 w-24 h-24 text-sun" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor" /><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1" /></g></svg>
+        <div class="relative mx-auto hidden w-full max-w-[15rem] lg:block xl:max-w-xs" aria-hidden="true">
+            <Sun class="absolute -inset-[25%] w-[150%] h-[150%] max-w-none text-sun xl:-inset-[42%] xl:w-[184%] xl:h-[184%]" spin />
+            <img src={site.photo} alt="" width="400" height="400" class="escarapela relative aspect-square w-full rounded-full object-cover" />
         </div>
     </section>
 
     <section class="mt-28 sm:mt-36">
         <div class="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6">
             <div class="max-w-2xl">
+                <figure class="mb-10">
+                    <blockquote class="font-hand text-2xl sm:text-3xl italic leading-snug">«{copy.quote}»</blockquote>
+                    <figcaption class="mt-2 text-sm text-muted">Juan Domingo Perón</figcaption>
+                </figure>
                 <h2 class="font-serif text-4xl font-semibold tracking-tight">{copy.cases}</h2>
                 <p class="mt-3 text-lg leading-relaxed text-muted">{copy.casesBody}</p>
             </div>
@@ -117,11 +125,11 @@ const copy = {
         </ol>
     </section>
 
-    <section class="relative mt-28 sm:mt-36 overflow-hidden rounded-2xl bg-sky-soft px-6 py-12 sm:px-14 sm:py-16">
-        <svg viewBox="0 0 24 24" class="pointer-events-none absolute -right-10 -top-10 w-56 h-56 text-sun opacity-80" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor" /><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1" /></g></svg>
+    <section class="relative mt-28 sm:mt-36 overflow-hidden rounded-2xl bg-gradient-to-b from-sky-soft to-sky px-6 pt-12 pb-40 sm:px-14 sm:py-16">
+        <Sun class="pointer-events-none absolute -bottom-44 -right-32 w-80 h-80 text-sun sm:-bottom-48 sm:right-10 sm:w-[28rem] sm:h-[28rem]" spin />
         <h2 class="relative max-w-xl font-serif text-4xl sm:text-5xl font-semibold tracking-tight text-balance">{copy.closeTitle}</h2>
         <p class="relative mt-4 text-lg leading-relaxed">{copy.closeBody}</p>
-        <div class="mt-8">
+        <div class="relative z-10 mt-8">
             <ProjectContact lang={lang} />
         </div>
     </section>
