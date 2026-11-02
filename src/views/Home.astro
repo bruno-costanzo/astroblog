@@ -3,9 +3,6 @@ import Layout from "../layouts/Layout.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import PostList from "../components/PostList.astro";
 import CaseShowcase from "../components/CaseShowcase.astro";
-import DeviceShot from "../components/DeviceShot.astro";
-import heroDesktop from "../assets/cases/lacaniosa/gestion-desktop.webp";
-import heroMobile from "../assets/cases/lacaniosa/paciente-mobile.webp";
 import ContributionList from "../components/ContributionList.astro";
 import ProjectContact from "../components/ProjectContact.astro";
 import { getCases, getContributions, getPosts } from "../lib/content";
@@ -24,11 +21,13 @@ const cases = await getCases(lang);
 const contributions = (await getContributions()).filter(({ data }) => data.kind === "pr").slice(0, 3);
 const copy = {
     es: {
-        kicker: "Bruno Costanzo · software a medida",
-        title: "Tu sistema a medida, que funcione y a un precio justo.",
-        body: "Construyo software para negocios, profesionales y comunidades que hoy se arreglan con planillas, cuadernos y mensajes de WhatsApp.",
-        belief: "Tener un sistema propio no tiene que ser un lujo de las empresas grandes.",
-        heroAlt: "Resumen del mes de Lacaniosa en la computadora y la ficha de un paciente en el teléfono",
+        hello: "Hola, soy Bruno.",
+        title: "Hago sistemas a medida para gente que hoy se arregla con planillas, cuadernos y WhatsApp.",
+        story: [
+            "Fui periodista hasta 2021. Mientras escribía notas aprendí a programar, y desde entonces trabajo con Ruby on Rails. Hoy vivo en Zúrich y contribuyo a Rails.",
+            "Por fuera de eso hago sistemas para negocios, profesionales y comunidades. Que funcionen bien y que cuesten un precio justo.",
+        ],
+        belief: "Creo que tener un sistema propio no tiene que ser un lujo de las empresas grandes.",
         cases: "Lo que construí",
         casesBody: "Dos sistemas para clientes y dos productos propios. Cada uno empezó con una forma de trabajar que ya no alcanzaba.",
         howTitle: "Cómo trabajo",
@@ -37,16 +36,18 @@ const copy = {
             "Puede ser un sistema de gestión, una tienda, una app para el teléfono o una parte con inteligencia artificial. Uso Ruby on Rails y SQLite en un solo servidor, así mantenerlo cuesta poco cada mes.",
             "Cada función tiene tests automáticos, y nada se publica si los tests fallan. Cuando hace falta, te queda un panel para cargar productos, precios o datos sin depender de mí.",
         ],
-        me: "Soy desarrollador Ruby on Rails. Vivo en Zúrich y trabajo en español y en inglés.",
         closeTitle: "¿Qué hacés hoy a mano?",
-        closeBody: "Contámelo y vemos juntos si un sistema lo resuelve.",
+        closeBody: "Contámelo. Te contesto yo, y vemos juntos si un sistema lo resuelve.",
+        writing: "También escribo sobre lo que aprendo y mando arreglos a Rails y a otras gems que uso.",
     },
     en: {
-        kicker: "Bruno Costanzo · custom software",
-        title: "Custom software that works, at a fair price.",
-        body: "I build software for businesses, professionals and communities that today get by with spreadsheets, notebooks and WhatsApp messages.",
-        belief: "Having your own system should not be a luxury for big companies.",
-        heroAlt: "Lacaniosa's month summary on a computer and a patient's file on a phone",
+        hello: "Hi, I'm Bruno.",
+        title: "I build custom software for people who get by with spreadsheets, notebooks and WhatsApp.",
+        story: [
+            "I was a journalist until 2021. While I wrote news stories I learned to program, and since then I have worked with Ruby on Rails. Today I live in Zürich and contribute to Rails.",
+            "Outside of that I build systems for businesses, professionals and communities. Systems that work well and cost a fair price.",
+        ],
+        belief: "I believe having your own system should not be a luxury for big companies.",
         cases: "What I built",
         casesBody: "Two systems for clients and two products of my own. Each one started with a way of working that no longer did the job.",
         howTitle: "How I work",
@@ -55,25 +56,27 @@ const copy = {
             "It can be a management system, a shop, a phone app or a part that uses AI. I use Ruby on Rails and SQLite on a single server, so it costs little to run each month.",
             "Every feature has automated tests, and nothing ships if the tests fail. When it makes sense, you get an admin panel to manage products, prices or data without me.",
         ],
-        me: "I'm a Ruby on Rails developer. I live in Zürich and work in Spanish and English.",
         closeTitle: "What do you still do by hand?",
-        closeBody: "Tell me, and we'll see together whether a system can solve it.",
+        closeBody: "Tell me. I answer myself, and we'll see together whether a system can solve it.",
+        writing: "I also write about what I learn and send fixes to Rails and other gems I use.",
     },
 }[lang];
 ---
 
 <Layout lang={lang} altPath={localizePath("/", otherLang(lang))} wide>
-    <section class="grid items-center gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-16 lg:pt-6">
-        <div>
-            <p class="text-sm text-muted">{copy.kicker}</p>
-            <h1 class="mt-4 font-serif text-[2.6rem] sm:text-6xl font-semibold tracking-tight leading-[1.04] text-balance">{copy.title}</h1>
-            <p class="mt-6 max-w-xl text-lg sm:text-xl leading-relaxed">{copy.body}</p>
-            <p class="mt-5 max-w-xl font-serif text-xl italic leading-relaxed text-accent">{copy.belief}</p>
-            <div class="mt-8">
-                <ProjectContact lang={lang} />
-            </div>
+    <section class="max-w-3xl lg:pt-4">
+        <div class="flex items-center gap-5">
+            <img src={site.photo} alt={site.name} width="112" height="112" class="w-20 h-20 sm:w-28 sm:h-28 rounded-full object-cover border border-border" />
+            <p class="font-serif text-2xl sm:text-3xl italic">{copy.hello}</p>
         </div>
-        <DeviceShot desktop={heroDesktop} mobile={heroMobile} alt={copy.heroAlt} host="lacaniosa.com" eager />
+        <h1 class="mt-8 font-serif text-[2.4rem] sm:text-[3.4rem] font-semibold tracking-tight leading-[1.06] text-balance">{copy.title}</h1>
+        <div class="mt-8 space-y-4 text-lg sm:text-xl leading-relaxed">
+            {copy.story.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+        <p class="mt-6 font-serif text-xl sm:text-2xl italic leading-relaxed text-accent">{copy.belief}</p>
+        <div class="mt-8">
+            <ProjectContact lang={lang} />
+        </div>
     </section>
 
     <section class="mt-28 sm:mt-36">
@@ -92,10 +95,6 @@ const copy = {
     <section class="mt-28 sm:mt-36 grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
         <div>
             <h2 class="font-serif text-4xl font-semibold tracking-tight">{copy.howTitle}</h2>
-            <div class="mt-6 flex items-center gap-4">
-                <img src={site.photo} alt={site.name} width="64" height="64" class="w-16 h-16 rounded-full object-cover border border-border" />
-                <p class="text-[0.95rem] leading-relaxed text-muted">{copy.me}</p>
-            </div>
         </div>
         <div class="space-y-5 font-serif text-xl leading-relaxed">
             {copy.how.map((paragraph) => <p>{paragraph}</p>)}
@@ -110,7 +109,8 @@ const copy = {
         </div>
     </section>
 
-    <div class="mt-28 grid gap-16 lg:grid-cols-2 lg:gap-14">
+    <p class="mt-28 max-w-2xl font-serif text-2xl leading-relaxed">{copy.writing}</p>
+    <div class="mt-10 grid gap-16 lg:grid-cols-2 lg:gap-14">
         {
             posts.length > 0 && (
                 <section>
