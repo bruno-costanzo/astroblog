@@ -1,7 +1,7 @@
 ---
 import ProjectContact from "./ProjectContact.astro";
 import Sun from "./Sun.astro";
-import type { Lang } from "../i18n";
+import { localizePath, type Lang } from "../i18n";
 
 // The invitation to write: for people with an idea, a business or an old system.
 interface Props {
@@ -19,6 +19,7 @@ const copy = {
             "Primero contame la idea. Después vemos juntos cómo hacerla realidad y por dónde empezar.",
         ],
         sign: "Te contesto yo.",
+        more: "Cómo es trabajar conmigo",
     },
     en: {
         title: "Got an idea? Write to me.",
@@ -27,6 +28,7 @@ const copy = {
             "First tell me the idea. Then we'll work out together how to make it real and where to start.",
         ],
         sign: "I answer myself.",
+        more: "How working with me goes",
     },
 }[lang];
 ---
@@ -48,5 +50,6 @@ const copy = {
             <ProjectContact lang={lang} />
         </div>
         <p class="mt-5 font-hand text-2xl italic">{copy.sign}</p>
+        <a href={localizePath("/trabajar-conmigo", lang)} class="link-grow mt-3 inline-block text-sm font-medium text-accent">{copy.more} →</a>
     </div>
 </section>

@@ -8,5 +8,5 @@ export const site = {
   // whatsapp: international number, digits only (for example "5491155550000").
   whatsapp: "41768283299",
   // calendar: a booking link (Calendly, Cal.com or similar).
-  calendar: "",
+  calendar: "https://calendly.com/dev-bcostanzo/charla",
 };

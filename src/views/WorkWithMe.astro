@@ -1,0 +1,186 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import ProjectContact from "../components/ProjectContact.astro";
+import Polaroid from "../components/Polaroid.astro";
+import Sun from "../components/Sun.astro";
+import { caseUrl, getCases } from "../lib/content";
+import { localizePath, otherLang, type Lang } from "../i18n";
+
+interface Props {
+    lang: Lang;
+}
+
+const { lang } = Astro.props;
+const cases = await getCases(lang);
+const caseLink = (slug: string) => {
+    const entry = cases.find((c) => c.id.replace(/^en\//, "") === slug);
+    return entry ? { href: caseUrl(entry), name: entry.data.name } : undefined;
+};
+
+const copy = {
+    es: {
+        pageTitle: "Trabajar conmigo",
+        description: "Si te imaginás un sistema y no sabés por dónde empezar, escribime. Aunque tengas poco presupuesto.",
+        kicker: "Trabajar conmigo",
+        title: "Si te imaginás un sistema y no sabés por dónde empezar, hablemos.",
+        intro: [
+            "No hace falta saber de tecnología, tener todo escrito ni tener la plata ahorrada. Con poco presupuesto, o casi nada, escribime igual.",
+            "Primero charlamos. Después vemos juntos qué se puede hacer, por dónde conviene empezar y qué hace falta para llegar.",
+        ],
+        caption: "Te contesto yo",
+        whoTitle: "Por ejemplo, si…",
+        who: [
+            { text: "Tenés un negocio que se maneja con planillas, cuadernos y mensajes de WhatsApp.", case: "celledig" },
+            { text: "Tenés una comunidad y querés darle una herramienta para el trabajo de todos los días.", case: "lacaniosa" },
+            { text: "Tenés una idea para una app y nunca supiste cómo arrancarla.", case: "milprep" },
+            { text: "Tenés un sistema viejo que ya no da más y no sabés si arreglarlo o cambiarlo." },
+        ],
+        seeCase: "Como",
+        stepsTitle: "Cómo es",
+        steps: [
+            { title: "Me escribís o agendás una charla", body: "Por email, por WhatsApp o en una videollamada. La primera charla no cuesta nada." },
+            { title: "Me contás la idea", body: "Con tus palabras. Cómo hacés las cosas hoy, qué te cuesta y qué te gustaría que pase. Yo pregunto mucho." },
+            { title: "Te propongo por dónde empezar", body: "Una primera versión chica, qué incluye, cuánto sale y cuánto tarda. Si el presupuesto no alcanza, buscamos una parte que sí." },
+            { title: "Lo hacemos de a partes", body: "Lo vas probando mientras se construye, y cambiamos lo que haga falta." },
+        ],
+        faqTitle: "Preguntas",
+        faq: [
+            { q: "¿Cuánto cuesta?", a: "Depende de lo que haga falta. Después de la primera charla te paso un número claro. Si no te alcanza, vemos qué se puede hacer primero con lo que tenés." },
+            { q: "¿Tengo que saber de tecnología?", a: "No. Contame el problema como se lo contarías a un amigo. La parte técnica la resuelvo yo, y te la explico simple." },
+            { q: "¿Y si ya tengo un sistema?", a: "No hace falta tirarlo. Se puede arreglar, mejorar o reemplazar de a poco." },
+            { q: "¿Trabajás con gente de cualquier lugar?", a: "Sí. Vivo en Zúrich y trabajo a distancia, en español, inglés o italiano." },
+        ],
+        closeTitle: "Contame tu idea.",
+        closeBody: "Aunque sea solo una idea. Aunque no sepas por dónde empezar.",
+    },
+    en: {
+        pageTitle: "Work with me",
+        description: "If you picture a system and don't know where to start, write to me. Even on a small budget.",
+        kicker: "Work with me",
+        title: "If you picture a system and don't know where to start, let's talk.",
+        intro: [
+            "You don't need to know about technology, have it all written down or have the money saved. With a small budget, or almost none, write to me anyway.",
+            "First we talk. Then we work out together what can be done, where it makes sense to start and what it takes to get there.",
+        ],
+        caption: "I answer myself",
+        whoTitle: "For example, if…",
+        who: [
+            { text: "You run a business on spreadsheets, notebooks and WhatsApp messages.", case: "celledig" },
+            { text: "You have a community and want to give it a tool for everyday work.", case: "lacaniosa" },
+            { text: "You have an idea for an app and never knew how to start it.", case: "milprep" },
+            { text: "You have an old system that can't cope any more, and you don't know whether to fix it or replace it." },
+        ],
+        seeCase: "Like",
+        stepsTitle: "How it goes",
+        steps: [
+            { title: "You write to me or book a call", body: "By email, on WhatsApp or on a video call. The first call costs nothing." },
+            { title: "You tell me the idea", body: "In your own words. How you do things today, what is hard and what you would like to happen. I ask a lot of questions." },
+            { title: "I suggest where to start", body: "A small first version, what it includes, what it costs and how long it takes. If the budget is not enough, we find a part that fits." },
+            { title: "We build it in parts", body: "You try it while it is being built, and we change what needs changing." },
+        ],
+        faqTitle: "Questions",
+        faq: [
+            { q: "How much does it cost?", a: "It depends on what is needed. After the first call I give you a clear number. If it is too much, we see what can be done first with what you have." },
+            { q: "Do I need to know about technology?", a: "No. Tell me the problem the way you would tell a friend. I handle the technical side, and I explain it simply." },
+            { q: "What if I already have a system?", a: "You don't have to throw it away. It can be fixed, improved or replaced step by step." },
+            { q: "Do you work with people anywhere?", a: "Yes. I live in Zürich and work remotely, in Spanish, English or Italian." },
+        ],
+        closeTitle: "Tell me your idea.",
+        closeBody: "Even if it is only an idea. Even if you don't know where to start.",
+    },
+}[lang];
+---
+
+<Layout lang={lang} altPath={localizePath("/trabajar-conmigo", otherLang(lang))} pageTitle={copy.pageTitle} description={copy.description} wide>
+    <section class="grid items-center gap-12 lg:grid-cols-[1.6fr_1fr] lg:gap-16">
+        <div>
+            <p data-reveal class="inline-flex rounded-full bg-sky-soft px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-accent">{copy.kicker}</p>
+            <h1 data-reveal style="--delay: 80ms" class="mt-6 font-serif text-[2.4rem] sm:text-[3.4rem] font-semibold tracking-tight leading-[1.05] text-balance">{copy.title}</h1>
+            <div data-reveal style="--delay: 160ms" class="mt-8 space-y-4 text-lg sm:text-xl leading-relaxed">
+                {copy.intro.map((paragraph) => <p>{paragraph}</p>)}
+            </div>
+            <div data-reveal style="--delay: 240ms" class="mt-8">
+                <ProjectContact lang={lang} />
+            </div>
+        </div>
+        <div data-reveal="zoom" style="--delay: 200ms" class="mx-auto hidden w-full max-w-[16rem] lg:block">
+            <Polaroid caption={copy.caption} />
+        </div>
+    </section>
+
+    <section class="mt-20 sm:mt-28">
+        <h2 data-reveal class="font-serif text-4xl font-semibold tracking-tight">{copy.whoTitle}</h2>
+        <ul class="mt-8 grid gap-5 sm:grid-cols-2">
+            {
+                copy.who.map((item, index) => {
+                    const link = item.case ? caseLink(item.case) : undefined;
+                    return (
+                        <li
+                            data-reveal
+                            style={`--delay: ${(index % 2) * 90}ms`}
+                            class="flex flex-col rounded-2xl border border-border bg-bg/60 p-6 transition duration-300 hover:-translate-y-1 hover:border-sky hover:shadow-[0_18px_40px_-24px_rgb(21_35_63/0.45)]"
+                        >
+                            <p class="flex-1 text-lg leading-relaxed">{item.text}</p>
+                            {link && (
+                                <a href={link.href} class="link-grow mt-4 self-start text-sm text-accent">
+                                    {copy.seeCase} {link.name} →
+                                </a>
+                            )}
+                        </li>
+                    );
+                })
+            }
+        </ul>
+    </section>
+
+    <section class="mt-20 sm:mt-28 grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
+        <h2 data-reveal class="font-serif text-4xl font-semibold tracking-tight">{copy.stepsTitle}</h2>
+        <ol class="relative space-y-8 border-l-2 border-sky pl-8">
+            {
+                copy.steps.map((step, index) => (
+                    <li data-reveal style={`--delay: ${index * 80}ms`} class="relative">
+                        <span
+                            class="absolute -left-[3.05rem] top-0 flex h-9 w-9 items-center justify-center rounded-full border-4 border-bg bg-sun font-serif text-sm font-semibold text-[#15233f]"
+                            aria-hidden="true"
+                        >
+                            {index + 1}
+                        </span>
+                        <h3 class="font-serif text-xl font-semibold">{step.title}</h3>
+                        <p class="mt-2 text-lg leading-relaxed text-muted">{step.body}</p>
+                    </li>
+                ))
+            }
+        </ol>
+    </section>
+
+    <section class="mt-20 sm:mt-28 max-w-3xl">
+        <div data-reveal>
+            <SectionHeading title={copy.faqTitle} />
+        </div>
+        <div class="divide-y divide-border border-y border-border">
+            {
+                copy.faq.map((item) => (
+                    <details data-reveal class="faq group py-5">
+                        <summary class="flex cursor-pointer list-none items-center justify-between gap-6 font-serif text-xl font-semibold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent">
+                            {item.q}
+                            <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-soft text-accent transition-transform duration-300 group-open:rotate-45" aria-hidden="true">+</span>
+                        </summary>
+                        <p class="mt-3 text-lg leading-relaxed text-muted">{item.a}</p>
+                    </details>
+                ))
+            }
+        </div>
+    </section>
+
+    <section data-reveal class="relative mt-20 sm:mt-28 overflow-hidden rounded-3xl bg-gradient-to-b from-sky-soft to-sky px-6 pt-12 pb-44 sm:px-14 sm:pt-16 sm:pb-16">
+        <Sun class="pointer-events-none absolute -bottom-40 -right-28 w-72 h-72 text-sun sm:-bottom-44 sm:right-8 sm:w-[24rem] sm:h-[24rem]" />
+        <div class="relative z-10 max-w-xl">
+            <h2 class="font-serif text-4xl sm:text-5xl font-semibold tracking-tight text-balance">{copy.closeTitle}</h2>
+            <p class="mt-4 text-lg leading-relaxed">{copy.closeBody}</p>
+            <div class="mt-8">
+                <ProjectContact lang={lang} />
+            </div>
+        </div>
+    </section>
+</Layout>

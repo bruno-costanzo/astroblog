@@ -18,6 +18,7 @@ const links = [
     { href: localizePath("/proyectos", lang), label: t("nav.projects") },
     { href: localizePath("/open-source", lang), label: t("nav.opensource") },
     { href: localizePath("/sobre-mi", lang), label: t("nav.about") },
+    { href: localizePath("/trabajar-conmigo", lang), label: t("nav.work"), highlight: true },
 ];
 
 const path = Astro.url.pathname;
@@ -33,14 +34,16 @@ const switchHref = altPath ?? localizePath("/", otherLang(lang));
             <Sun class="w-6 h-6 text-sun" />
             {site.name}
         </a>
-        <nav class="order-last sm:order-none w-full sm:w-auto sm:ml-auto flex items-center justify-between sm:justify-start gap-3 sm:gap-5 text-sm whitespace-nowrap">
+        <nav class="order-last sm:order-none w-full sm:w-auto sm:ml-auto flex items-center justify-between sm:justify-start gap-1.5 sm:gap-5 text-[0.8125rem] sm:text-sm whitespace-nowrap">
             {
                 links.map((link) => (
                     <a
                         href={link.href}
                         class:list={[
-                            "transition-colors hover:text-text",
-                            isActive(link.href) ? "text-text font-medium" : "text-muted",
+                            "transition-colors",
+                            link.highlight
+                                ? "rounded-full bg-sky-soft px-2.5 sm:px-3 py-1 font-medium text-accent hover:bg-sky hover:text-[#15233f]"
+                                : ["hover:text-text", isActive(link.href) ? "text-text font-medium" : "text-muted"],
                         ]}
                     >
                         {link.label}

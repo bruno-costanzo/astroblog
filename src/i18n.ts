@@ -9,6 +9,7 @@ export const ui = {
     "nav.projects": "Proyectos",
     "nav.opensource": "Open Source",
     "nav.about": "Sobre mí",
+    "nav.work": "Trabajemos",
     "nav.theme": "Cambiar tema",
     "nav.switch": "English",
     "home.posts": "Artículos",
@@ -54,6 +55,7 @@ export const ui = {
     "nav.projects": "Projects",
     "nav.opensource": "Open Source",
     "nav.about": "About",
+    "nav.work": "Work with me",
     "nav.theme": "Toggle theme",
     "nav.switch": "Español",
     "home.posts": "Articles",
@@ -102,6 +104,7 @@ export function useTranslations(lang: Lang) {
 const englishSegments: Record<string, string> = {
   proyectos: "projects",
   "sobre-mi": "about",
+  "trabajar-conmigo": "work-with-me",
 };
 
 // localizePath("/sobre-mi", "en") -> "/en/about"
