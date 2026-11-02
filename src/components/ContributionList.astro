@@ -23,9 +23,9 @@ const label = (data: CollectionEntry<"opensource">["data"]) =>
 
 <ul class="divide-y divide-border border-y border-border">
     {
-        contributions.map(({ data }) => (
-            <li>
-                <a href={data.url} class="group grid sm:grid-cols-[1fr_auto] gap-x-6 gap-y-1 py-4">
+        contributions.map(({ data }, index) => (
+            <li data-reveal style={`--delay: ${Math.min(index, 4) * 50}ms`}>
+                <a href={data.url} class="group grid sm:grid-cols-[1fr_auto] gap-x-6 gap-y-1 py-4 -mx-3 px-3 rounded-lg transition-colors hover:bg-sky-soft/50">
                     <div>
                         {showRepo && <span class="font-mono text-xs text-muted">{data.repo}</span>}
                         <p class="leading-snug group-hover:text-accent transition-colors">

@@ -19,7 +19,7 @@ const { title, description, pubDate, tags } = post.data;
 
 <Layout lang={lang} altPath={translation && postUrl(translation)} pageTitle={title} description={description} type="article">
     <article>
-        <header class="mb-10">
+        <header data-reveal class="mb-10">
             <p class="text-sm text-muted">
                 <time datetime={pubDate.toISOString()}>{formatDate(pubDate, lang, "long")}</time>
                 <span class="mx-1.5">·</span>

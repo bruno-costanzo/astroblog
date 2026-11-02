@@ -1,0 +1,52 @@
+---
+import ProjectContact from "./ProjectContact.astro";
+import Sun from "./Sun.astro";
+import type { Lang } from "../i18n";
+
+// The invitation to write: for people with an idea, a business or an old system.
+interface Props {
+    lang: Lang;
+    class?: string;
+}
+
+const { lang, class: className } = Astro.props;
+
+const copy = {
+    es: {
+        title: "¿Tenés una idea? Escribime.",
+        body: [
+            "Puede ser algo que todavía está en tu cabeza, o un negocio que ya funciona y necesita un sistema. No hace falta tenerlo todo resuelto, ni saber de tecnología, ni tener un gran presupuesto.",
+            "Primero contame la idea. Después vemos juntos cómo hacerla realidad y por dónde empezar.",
+        ],
+        sign: "Te contesto yo.",
+    },
+    en: {
+        title: "Got an idea? Write to me.",
+        body: [
+            "It can be something that is still only in your head, or a business that already works and needs a system. You don't need to have it all worked out, know about technology or have a big budget.",
+            "First tell me the idea. Then we'll work out together how to make it real and where to start.",
+        ],
+        sign: "I answer myself.",
+    },
+}[lang];
+---
+
+<section
+    data-reveal
+    class:list={[
+        "relative overflow-hidden rounded-3xl bg-gradient-to-b from-sky-soft to-sky px-6 pt-12 pb-44 sm:px-14 sm:pt-16 sm:pb-16",
+        className,
+    ]}
+>
+    <Sun class="pointer-events-none absolute -bottom-40 -right-28 w-72 h-72 text-sun sm:-bottom-44 sm:right-8 sm:w-[24rem] sm:h-[24rem]" />
+    <div class="relative z-10 max-w-xl">
+        <h2 class="font-serif text-4xl sm:text-5xl font-semibold tracking-tight text-balance">{copy.title}</h2>
+        <div class="mt-6 space-y-4 text-lg leading-relaxed">
+            {copy.body.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+        <div class="mt-8">
+            <ProjectContact lang={lang} />
+        </div>
+        <p class="mt-5 font-hand text-2xl italic">{copy.sign}</p>
+    </div>
+</section>

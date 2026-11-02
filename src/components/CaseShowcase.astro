@@ -26,7 +26,8 @@ const host = (url?: string) => (url ? new URL(url).host : undefined);
                 <li class="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
                     <a
                         href={caseUrl(entry)}
-                        class:list={["block transition-transform duration-300 hover:-translate-y-1", index % 2 === 1 && "lg:order-last"]}
+                        data-reveal="zoom"
+                        class:list={["block transition-transform duration-500 ease-out hover:-translate-y-1.5 hover:rotate-[-0.4deg]", index % 2 === 1 && "lg:order-last"]}
                         tabindex="-1"
                         aria-hidden="true"
                     >
@@ -37,7 +38,7 @@ const host = (url?: string) => (url ? new URL(url).host : undefined);
                             host={host(entry.data.url) ?? entry.data.name.toLowerCase()}
                         />
                     </a>
-                    <div>
+                    <div data-reveal style="--delay: 120ms">
                         <p class="text-sm text-muted">
                             {own ? copy.own : entry.data.client} · {entry.data.year}
                         </p>
@@ -61,9 +62,9 @@ const host = (url?: string) => (url ? new URL(url).host : undefined);
                         {!entry.data.before && <p class="mt-4 text-[1.02rem] leading-relaxed">{entry.data.summary}</p>}
                         <a
                             href={caseUrl(entry)}
-                            class="mt-6 inline-flex items-center gap-1.5 font-medium underline decoration-border underline-offset-4 hover:text-accent hover:decoration-accent"
+                            class="group/see mt-6 inline-flex items-center gap-1.5 rounded-full bg-sky-soft px-4 py-2 text-sm font-medium text-accent transition-colors hover:bg-sky hover:text-[#15233f]"
                         >
-                            {copy.see} <span aria-hidden="true">→</span>
+                            {copy.see} <span aria-hidden="true" class="transition-transform duration-300 group-hover/see:translate-x-1">→</span>
                         </a>
                     </div>
                 </li>
