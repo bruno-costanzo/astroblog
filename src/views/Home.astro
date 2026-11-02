@@ -5,7 +5,7 @@ import PostList from "../components/PostList.astro";
 import CaseShowcase from "../components/CaseShowcase.astro";
 import ContributionList from "../components/ContributionList.astro";
 import ProjectContact from "../components/ProjectContact.astro";
-import Sun from "../components/Sun.astro";
+import Polaroid from "../components/Polaroid.astro";
 import IdeaBox from "../components/IdeaBox.astro";
 import { getCases, getContributions, getPosts } from "../lib/content";
 import { site } from "../lib/site";
@@ -24,6 +24,7 @@ const contributions = (await getContributions()).filter(({ data }) => data.kind 
 const copy = {
     es: {
         hello: "Hola, soy Bruno.",
+        caption: "Bruno, en Zúrich",
         title: ["Hago software ", "a medida", " para gente que no tiene un equipo de sistemas."],
         story: [
             "Fui periodista hasta 2021. Trabajé en elCanciller y en Noticias Argentinas, y en esos años aprendí a programar. Hoy vivo en Zúrich y trabajo como desarrollador.",
@@ -46,6 +47,7 @@ const copy = {
     },
     en: {
         hello: "Hi, I'm Bruno.",
+        caption: "Bruno, in Zürich",
         title: ["I build ", "custom software", " for people who don't have an IT team."],
         story: [
             "I was a journalist until 2021. I worked at elCanciller and Noticias Argentinas, and in those years I learned to program. Today I live in Zürich and work as a developer.",
@@ -88,9 +90,8 @@ const copy = {
                 <span class="font-hand text-xl italic text-muted">{copy.nudge}</span>
             </div>
         </div>
-        <div data-reveal="zoom" style="--delay: 200ms" class="relative mx-auto hidden w-full max-w-[15rem] lg:block xl:max-w-[18rem]" aria-hidden="true">
-            <Sun class="absolute -inset-[24%] w-[148%] h-[148%] max-w-none text-sun opacity-90" />
-            <img src={site.photo} alt="" width="400" height="400" class="escarapela relative aspect-square w-full rounded-full object-cover" />
+        <div data-reveal="zoom" style="--delay: 200ms" class="mx-auto hidden w-full max-w-[17rem] lg:block xl:max-w-[19rem]">
+            <Polaroid caption={copy.caption} />
         </div>
     </section>
 

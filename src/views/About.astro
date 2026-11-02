@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import ContactLinks from "../components/ContactLinks.astro";
 import IdeaBox from "../components/IdeaBox.astro";
-import Sun from "../components/Sun.astro";
+import Polaroid from "../components/Polaroid.astro";
 import { site } from "../lib/site";
 import { localizePath, otherLang, useTranslations, type Lang } from "../i18n";
 
@@ -82,9 +82,8 @@ const linkClass = "underline underline-offset-4 decoration-border hover:text-acc
             <h1 class="font-serif text-5xl font-semibold tracking-tight">{t("about.title")}</h1>
             <p class="mt-5 max-w-md font-hand text-2xl sm:text-[1.7rem] italic leading-snug text-accent">{copy.lead}</p>
         </div>
-        <div data-reveal="zoom" style="--delay: 150ms" class="relative ml-6 w-36 shrink-0 sm:ml-0 sm:mr-6 sm:w-44" aria-hidden="true">
-            <Sun class="absolute -inset-[30%] w-[160%] h-[160%] max-w-none text-sun opacity-90" />
-            <img src={site.photo} alt="" width="176" height="176" class="escarapela relative aspect-square w-full rounded-full object-cover" />
+        <div data-reveal="zoom" style="--delay: 150ms" class="w-44 shrink-0 self-center sm:mr-4 sm:w-52">
+            <Polaroid caption={lang === "es" ? "Bruno, en Zúrich" : "Bruno, in Zürich"} />
         </div>
     </div>
 

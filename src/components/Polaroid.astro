@@ -1,0 +1,23 @@
+---
+import { site } from "../lib/site";
+
+// Bruno's photo as a taped instant photo, with a sun setting behind it.
+interface Props {
+    caption: string;
+    class?: string;
+}
+
+const { caption, class: className } = Astro.props;
+---
+
+<div class:list={["relative", className]} aria-hidden="true">
+    <div class="absolute -right-[14%] -top-[10%] aspect-square w-[78%] rounded-full bg-[radial-gradient(circle_at_35%_35%,#f7d27a,var(--sun)_70%)]"></div>
+    <div class="absolute -bottom-[6%] -left-[10%] aspect-square w-[42%] rounded-full bg-sky opacity-70"></div>
+    <figure
+        class="group relative rotate-[-3deg] rounded-[3px] bg-[#fffdf8] p-3 pb-4 shadow-[0_30px_50px_-28px_rgb(21_35_63/0.55),0_2px_6px_rgb(21_35_63/0.08)] transition-transform duration-500 ease-out hover:rotate-[-1deg]"
+    >
+        <span class="absolute -top-3 left-1/2 h-7 w-24 -translate-x-1/2 rotate-[2deg] bg-sky/55 backdrop-blur-[1px]"></span>
+        <img src={site.photo} alt="" width="400" height="400" class="aspect-square w-full object-cover" />
+        <figcaption class="mt-3 text-center font-hand text-2xl italic text-[#15233f]">{caption}</figcaption>
+    </figure>
+</div>

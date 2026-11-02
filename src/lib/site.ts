@@ -6,7 +6,7 @@ export const site = {
   linkedin: "https://www.linkedin.com/in/brunocostanzo/",
   // Ways to start a project. A contact with an empty value is not shown.
   // whatsapp: international number, digits only (for example "5491155550000").
-  whatsapp: "",
+  whatsapp: "41768283299",
   // calendar: a booking link (Calendly, Cal.com or similar).
   calendar: "",
 };
