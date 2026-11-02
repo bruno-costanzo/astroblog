@@ -4,7 +4,7 @@ import SectionHeading from "../components/SectionHeading.astro";
 import ContactLinks from "../components/ContactLinks.astro";
 import IdeaBox from "../components/IdeaBox.astro";
 import Polaroid from "../components/Polaroid.astro";
-import { site } from "../lib/site";
+import { site, withEmployer } from "../lib/site";
 import { localizePath, otherLang, useTranslations, type Lang } from "../i18n";
 
 interface Props {
@@ -21,7 +21,7 @@ const copy = {
             "Estudié periodismo político en TEA, en Buenos Aires. Trabajé en elCanciller y en Noticias Argentinas hasta 2021.",
             "En esos años aprendí a programar por mi cuenta. Mi primer trabajo como desarrollador fue en 2020, en Smart One: una plataforma para pedir viajes, con un botón de pánico que mandaba la ubicación del chofer en tiempo real.",
             "Después trabajé para clientes de Estados Unidos, Singapur, Chile y Argentina. A veces armé sistemas desde cero. Otras veces me tocó agarrar un sistema que ya existía, ponerlo al día y dejarlo andando mejor.",
-            "Hoy estoy en Renuo, en Zúrich. Trabajo en una plataforma para la Universidad de Berna, para que los investigadores trabajen con datos sensibles de forma segura.",
+            "Hoy trabajo en {employer}, en Zúrich. Trabajo en una plataforma para la Universidad de Berna, para que los investigadores trabajen con datos sensibles de forma segura.",
             "Del periodismo me quedaron dos costumbres: hacer muchas preguntas y explicar las cosas simple. Las uso cada vez que alguien me cuenta qué necesita.",
         ],
         alsoTitle: "Además",
@@ -32,7 +32,7 @@ const copy = {
         ],
         workTitle: "Dónde trabajé",
         work: [
-            { company: "Renuo", url: "https://www.renuo.ch", place: "Zúrich", years: "2025 – hoy", body: "Una plataforma para la Universidad de Berna. Les da a investigadores máquinas virtuales seguras y acceso desde el navegador." },
+            { company: site.employer.name, url: site.employer.url, place: "Zúrich", years: "2025 – hoy", body: "Una plataforma para la Universidad de Berna. Les da a investigadores máquinas virtuales seguras y acceso desde el navegador." },
             { company: "Unagi", url: "https://unagisoftware.com", place: "Remoto", years: "2022 – 2025", body: "Consultora. Trabajé para varios clientes:" , items: [
                 "Sayge, Estados Unidos: actualicé un sistema viejo a la última versión de Rails y subí los tests al 95\u00a0% del código.",
                 "Blackbook Travels, Singapur: un módulo que mantiene al día más de 2 millones de hoteles de varios proveedores.",
@@ -49,7 +49,7 @@ const copy = {
             "I studied political journalism at TEA, in Buenos Aires. I worked at elCanciller and Noticias Argentinas until 2021.",
             "In those years I taught myself to program. My first developer job was in 2020, at Smart One: a ride-hailing platform, with a panic button that sent the driver's location in real time.",
             "After that I worked for clients in the United States, Singapore, Chile and Argentina. Sometimes I built systems from scratch. Other times I took over a system that already existed, brought it up to date and left it working better.",
-            "Today I'm at Renuo, in Zürich. I work on a platform for the University of Bern, so researchers can work with sensitive data safely.",
+            "Today I work at {employer}, in Zürich. I work on a platform for the University of Bern, so researchers can work with sensitive data safely.",
             "Journalism left me two habits: asking a lot of questions and explaining things simply. I use them every time someone tells me what they need.",
         ],
         alsoTitle: "Also",
@@ -60,7 +60,7 @@ const copy = {
         ],
         workTitle: "Where I've worked",
         work: [
-            { company: "Renuo", url: "https://www.renuo.ch", place: "Zürich", years: "2025 – now", body: "A platform for the University of Bern. It gives researchers secure virtual machines and access from the browser." },
+            { company: site.employer.name, url: site.employer.url, place: "Zürich", years: "2025 – now", body: "A platform for the University of Bern. It gives researchers secure virtual machines and access from the browser." },
             { company: "Unagi", url: "https://unagisoftware.com", place: "Remote", years: "2022 – 2025", body: "A consultancy. I worked for several clients:", items: [
                 "Sayge, United States: upgraded an old system to the latest Rails version and raised test coverage to 95%.",
                 "Blackbook Travels, Singapore: a module that keeps more than 2 million hotels from several providers up to date.",
@@ -88,7 +88,7 @@ const linkClass = "underline underline-offset-4 decoration-border hover:text-acc
     </div>
 
     <div class="mt-20 space-y-5 text-lg leading-relaxed">
-        {copy.story.map((paragraph, index) => <p data-reveal style={`--delay: ${index * 60}ms`}>{paragraph}</p>)}
+        {copy.story.map((paragraph, index) => <p data-reveal style={`--delay: ${index * 60}ms`} set:html={withEmployer(paragraph, linkClass)} />)}
     </div>
 
     <section class="mt-16">

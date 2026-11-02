@@ -2,6 +2,7 @@
 import type { CollectionEntry } from "astro:content";
 import { Icon } from "astro-icon/components";
 import { useTranslations, type Lang } from "../i18n";
+import { withEmployer } from "../lib/site";
 
 interface Props {
     lang: Lang;
@@ -28,7 +29,7 @@ const t = useTranslations(lang);
                     </h3>
                     <span class="text-sm text-muted tabular-nums">{data.year}</span>
                 </div>
-                <p class="mt-2 flex-1 text-[0.95rem] leading-relaxed text-muted">{data.description[lang]}</p>
+                <p class="relative z-10 mt-2 flex-1 text-[0.95rem] leading-relaxed text-muted" set:html={withEmployer(data.description[lang], "underline underline-offset-4 decoration-border hover:text-accent hover:decoration-accent")} />
                 <div class="mt-4 flex flex-wrap gap-1.5">
                     {data.stack.map((item) => (
                         <span class="rounded-full bg-sky-soft px-2.5 py-0.5 font-mono text-[0.7rem] text-accent">{item}</span>

@@ -8,7 +8,9 @@ import ProjectContact from "../components/ProjectContact.astro";
 import Polaroid from "../components/Polaroid.astro";
 import IdeaBox from "../components/IdeaBox.astro";
 import { getCases, getContributions, getPosts } from "../lib/content";
-import { site } from "../lib/site";
+import { site, withEmployer } from "../lib/site";
+
+const employerLink = "underline underline-offset-4 decoration-sky decoration-2 hover:text-accent";
 import { localizePath, otherLang, useTranslations, type Lang } from "../i18n";
 
 interface Props {
@@ -27,7 +29,7 @@ const copy = {
         caption: "Bruno, en Zúrich",
         title: ["Hago software ", "a medida", " para gente que no tiene un equipo de sistemas."],
         story: [
-            "Soy desarrollador, vivo en Zúrich y hago software desde 2020. Además de mi trabajo, hago sistemas para clientes. A veces son nuevos, y a veces hay que arreglar o reemplazar uno que ya existe.",
+            "Soy desarrollador en {employer}, vivo en Zúrich y hago software desde 2020. Además de mi trabajo, hago sistemas para clientes. A veces son nuevos, y a veces hay que arreglar o reemplazar uno que ya existe.",
         ],
         belief: "Creo que un sistema propio no debería ser algo que solo pueden pagar las empresas grandes.",
         quote: "Mejor que decir es hacer, y mejor que prometer es realizar.",
@@ -49,7 +51,7 @@ const copy = {
         caption: "Bruno, in Zürich",
         title: ["I build ", "custom software", " for people who don't have an IT team."],
         story: [
-            "I'm a developer, I live in Zürich and I have built software since 2020. Besides my job, I build systems for clients. Sometimes they are new, and sometimes an existing one needs to be fixed or replaced.",
+            "I'm a developer at {employer}, I live in Zürich and I have built software since 2020. Besides my job, I build systems for clients. Sometimes they are new, and sometimes an existing one needs to be fixed or replaced.",
         ],
         belief: "I believe your own system shouldn't be something only big companies can pay for.",
         quote: "Better than saying is doing, and better than promising is achieving.",
@@ -80,7 +82,7 @@ const copy = {
                 {copy.title[0]}<span class="mark">{copy.title[1]}</span>{copy.title[2]}
             </h1>
             <div data-reveal style="--delay: 160ms" class="mt-8 space-y-4 text-lg sm:text-xl leading-relaxed">
-                {copy.story.map((paragraph) => <p>{paragraph}</p>)}
+                {copy.story.map((paragraph) => <p set:html={withEmployer(paragraph, employerLink)} />)}
             </div>
             <p data-reveal style="--delay: 240ms" class="mt-6 border-l-4 border-sun pl-4 font-hand text-2xl sm:text-[1.7rem] italic leading-snug text-accent">{copy.belief}</p>
             <div data-reveal style="--delay: 320ms" class="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">

@@ -9,4 +9,10 @@ export const site = {
   whatsapp: "41768283299",
   // calendar: a booking link (Calendly, Cal.com or similar).
   calendar: "https://calendly.com/dev-bcostanzo/charla",
+  // Where Bruno works today. Every mention of it links to his team page.
+  employer: { name: "Renuo AG", url: "https://www.renuo.ch/en/team/bruno-costanzo" },
 };
+
+// Turns "{employer}" in a copy string into a link to the employer, as HTML.
+export const withEmployer = (text: string, linkClass = "") =>
+  text.replace("{employer}", `<a href="${site.employer.url}" class="${linkClass}">${site.employer.name}</a>`);
