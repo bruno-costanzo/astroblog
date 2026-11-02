@@ -17,7 +17,7 @@ const { Content } = await render(post);
 const { title, description, pubDate, tags } = post.data;
 ---
 
-<Layout lang={lang} altPath={translation && postUrl(translation)} pageTitle={title} description={description} type="article">
+<Layout lang={lang} alternates={{ [lang]: postUrl(post), ...(translation && { [postLang(translation)]: postUrl(translation) }) }} pageTitle={title} description={description} type="article">
     <article>
         <header data-reveal class="mb-10">
             <p class="text-sm text-muted">

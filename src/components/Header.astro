@@ -2,15 +2,15 @@
 import { Icon } from "astro-icon/components";
 import Sun from "./Sun.astro";
 import { site } from "../lib/site";
-import { localizePath, otherLang, useTranslations, type Lang } from "../i18n";
+import { languages, localizePath, ui, useTranslations, type Lang } from "../i18n";
 
 interface Props {
     wide?: boolean;
     lang: Lang;
-    altPath?: string;
+    alternates?: Partial<Record<Lang, string>>;
 }
 
-const { lang, altPath , wide = false } = Astro.props;
+const { lang, alternates = {}, wide = false } = Astro.props;
 const t = useTranslations(lang);
 
 const links = [
@@ -23,7 +23,7 @@ const links = [
 
 const path = Astro.url.pathname;
 const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
-const switchHref = altPath ?? localizePath("/", otherLang(lang));
+const switchHref = (other: Lang) => alternates[other] ?? localizePath("/", other);
 ---
 
 <header class="border-b border-border">
@@ -52,9 +52,19 @@ const switchHref = altPath ?? localizePath("/", otherLang(lang));
             }
         </nav>
         <div class="ml-auto sm:ml-0 flex items-center gap-4">
-            <a href={switchHref} hreflang={otherLang(lang)} lang={otherLang(lang)} title={t("nav.switch")} class="font-mono text-xs uppercase text-muted hover:text-text transition-colors">
-                {otherLang(lang)}
-            </a>
+            <div class="flex items-center gap-2 font-mono text-xs uppercase">
+                {
+                    languages.map((other) =>
+                        other === lang ? (
+                            <span class="text-text font-semibold" aria-current="true">{other}</span>
+                        ) : (
+                            <a href={switchHref(other)} hreflang={other} lang={other} title={ui[other]["nav.switch"]} class="text-muted hover:text-text transition-colors">
+                                {other}
+                            </a>
+                        ),
+                    )
+                }
+            </div>
             <button
                 id="theme-toggle"
                 type="button"

@@ -14,6 +14,7 @@ const { cases, lang } = Astro.props;
 const copy = {
     es: { before: "Antes", now: "Ahora", own: "Producto propio", see: "Ver el caso" },
     en: { before: "Before", now: "Now", own: "Own product", see: "Read the case" },
+    it: { before: "Prima", now: "Ora", own: "Prodotto proprio", see: "Leggi il caso" },
 }[lang];
 const host = (url?: string) => (url ? new URL(url).host : undefined);
 ---
@@ -21,7 +22,7 @@ const host = (url?: string) => (url ? new URL(url).host : undefined);
 <ol class="space-y-20 sm:space-y-28">
     {
         cases.map((entry, index) => {
-            const own = entry.data.role.startsWith(lang === "es" ? "Producto propio" : "Own product");
+            const own = entry.data.role.startsWith(copy.own);
             return (
                 <li class="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
                     <a

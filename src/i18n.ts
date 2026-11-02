@@ -1,4 +1,4 @@
-export const languages = ["es", "en"] as const;
+export const languages = ["es", "en", "it"] as const;
 export type Lang = (typeof languages)[number];
 
 export const ui = {
@@ -94,26 +94,79 @@ export const ui = {
     "about.contact": "Contact",
     "about.now": "now",
   },
+  it: {
+    "site.role": "Sviluppatore software",
+    "site.description": "Software su misura per attività, professionisti e comunità. Sistemi nuovi e sistemi esistenti da sistemare.",
+    "nav.blog": "Blog",
+    "nav.projects": "Progetti",
+    "nav.opensource": "Open Source",
+    "nav.about": "Chi sono",
+    "nav.work": "Lavoriamo",
+    "nav.theme": "Cambia tema",
+    "nav.switch": "Italiano",
+    "home.posts": "Articoli",
+    "home.projects": "Progetti",
+    "home.opensource": "Open source",
+    "home.all": "Vedi tutto",
+    "home.email": "Email",
+    "blog.title": "Blog",
+    "blog.intro": "Articoli su Ruby e Rails. Per ora sono in spagnolo, e alcuni anche in inglese.",
+    "post.minutes": "min di lettura",
+    "tag.count.one": "articolo",
+    "tag.count.other": "articoli",
+    "projects.title": "Progetti",
+    "projects.intro": "Prodotti che ho costruito per clienti e prodotti miei. Più in basso, gem e progetti piccoli.",
+    "projects.cases": "Casi",
+    "projects.side": "Gem e progetti personali",
+    "projects.more": "Ce ne sono altri su",
+    "projects.code": "Codice",
+    "case.client": "Per",
+    "case.year": "Anno",
+    "case.role": "Ruolo",
+    "case.stack": "Stack",
+    "case.demo": "In uso",
+    "case.features": "Cosa fa",
+    "case.desktop": "Desktop",
+    "case.mobile": "Telefono",
+    "case.back": "Tutti i progetti",
+    "opensource.title": "Open Source",
+    "opensource.merged": "Integrata",
+    "opensource.open": "In revisione",
+    "opensource.issue": "Issue",
+    "opensource.issueOpen": "Aperta",
+    "opensource.fixed": "Risolta",
+    "about.title": "Chi sono",
+    "about.experience": "Esperienza",
+    "about.contact": "Contatti",
+    "about.now": "oggi",
+  },
 } as const;
 
 export function useTranslations(lang: Lang) {
   return (key: keyof (typeof ui)["es"]) => ui[lang][key];
 }
 
-// Spanish paths are the canonical keys. English pages live under /en/ with English slugs.
-const englishSegments: Record<string, string> = {
-  proyectos: "projects",
-  "sobre-mi": "about",
-  "trabajar-conmigo": "work-with-me",
+// Spanish paths are the canonical keys. Other languages live under /en/ and /it/ with their own slugs.
+const segments: Record<Exclude<Lang, "es">, Record<string, string>> = {
+  en: { proyectos: "projects", "sobre-mi": "about", "trabajar-conmigo": "work-with-me" },
+  it: { proyectos: "progetti", "sobre-mi": "chi-sono", "trabajar-conmigo": "lavora-con-me" },
 };
 
 // localizePath("/sobre-mi", "en") -> "/en/about"
 export function localizePath(path: string, lang: Lang) {
   if (lang === "es") return path;
-  const translated = path.replace(/^\/([^/]+)/, (match, segment) => `/${englishSegments[segment] ?? segment}`);
-  return `/en${translated}`;
+  const translated = path.replace(/^\/([^/]+)/, (match, segment) => `/${segments[lang][segment] ?? segment}`);
+  return `/${lang}${translated}`;
 }
 
-export function otherLang(lang: Lang): Lang {
-  return lang === "es" ? "en" : "es";
+// The same page in every language, for the language switch and hreflang links.
+export function alternates(path: string) {
+  return Object.fromEntries(languages.map((lang) => [lang, localizePath(path, lang)])) as Record<Lang, string>;
+}
+
+export const locales: Record<Lang, string> = { es: "es-ES", en: "en-GB", it: "it-IT" };
+
+// Blog posts are written in Spanish and English only. The Italian site lists the Spanish ones.
+export function postsLang(lang: Lang): Exclude<Lang, "it"> {
+  return lang === "it" ? "es" : lang;
 }

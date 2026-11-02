@@ -6,7 +6,7 @@ import ProjectList from "../components/ProjectList.astro";
 import IdeaBox from "../components/IdeaBox.astro";
 import { getCases, getProjects } from "../lib/content";
 import { site } from "../lib/site";
-import { localizePath, otherLang, useTranslations, type Lang } from "../i18n";
+import { alternates, localizePath, useTranslations, type Lang } from "../i18n";
 
 interface Props {
     lang: Lang;
@@ -18,7 +18,7 @@ const cases = await getCases(lang);
 const projects = await getProjects();
 ---
 
-<Layout lang={lang} altPath={localizePath("/proyectos", otherLang(lang))} pageTitle={t("projects.title")} wide>
+<Layout lang={lang} alternates={alternates("/proyectos")} pageTitle={t("projects.title")} wide>
     <header data-reveal class="max-w-2xl">
         <h1 class="title-rule font-serif text-5xl sm:text-6xl font-semibold tracking-tight">{t("projects.title")}</h1>
         <p class="mt-6 text-xl leading-relaxed text-muted">{t("projects.intro")}</p>

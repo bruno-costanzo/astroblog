@@ -1,5 +1,5 @@
 import { getCollection, type CollectionEntry } from "astro:content";
-import { localizePath, type Lang } from "../i18n";
+import { locales, localizePath, postsLang, type Lang } from "../i18n";
 
 type Post = CollectionEntry<"blog">;
 
@@ -16,8 +16,9 @@ export function postUrl(post: Post) {
   return localizePath(`/blog/${postSlug(post)}/`, postLang(post));
 }
 
+// The Italian site has no posts of its own, so it gets the Spanish ones.
 export async function getPosts(lang: Lang) {
-  return (await getCollection("blog", (post) => postLang(post) === lang)).sort(
+  return (await getCollection("blog", (post) => postLang(post) === postsLang(lang))).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
   );
 }
@@ -40,13 +41,14 @@ export async function getProjects() {
 
 type Case = CollectionEntry<"cases">;
 
-// English cases live in src/content/cases/en/, like English posts.
+// English and Italian cases live in src/content/cases/en/ and src/content/cases/it/.
 export function caseLang(entry: Case): Lang {
-  return entry.id.startsWith("en/") ? "en" : "es";
+  const prefix = entry.id.split("/")[0];
+  return prefix === "en" || prefix === "it" ? prefix : "es";
 }
 
 export function caseSlug(entry: Case) {
-  return entry.id.replace(/^en\//, "");
+  return entry.id.replace(/^(en|it)\//, "");
 }
 
 export function caseUrl(entry: Case) {
@@ -64,7 +66,7 @@ export async function getContributions() {
 }
 
 export function formatDate(date: Date, lang: Lang, month: "short" | "long" = "short") {
-  return date.toLocaleDateString(lang === "es" ? "es-ES" : "en-GB", {
+  return date.toLocaleDateString(locales[lang], {
     day: "numeric",
     month,
     year: "numeric",

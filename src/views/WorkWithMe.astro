@@ -4,8 +4,8 @@ import SectionHeading from "../components/SectionHeading.astro";
 import ProjectContact from "../components/ProjectContact.astro";
 import Polaroid from "../components/Polaroid.astro";
 import Sun from "../components/Sun.astro";
-import { caseUrl, getCases } from "../lib/content";
-import { localizePath, otherLang, type Lang } from "../i18n";
+import { caseSlug, caseUrl, getCases } from "../lib/content";
+import { alternates, localizePath, type Lang } from "../i18n";
 
 interface Props {
     lang: Lang;
@@ -14,7 +14,7 @@ interface Props {
 const { lang } = Astro.props;
 const cases = await getCases(lang);
 const caseLink = (slug: string) => {
-    const entry = cases.find((c) => c.id.replace(/^en\//, "") === slug);
+    const entry = cases.find((c) => caseSlug(c) === slug);
     return entry ? { href: caseUrl(entry), name: entry.data.name } : undefined;
 };
 
@@ -89,10 +89,45 @@ const copy = {
         closeTitle: "Tell me your idea.",
         closeBody: "Even if it is only an idea. Even if you don't know where to start.",
     },
+    it: {
+        pageTitle: "Lavora con me",
+        description: "Se immagini un sistema e non sai da dove cominciare, scrivimi. Anche con poco budget.",
+        kicker: "Lavora con me",
+        title: "Se immagini un sistema e non sai da dove cominciare, parliamone.",
+        intro: [
+            "Non serve sapere di tecnologia, avere tutto scritto o avere i soldi da parte. Con poco budget, o quasi niente, scrivimi lo stesso.",
+            "Prima parliamo. Poi vediamo insieme cosa si può fare, da dove conviene partire e cosa serve per arrivarci.",
+        ],
+        caption: "Ti rispondo io",
+        whoTitle: "Per esempio, se…",
+        who: [
+            { text: "Hai un'attività che gestisci con fogli Excel, quaderni e messaggi su WhatsApp.", case: "celledig" },
+            { text: "Hai una comunità e vuoi darle uno strumento per il lavoro di tutti i giorni.", case: "lacaniosa" },
+            { text: "Hai un'idea per un'app e non hai mai saputo come farla partire.", case: "milprep" },
+            { text: "Hai un sistema vecchio che non regge più e non sai se sistemarlo o cambiarlo." },
+        ],
+        seeCase: "Come",
+        stepsTitle: "Come funziona",
+        steps: [
+            { title: "Mi scrivi o prenoti una chiamata", body: "Per email, su WhatsApp o in videochiamata. La prima chiamata non costa niente." },
+            { title: "Mi racconti l'idea", body: "Con parole tue. Come fai le cose oggi, cosa ti pesa e cosa vorresti che succedesse. Io faccio tante domande." },
+            { title: "Ti propongo da dove partire", body: "Una prima versione piccola: cosa include, quanto costa e quanto ci vuole. Se il budget non basta, troviamo una parte che ci sta." },
+            { title: "Lo facciamo un pezzo alla volta", body: "Lo provi mentre si costruisce, e cambiamo quello che serve." },
+        ],
+        faqTitle: "Domande",
+        faq: [
+            { q: "Quanto costa?", a: "Dipende da cosa serve. Dopo la prima chiamata ti do una cifra chiara. Se non ci stai dentro, vediamo cosa si può fare prima con quello che hai." },
+            { q: "Devo sapere di tecnologia?", a: "No. Raccontami il problema come lo racconteresti a un amico. La parte tecnica la risolvo io, e te la spiego in modo semplice." },
+            { q: "E se ho già un sistema?", a: "Non serve buttarlo. Si può sistemare, migliorare o sostituire un po' alla volta." },
+            { q: "Lavori con persone di qualsiasi posto?", a: "Sì. Vivo a Zurigo e lavoro da remoto, in spagnolo, inglese o italiano." },
+        ],
+        closeTitle: "Raccontami la tua idea.",
+        closeBody: "Anche se è solo un'idea. Anche se non sai da dove cominciare.",
+    },
 }[lang];
 ---
 
-<Layout lang={lang} altPath={localizePath("/trabajar-conmigo", otherLang(lang))} pageTitle={copy.pageTitle} description={copy.description} wide>
+<Layout lang={lang} alternates={alternates("/trabajar-conmigo")} pageTitle={copy.pageTitle} description={copy.description} wide>
     <section class="grid items-center gap-12 lg:grid-cols-[1.6fr_1fr] lg:gap-16">
         <div>
             <p data-reveal class="inline-flex rounded-full bg-sky-soft px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-accent">{copy.kicker}</p>

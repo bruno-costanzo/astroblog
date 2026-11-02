@@ -1,7 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import { site } from "../lib/site";
-import { localizePath, type Lang } from "../i18n";
+import { localizePath, postsLang, type Lang } from "../i18n";
 
 interface Props {
     lang: Lang;
@@ -13,7 +13,7 @@ const links = [
     { href: `mailto:${site.email}`, icon: "lucide:mail", label: "Email" },
     { href: site.github, icon: "lucide:github", label: "GitHub" },
     { href: site.linkedin, icon: "lucide:linkedin", label: "LinkedIn" },
-    { href: localizePath("/rss.xml", lang), icon: "lucide:rss", label: "RSS" },
+    { href: localizePath("/rss.xml", postsLang(lang)), icon: "lucide:rss", label: "RSS" },
 ];
 ---
 

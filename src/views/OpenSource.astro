@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import ContributionList from "../components/ContributionList.astro";
 import { getContributions, groupBy } from "../lib/content";
-import { localizePath, otherLang, useTranslations, type Lang } from "../i18n";
+import { alternates, localizePath, useTranslations, type Lang } from "../i18n";
 
 interface Props {
     lang: Lang;
@@ -20,10 +20,11 @@ const mergedRepos = new Set(merged.map((contribution) => contribution.data.repo)
 const intro = {
     es: `${merged.length} pull requests mergeados en ${mergedRepos} repositorios y ${issues} issues reportados.`,
     en: `${merged.length} merged pull requests in ${mergedRepos} repositories and ${issues} reported issues.`,
+    it: `${merged.length} pull request integrate in ${mergedRepos} repository e ${issues} issue segnalate.`,
 }[lang];
 ---
 
-<Layout lang={lang} altPath={localizePath("/open-source", otherLang(lang))} pageTitle={t("opensource.title")}>
+<Layout lang={lang} alternates={alternates("/open-source")} pageTitle={t("opensource.title")}>
     <h1 data-reveal class="title-rule font-serif text-5xl font-semibold tracking-tight">{t("opensource.title")}</h1>
     <p data-reveal style="--delay: 80ms" class="mt-6 text-lg leading-relaxed text-muted">{intro}</p>
 

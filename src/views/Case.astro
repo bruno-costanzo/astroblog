@@ -6,7 +6,7 @@ import Layout from "../layouts/Layout.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import IdeaBox from "../components/IdeaBox.astro";
 import { caseLang, caseSlug } from "../lib/content";
-import { localizePath, otherLang, useTranslations } from "../i18n";
+import { alternates, localizePath, useTranslations } from "../i18n";
 
 interface Props {
     entry: CollectionEntry<"cases">;
@@ -20,10 +20,10 @@ const { Content } = await render(entry);
 
 const poster = (src: string) => src.replace(/\.mp4$/, "-poster.jpg");
 const host = data.url ? new URL(data.url).hostname.replace("www.", "") : undefined;
-const altPath = localizePath(`/proyectos/${caseSlug(entry)}/`, otherLang(lang));
+const paths = alternates(`/proyectos/${caseSlug(entry)}/`);
 ---
 
-<Layout lang={lang} altPath={altPath} pageTitle={data.name} description={data.summary} type="article">
+<Layout lang={lang} alternates={paths} pageTitle={data.name} description={data.summary} type="article">
     <a href={localizePath("/proyectos", lang)} class="text-sm text-muted hover:text-accent transition-colors">
         {t("case.back")}
     </a>

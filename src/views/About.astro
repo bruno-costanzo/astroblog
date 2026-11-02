@@ -5,7 +5,7 @@ import ContactLinks from "../components/ContactLinks.astro";
 import IdeaBox from "../components/IdeaBox.astro";
 import Polaroid from "../components/Polaroid.astro";
 import { site, withEmployer } from "../lib/site";
-import { localizePath, otherLang, useTranslations, type Lang } from "../i18n";
+import { alternates, localizePath, useTranslations, type Lang } from "../i18n";
 
 interface Props {
     lang: Lang;
@@ -71,19 +71,47 @@ const copy = {
             { company: "elCanciller and Noticias Argentinas", place: "Buenos Aires", years: "2017 – 2021", body: "Journalist." },
         ],
     },
+    it: {
+        lead: "Sono argentino, vivo a Zurigo e faccio software dal 2020. Prima ero giornalista.",
+        story: [
+            "Ho studiato giornalismo politico a TEA, a Buenos Aires. Ho lavorato a elCanciller e a Noticias Argentinas fino al 2021.",
+            "In quegli anni ho imparato a programmare da solo. Il mio primo lavoro da sviluppatore è stato nel 2020, in Smart One: una piattaforma per chiamare un'auto, con un pulsante antipanico che mandava la posizione dell'autista in tempo reale.",
+            "Poi ho lavorato per clienti negli Stati Uniti, a Singapore, in Cile e in Argentina. A volte ho costruito sistemi da zero. Altre volte ho preso in mano un sistema che esisteva già, l'ho aggiornato e l'ho lasciato funzionare meglio.",
+            "Oggi lavoro in {employer}, a Zurigo. Mi occupo di una piattaforma per l'Università di Berna, perché i ricercatori possano lavorare con dati sensibili in modo sicuro.",
+            "Dal giornalismo mi sono rimaste due abitudini: fare tante domande e spiegare le cose in modo semplice. Le uso ogni volta che qualcuno mi racconta di cosa ha bisogno.",
+        ],
+        alsoTitle: "Inoltre",
+        also: [
+            { title: "Mentoring", body: "Faccio da mentor a sviluppatori argentini autodidatti, su decisioni tecniche e di carriera." },
+            { title: "Open source", body: "Mantengo Fripa, una gem Ruby usata in produzione. Mando anche correzioni a Rails e ad altre gem." },
+            { title: "Lingue", body: "Spagnolo, inglese e italiano." },
+        ],
+        workTitle: "Dove ho lavorato",
+        work: [
+            { company: site.employer.name, url: site.employer.url, place: "Zurigo", years: "2025 – oggi", body: "Una piattaforma per l'Università di Berna. Dà ai ricercatori macchine virtuali sicure e accesso dal browser." },
+            { company: "Unagi", url: "https://unagisoftware.com", place: "Da remoto", years: "2022 – 2025", body: "Una società di consulenza. Ho lavorato per diversi clienti:", items: [
+                "Sayge, Stati Uniti: ho aggiornato un sistema vecchio all'ultima versione di Rails e ho portato i test al 95\u00a0% del codice.",
+                "Blackbook Travels, Singapore: un modulo che tiene aggiornati più di 2 milioni di hotel da diversi fornitori.",
+                "Patrimore, Cile: un modulo per investire per obiettivi.",
+                "Doff, Argentina: un sistema da zero per chiedere permessi e ferie.",
+            ] },
+            { company: "Smart One", place: "Colombia", years: "2020 – 2022", body: "Una piattaforma per chiamare un'auto, con un pulsante antipanico e la posizione dell'autista in tempo reale." },
+            { company: "elCanciller e Noticias Argentinas", place: "Buenos Aires", years: "2017 – 2021", body: "Giornalista." },
+        ],
+    },
 }[lang];
 
 const linkClass = "underline underline-offset-4 decoration-border hover:text-accent hover:decoration-accent";
 ---
 
-<Layout lang={lang} altPath={localizePath("/sobre-mi", otherLang(lang))} pageTitle={t("about.title")}>
+<Layout lang={lang} alternates={alternates("/sobre-mi")} pageTitle={t("about.title")}>
     <div class="flex flex-col-reverse gap-10 sm:flex-row sm:items-center sm:justify-between">
         <div data-reveal>
             <h1 class="font-serif text-5xl font-semibold tracking-tight">{t("about.title")}</h1>
             <p class="mt-5 max-w-md font-hand text-2xl sm:text-[1.7rem] italic leading-snug text-accent">{copy.lead}</p>
         </div>
         <div data-reveal="zoom" style="--delay: 150ms" class="w-44 shrink-0 self-center sm:mr-4 sm:w-52">
-            <Polaroid caption={lang === "es" ? "Bruno, en Zúrich" : "Bruno, in Zürich"} />
+            <Polaroid caption={{ es: "Bruno, en Zúrich", en: "Bruno, in Zürich", it: "Bruno, a Zurigo" }[lang]} />
         </div>
     </div>
 

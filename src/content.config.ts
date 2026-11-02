@@ -16,7 +16,7 @@ const projects = defineCollection({
   loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/projects" }),
   schema: z.object({
     name: z.string(),
-    description: z.object({ es: z.string(), en: z.string() }),
+    description: z.object({ es: z.string(), en: z.string(), it: z.string() }),
     year: z.number(),
     stack: z.array(z.string()),
     repo: z.string().url().optional(),
@@ -26,7 +26,7 @@ const projects = defineCollection({
 });
 
 // Client work told as a case: the problem, what was built, and screens of it working.
-// Spanish cases live in src/content/cases/, English ones in src/content/cases/en/ with the same file name.
+// Spanish cases live in src/content/cases/, English and Italian ones in src/content/cases/en/ and it/ with the same file name.
 const cases = defineCollection({
   loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/cases" }),
   schema: ({ image }) =>

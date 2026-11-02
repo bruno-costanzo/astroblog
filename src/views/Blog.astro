@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import PostList from "../components/PostList.astro";
 import { getPosts, groupBy } from "../lib/content";
-import { localizePath, otherLang, useTranslations, type Lang } from "../i18n";
+import { alternates, localizePath, useTranslations, type Lang } from "../i18n";
 
 interface Props {
     lang: Lang;
@@ -13,7 +13,7 @@ const t = useTranslations(lang);
 const years = groupBy(await getPosts(lang), (post) => post.data.pubDate.getFullYear());
 ---
 
-<Layout lang={lang} altPath={localizePath("/blog", otherLang(lang))} pageTitle={t("blog.title")} description={t("blog.intro")}>
+<Layout lang={lang} alternates={alternates("/blog")} pageTitle={t("blog.title")} description={t("blog.intro")}>
     <h1 data-reveal class="title-rule font-serif text-5xl font-semibold tracking-tight">{t("blog.title")}</h1>
     <p data-reveal style="--delay: 80ms" class="mt-6 text-lg text-muted">{t("blog.intro")}</p>
 

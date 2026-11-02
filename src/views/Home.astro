@@ -11,7 +11,7 @@ import { getCases, getContributions, getPosts } from "../lib/content";
 import { site, withEmployer } from "../lib/site";
 
 const employerLink = "underline underline-offset-4 decoration-sky decoration-2 hover:text-accent";
-import { localizePath, otherLang, useTranslations, type Lang } from "../i18n";
+import { alternates, localizePath, useTranslations, type Lang } from "../i18n";
 
 interface Props {
     lang: Lang;
@@ -68,10 +68,32 @@ const copy = {
         nudge: "Only an idea so far? Write to me anyway.",
         writing: "On the blog I write about things I learn at work. Now and then I also send fixes to Rails and other gems.",
     },
+    it: {
+        hello: "Ciao, sono Bruno.",
+        caption: "Bruno, a Zurigo",
+        title: ["Faccio software ", "su misura", " per chi non ha un reparto informatico."],
+        story: [
+            "Sono sviluppatore in {employer}, vivo a Zurigo e faccio software dal 2020. Oltre al mio lavoro, costruisco sistemi per clienti. A volte sono nuovi, e a volte bisogna sistemarne o sostituirne uno che esiste già.",
+        ],
+        belief: "Credo che un sistema tutto tuo non debba essere una cosa che si possono permettere solo le grandi aziende.",
+        quote: "Meglio che dire è fare, e meglio che promettere è realizzare.",
+        cases: "Progetti",
+        casesBody: "Due sono per clienti e due sono miei. Per ognuno racconto come si facevano le cose prima e cosa è cambiato.",
+        howTitle: "Come lavoro",
+        how: [
+            "Partiamo da una chiacchierata. Mi racconti come fai le cose oggi e cosa ti porta via più tempo.",
+            "Non sono legato a nessuna tecnologia. Uso quella che serve meglio al tuo progetto, e cerco di tenere bassi i costi mensili.",
+            "Se hai già un sistema vecchio, non serve buttarlo. Si può sistemare, migliorare o sostituire un po' alla volta.",
+            "Ogni parte ha test automatici. Se un test fallisce, la modifica non va online.",
+            "Se vuoi caricare prodotti, prezzi o dati da solo, ti lascio un pannello per farlo.",
+        ],
+        nudge: "È solo un'idea? Scrivimi lo stesso.",
+        writing: "Sul blog scrivo di cose che imparo lavorando, in spagnolo. Ogni tanto mando anche correzioni a Rails e ad altre gem.",
+    },
 }[lang];
 ---
 
-<Layout lang={lang} altPath={localizePath("/", otherLang(lang))} wide>
+<Layout lang={lang} alternates={alternates("/")} wide>
     <section class="grid items-center gap-10 lg:grid-cols-[1.6fr_1fr] lg:gap-16 lg:pt-4">
         <div>
             <div data-reveal class="flex items-center gap-4">
