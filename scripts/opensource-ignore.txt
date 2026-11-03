@@ -21,3 +21,5 @@ coorasse/cancancan#912
 excid3/simple_calendar#370
 excid3/simple_calendar#368
 ilyakatz/data-migrate#324
+rails/rails#59303
+rails/rails#59022
