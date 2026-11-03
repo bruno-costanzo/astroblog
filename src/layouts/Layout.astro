@@ -67,7 +67,7 @@ const imageURL = new URL(site.photo, Astro.site);
         </script>
     </head>
     <body class="min-h-screen flex flex-col">
-        <Header lang={lang} alternates={alternates} wide={wide} />
+        <Header lang={lang} alternates={alternates} />
         <main class:list={["flex-1 w-full mx-auto px-5 sm:px-6 py-12 sm:py-16", wide ? "max-w-6xl" : "max-w-3xl"]}>
             <slot />
         </main>
