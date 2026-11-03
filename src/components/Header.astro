@@ -24,72 +24,109 @@ const links = [
 const path = Astro.url.pathname;
 const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
 const switchHref = (other: Lang) => alternates[other] ?? localizePath("/", other);
+const work = links.find((link) => link.highlight)!;
+const menuLabel = { es: "Menú", en: "Menu", it: "Menu" }[lang];
+const linkClass = (link: (typeof links)[number]) =>
+    link.highlight
+        ? "rounded-full bg-sky-soft font-medium text-accent transition-colors hover:bg-sky hover:text-[#15233f]"
+        : ["transition-colors hover:text-text", isActive(link.href) ? "text-text font-medium" : "text-muted"];
+
+// ES · EN · IT. The current language is plain text, the others link to the same page in that language.
+const switcher = `<div class="flex items-center gap-3 font-mono text-xs uppercase">${languages
+    .map((other) =>
+        other === lang
+            ? `<span class="text-text font-semibold" aria-current="true">${other}</span>`
+            : `<a href="${switchHref(other)}" hreflang="${other}" lang="${other}" title="${ui[other]["nav.switch"]}" class="text-muted hover:text-text transition-colors">${other}</a>`,
+    )
+    .join("")}</div>`;
 ---
 
-<header class="border-b border-border">
+<header class="relative border-b border-border">
     <div class="flag" aria-hidden="true"></div>
-    <!-- Phone and tablet: name + controls on the first row, links on the second. Desktop: one row. -->
-    <div class:list={["max-w-6xl mx-auto px-5 sm:px-6 py-4 sm:py-5 flex flex-wrap items-center gap-x-5 gap-y-3"]}>
+    <!-- Phone and tablet: name, the "work with me" pill and a menu button. Desktop: everything in one row. -->
+    <div class="max-w-6xl mx-auto px-5 sm:px-6 py-4 sm:py-5 flex items-center gap-x-5">
         <a href={localizePath("/", lang)} class="group inline-flex items-center gap-2 font-serif text-xl font-semibold tracking-tight hover:text-accent transition-colors">
             <Sun class="w-6 h-6 text-sun" />
             {site.name}
         </a>
-        <nav class="order-last lg:order-none w-full lg:w-auto lg:ml-auto flex items-center justify-between lg:justify-start gap-1.5 sm:gap-5 text-[0.8125rem] sm:text-sm whitespace-nowrap">
+        <nav class="ml-auto hidden lg:flex items-center gap-5 text-sm whitespace-nowrap">
             {
                 links.map((link) => (
-                    <a
-                        href={link.href}
-                        class:list={[
-                            "transition-colors",
-                            link.highlight
-                                ? "rounded-full bg-sky-soft px-2.5 sm:px-3 py-1 font-medium text-accent hover:bg-sky hover:text-[#15233f]"
-                                : ["hover:text-text", isActive(link.href) ? "text-text font-medium" : "text-muted"],
-                        ]}
-                    >
+                    <a href={link.href} class:list={[linkClass(link), link.highlight && "px-3 py-1"]}>
                         {link.label}
                     </a>
                 ))
             }
         </nav>
-        <div class="ml-auto lg:ml-0 flex items-center gap-4">
-            <div class="flex items-center gap-2 font-mono text-xs uppercase">
-                {
-                    languages.map((other) =>
-                        other === lang ? (
-                            <span class="text-text font-semibold" aria-current="true">{other}</span>
-                        ) : (
-                            <a href={switchHref(other)} hreflang={other} lang={other} title={ui[other]["nav.switch"]} class="text-muted hover:text-text transition-colors">
-                                {other}
-                            </a>
-                        ),
-                    )
-                }
-            </div>
-            <button
-                id="theme-toggle"
-                type="button"
-                aria-label={t("nav.theme")}
-                class="text-muted hover:text-text transition-colors cursor-pointer"
-            >
+        <div class="hidden lg:flex items-center gap-4">
+            <Fragment set:html={switcher} />
+            <button type="button" aria-label={t("nav.theme")} class="theme-toggle text-muted hover:text-text transition-colors cursor-pointer">
                 <Icon name="lucide:moon" class="w-4 h-4 dark-hidden" />
                 <Icon name="lucide:sun" class="w-4 h-4 light-hidden" />
             </button>
         </div>
+        <div class="ml-auto flex items-center gap-3 lg:hidden">
+            <a href={work.href} class="rounded-full bg-sky-soft px-3 py-1 text-sm font-medium text-accent">{work.label}</a>
+            <button
+                id="menu-toggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="mobile-menu"
+                aria-label={menuLabel}
+                class="-mr-1 flex h-9 w-9 items-center justify-center rounded-full text-text hover:bg-surface cursor-pointer"
+            >
+                <Icon name="lucide:menu" class="w-5 h-5 menu-open-hidden" />
+                <Icon name="lucide:x" class="w-5 h-5 menu-closed-hidden" />
+            </button>
+        </div>
+    </div>
+    <div id="mobile-menu" hidden class="lg:hidden absolute inset-x-0 top-full z-40 border-b border-border bg-bg shadow-[0_24px_40px_-24px_rgb(21_35_63/0.35)]">
+        <nav class="max-w-6xl mx-auto px-5 sm:px-6 py-3 flex flex-col">
+            {
+                links.filter((link) => !link.highlight).map((link) => (
+                    <a href={link.href} class:list={["py-3 font-serif text-2xl font-semibold tracking-tight border-b border-border/70", isActive(link.href) ? "text-accent" : "text-text"]}>
+                        {link.label}
+                    </a>
+                ))
+            }
+            <div class="flex items-center justify-between py-4">
+                <Fragment set:html={switcher} />
+                <button type="button" aria-label={t("nav.theme")} class="theme-toggle flex items-center gap-2 text-sm text-muted hover:text-text cursor-pointer">
+                    <Icon name="lucide:moon" class="w-4 h-4 dark-hidden" />
+                    <Icon name="lucide:sun" class="w-4 h-4 light-hidden" />
+                    {t("nav.theme")}
+                </button>
+            </div>
+        </nav>
     </div>
 </header>
 
 <style>
     :global([data-theme="dark"]) .dark-hidden,
-    :global([data-theme="light"]) .light-hidden {
+    :global([data-theme="light"]) .light-hidden,
+    #menu-toggle[aria-expanded="true"] .menu-open-hidden,
+    #menu-toggle[aria-expanded="false"] .menu-closed-hidden {
         display: none;
     }
 </style>
 
 <script>
-    document.getElementById("theme-toggle")?.addEventListener("click", () => {
-        const root = document.documentElement;
-        const next = root.dataset.theme === "dark" ? "light" : "dark";
-        root.dataset.theme = next;
-        localStorage.setItem("theme", next);
-    });
+    document.querySelectorAll(".theme-toggle").forEach((button) =>
+        button.addEventListener("click", () => {
+            const root = document.documentElement;
+            const next = root.dataset.theme === "dark" ? "light" : "dark";
+            root.dataset.theme = next;
+            localStorage.setItem("theme", next);
+        }),
+    );
+
+    const menuButton = document.getElementById("menu-toggle");
+    const menu = document.getElementById("mobile-menu");
+    const setMenu = (open: boolean) => {
+        if (!menuButton || !menu) return;
+        menuButton.setAttribute("aria-expanded", String(open));
+        menu.hidden = !open;
+    };
+    menuButton?.addEventListener("click", () => setMenu(menu?.hidden ?? false));
+    document.addEventListener("keydown", (event) => event.key === "Escape" && setMenu(false));
 </script>
