@@ -81,15 +81,15 @@ const switcher = `<div class="flex items-center gap-3 font-mono text-xs uppercas
         </div>
     </div>
     <div id="mobile-menu" hidden class="lg:hidden absolute inset-x-0 top-full z-40 border-b border-border bg-bg shadow-[0_24px_40px_-24px_rgb(21_35_63/0.35)]">
-        <nav class="max-w-6xl mx-auto px-5 sm:px-6 py-3 flex flex-col">
+        <nav class="max-w-6xl mx-auto px-5 sm:px-6 py-2 flex flex-col">
             {
                 links.filter((link) => !link.highlight).map((link) => (
-                    <a href={link.href} class:list={["py-3 font-serif text-2xl font-semibold tracking-tight border-b border-border/70", isActive(link.href) ? "text-accent" : "text-text"]}>
+                    <a href={link.href} class:list={["py-3 text-base font-medium border-b border-border/70", isActive(link.href) ? "text-accent" : "text-text"]}>
                         {link.label}
                     </a>
                 ))
             }
-            <div class="flex items-center justify-between py-4">
+            <div class="flex items-center justify-between py-3.5">
                 <Fragment set:html={switcher} />
                 <button type="button" aria-label={t("nav.theme")} class="theme-toggle flex items-center gap-2 text-sm text-muted hover:text-text cursor-pointer">
                     <Icon name="lucide:moon" class="w-4 h-4 dark-hidden" />

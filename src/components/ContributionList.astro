@@ -32,7 +32,7 @@ const label = (data: CollectionEntry<"opensource">["data"]) =>
                             {data.kind === "issue" && (
                                 <span class="mr-1.5 font-mono text-xs uppercase tracking-wide text-muted">{t("opensource.issue")}</span>
                             )}
-                            {data.title}
+                            {data.title.split("::").map((part, i) => (i === 0 ? part : <>::<wbr />{part}</>))}
                         </p>
                     </div>
                     <div class="flex items-center gap-3 text-sm text-muted sm:justify-end">
