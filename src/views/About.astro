@@ -26,7 +26,7 @@ const copy = {
         ],
         alsoTitle: "Además",
         also: [
-            { title: "Mentorías", body: "Doy mentorías gratis a argentinos que quieren ser programadores de Ruby on Rails, sobre decisiones técnicas y de carrera." },
+            { title: "Mentorías", body: "Doy mentorías gratis a argentinos que quieren ser programadores de Ruby on Rails, sobre decisiones técnicas y de carrera.", contact: { note: "Escribime o agendá una charla y aclará que es por la mentoría.", email: "Email", call: "Agendar charla", subject: "Mentoría Ruby on Rails" } },
             { title: "Código abierto", body: "Mantengo Fripa, una gem de Ruby que se usa en producción. También mando arreglos a Rails y a otras gems." },
             { title: "Idiomas", body: "Español, inglés e italiano." },
         ],
@@ -54,7 +54,7 @@ const copy = {
         ],
         alsoTitle: "Also",
         also: [
-            { title: "Mentoring", body: "I give free mentoring to Argentines who want to become Ruby on Rails developers, on technical and career decisions." },
+            { title: "Mentoring", body: "I give free mentoring to Argentines who want to become Ruby on Rails developers, on technical and career decisions.", contact: { note: "Write to me or book a call, and say it is about mentoring.", email: "Email", call: "Book a call", subject: "Ruby on Rails mentoring" } },
             { title: "Open source", body: "I maintain Fripa, a Ruby gem used in production. I also send fixes to Rails and other gems." },
             { title: "Languages", body: "Spanish, English and Italian." },
         ],
@@ -82,7 +82,7 @@ const copy = {
         ],
         alsoTitle: "Inoltre",
         also: [
-            { title: "Mentoring", body: "Faccio mentoring gratuito ad argentini che vogliono diventare sviluppatori Ruby on Rails, su decisioni tecniche e di carriera." },
+            { title: "Mentoring", body: "Faccio mentoring gratuito ad argentini che vogliono diventare sviluppatori Ruby on Rails, su decisioni tecniche e di carriera.", contact: { note: "Scrivimi o prenota una chiamata e specifica che è per il mentoring.", email: "Email", call: "Prenota una chiamata", subject: "Mentoring Ruby on Rails" } },
             { title: "Open source", body: "Mantengo Fripa, una gem Ruby usata in produzione. Mando anche correzioni a Rails e ad altre gem." },
             { title: "Lingue", body: "Spagnolo, inglese e italiano." },
         ],
@@ -127,6 +127,15 @@ const linkClass = "underline underline-offset-4 decoration-border hover:text-acc
                     <div data-reveal class="rounded-xl bg-surface p-5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_16px_30px_-18px_rgb(21_35_63/0.35)]">
                         <dt class="font-serif text-lg font-semibold">{item.title}</dt>
                         <dd class="mt-2 text-[0.95rem] leading-relaxed text-muted">{item.body}</dd>
+                        {item.contact && (
+                            <dd class="mt-3 text-[0.95rem] leading-relaxed text-muted">
+                                <p>{item.contact.note}</p>
+                                <p class="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm font-medium">
+                                    <a href={`mailto:${site.email}?subject=${encodeURIComponent(item.contact.subject)}`} data-umami-event="mentoring-email" class="link-grow text-accent">{item.contact.email} →</a>
+                                    {site.calendar && <a href={site.calendar} data-umami-event="mentoring-calendly" class="link-grow text-accent">{item.contact.call} →</a>}
+                                </p>
+                            </dd>
+                        )}
                     </div>
                 ))
             }
