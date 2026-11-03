@@ -94,6 +94,21 @@ const copy = {
 ---
 
 <Layout lang={lang} alternates={alternates("/")} wide>
+    <script
+        slot="head"
+        type="application/ld+json"
+        set:html={JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ProfessionalService",
+            name: `${site.name} · ${t("site.tagline")}`,
+            description: t("site.description"),
+            url: new URL(localizePath("/", lang), Astro.site).href,
+            image: new URL(site.photo, Astro.site).href,
+            email: site.email,
+            areaServed: ["AR", "CH", "IT", "ES"],
+            founder: { "@type": "Person", name: site.name, jobTitle: t("site.role"), sameAs: [site.github, site.linkedin] },
+        })}
+    />
     <section class="grid items-center gap-10 lg:grid-cols-[1.6fr_1fr] lg:gap-16 lg:pt-4">
         <div>
             <div data-reveal class="flex items-center gap-4">

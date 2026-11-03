@@ -20,7 +20,7 @@ const { lang, alternates = {}, pageTitle, type = "website", wide = false } = Ast
 const t = useTranslations(lang);
 const description = Astro.props.description ?? t("site.description");
 
-const title = pageTitle ? `${pageTitle} · ${site.name}` : `${site.name} · ${t("site.role")}`;
+const title = pageTitle ? `${pageTitle} · ${site.name}` : `${site.name} · ${t("site.tagline")}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const imageURL = new URL(site.photo, Astro.site);
 ---
@@ -49,6 +49,7 @@ const imageURL = new URL(site.photo, Astro.site);
         <meta property="og:description" content={description} />
         <meta property="og:image" content={imageURL} />
         <meta name="twitter:card" content="summary" />
+        <slot name="head" />
 
         <script
             is:inline

@@ -4,6 +4,7 @@ export type Lang = (typeof languages)[number];
 export const ui = {
   es: {
     "site.role": "Desarrollador de software",
+    "site.tagline": "Software a medida",
     "site.description": "Software a medida para negocios, profesionales y comunidades. Sistemas nuevos y arreglos de sistemas que ya existen.",
     "nav.blog": "Blog",
     "nav.projects": "Proyectos",
@@ -50,6 +51,7 @@ export const ui = {
   },
   en: {
     "site.role": "Software developer",
+    "site.tagline": "Custom software",
     "site.description": "Custom software for businesses, professionals and communities. New systems, and fixes for the ones you already have.",
     "nav.blog": "Blog",
     "nav.projects": "Projects",
@@ -96,6 +98,7 @@ export const ui = {
   },
   it: {
     "site.role": "Sviluppatore software",
+    "site.tagline": "Software su misura",
     "site.description": "Software su misura per attività, professionisti e comunità. Sistemi nuovi e sistemi esistenti da sistemare.",
     "nav.blog": "Blog",
     "nav.projects": "Progetti",
