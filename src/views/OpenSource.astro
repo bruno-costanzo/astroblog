@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import ContributionList from "../components/ContributionList.astro";
 import { getContributions, groupBy } from "../lib/content";
-import { alternates, localizePath, useTranslations, type Lang } from "../i18n";
+import { alternates, locales, useTranslations, type Lang } from "../i18n";
 
 interface Props {
     lang: Lang;
@@ -12,30 +12,205 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 
 const contributions = await getContributions();
-const repos = groupBy(contributions, (contribution) => contribution.data.repo);
-const merged = contributions.filter((contribution) => contribution.data.status === "merged");
-const issues = contributions.filter((contribution) => contribution.data.kind === "issue").length;
-const mergedRepos = new Set(merged.map((contribution) => contribution.data.repo)).size;
+const prs = contributions.filter(({ data }) => data.kind === "pr");
+const merged = prs.filter(({ data }) => data.status === "merged");
+const inReview = prs.filter(({ data }) => data.status === "open");
+const issues = contributions.filter(({ data }) => data.kind === "issue");
+const repos = [...groupBy(contributions, ({ data }) => data.repo)].sort((a, b) => b[1].length - a[1].length);
+const mergedRepos = new Set(merged.map(({ data }) => data.repo)).size;
 
 const intro = {
-    es: `${merged.length} pull requests mergeados en ${mergedRepos} repositorios y ${issues} issues reportados.`,
-    en: `${merged.length} merged pull requests in ${mergedRepos} repositories and ${issues} reported issues.`,
-    it: `${merged.length} pull request integrate in ${mergedRepos} repository e ${issues} issue segnalate.`,
+    es: `${merged.length} pull requests mergeados en ${mergedRepos} repositorios y ${issues.length} issues reportados.`,
+    en: `${merged.length} merged pull requests in ${mergedRepos} repositories and ${issues.length} reported issues.`,
+    it: `${merged.length} pull request integrate in ${mergedRepos} repository e ${issues.length} issue segnalate.`,
 }[lang];
+
+const stats = [
+    [merged.length, t("opensource.statMerged")],
+    [inReview.length, t("opensource.statOpen")],
+    [issues.length, t("opensource.statIssues")],
+    [repos.length, t("opensource.statRepos")],
+] as const;
+
+const filters = [
+    ["all", t("opensource.filterAll")],
+    ["merged", t("opensource.filterMerged")],
+    ["open", t("opensource.filterOpen")],
+    ["issue", t("opensource.filterIssues")],
+] as const;
+
+// Months are "YYYY-MM" in UTC, because the content dates are UTC midnight.
+const monthKey = (date: Date) => date.toISOString().slice(0, 7);
+const monthLabel = (key: string, month: "short" | "long") => {
+    const label = new Date(`${key}-01T00:00:00Z`).toLocaleDateString(locales[lang], { month, year: "numeric", timeZone: "UTC" });
+    return label.charAt(0).toUpperCase() + label.slice(1);
+};
+
+const byMonth = groupBy(contributions, ({ data }) => monthKey(data.date));
+
+// Every month from the first contribution to the last one, also the empty ones, so the chart shows the real gaps.
+const months: string[] = [];
+if (contributions.length) {
+    const first = contributions.at(-1)!.data.date;
+    const last = contributions[0].data.date;
+    const cursor = new Date(Date.UTC(first.getUTCFullYear(), first.getUTCMonth(), 1));
+    while (monthKey(cursor) <= monthKey(last)) {
+        months.push(monthKey(cursor));
+        cursor.setUTCMonth(cursor.getUTCMonth() + 1);
+    }
+}
+const maxPerMonth = Math.max(1, ...[...byMonth.values()].map((items) => items.length));
 ---
 
 <Layout lang={lang} alternates={alternates("/open-source")} pageTitle={t("opensource.title")}>
-    <h1 data-reveal class="title-rule font-serif text-5xl font-semibold tracking-tight">{t("opensource.title")}</h1>
-    <p data-reveal style="--delay: 80ms" class="mt-6 text-lg leading-relaxed text-muted">{intro}</p>
+    <div data-os>
+        <h1 data-reveal class="title-rule font-serif text-5xl font-semibold tracking-tight">{t("opensource.title")}</h1>
+        <p data-reveal style="--delay: 80ms" class="mt-6 text-lg leading-relaxed text-muted">{intro}</p>
 
-    {
-        [...repos].map(([repo, repoContributions]) => (
-            <section data-reveal class="mt-12">
-                <h2 class="mb-3 font-mono text-sm">
-                    <a href={`https://github.com/${repo}`} class="hover:text-accent transition-colors">{repo}</a>
-                </h2>
-                <ContributionList lang={lang} contributions={repoContributions} />
-            </section>
-        ))
-    }
+        <dl data-reveal style="--delay: 120ms" class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {
+                stats.map(([value, label]) => (
+                    <div class="flex flex-col rounded-lg border border-border bg-surface/60 px-4 py-3">
+                        <dt class="text-sm text-muted">{label}</dt>
+                        <dd class="order-first font-serif text-3xl font-semibold tabular-nums">{value}</dd>
+                    </div>
+                ))
+            }
+        </dl>
+
+        <section data-reveal style="--delay: 160ms" class="mt-10" aria-labelledby="os-activity">
+            <h2 id="os-activity" class="mb-3 text-sm text-muted">{t("opensource.activity")}</h2>
+            <div class="flex h-28 items-end gap-[2px] border-b border-border">
+                {
+                    months.map((key) => {
+                        const count = byMonth.get(key)?.length ?? 0;
+                        return (
+                            <a
+                                data-bar={key}
+                                href={count ? `#m-${key}` : undefined}
+                                class="group relative flex h-full flex-1 items-end outline-none"
+                                aria-label={`${monthLabel(key, "long")}: ${count}`}
+                            >
+                                <span
+                                    class="w-full rounded-t-[4px] bg-accent transition-[height,opacity] duration-300 group-hover:opacity-80"
+                                    style={`height: ${(count / maxPerMonth) * 100}%`}
+                                />
+                                <span class="pointer-events-none absolute bottom-full left-1/2 z-10 mb-1 hidden -translate-x-1/2 whitespace-nowrap rounded-md border border-border bg-bg px-2 py-1 text-xs shadow-sm group-hover:block group-focus-visible:block">
+                                    {monthLabel(key, "short")}: <strong data-count>{count}</strong>
+                                </span>
+                            </a>
+                        );
+                    })
+                }
+            </div>
+            <div class="mt-1 flex gap-[2px] text-xs text-muted tabular-nums" aria-hidden="true">
+                {
+                    months.map((key, index) => (
+                        <span class="flex-1 overflow-visible whitespace-nowrap">
+                            {(index === 0 || key.endsWith("-01")) && key.slice(0, 4)}
+                        </span>
+                    ))
+                }
+            </div>
+        </section>
+
+        <div class="mt-10 hidden flex-wrap items-center gap-2 [.js_&]:flex">
+            {
+                filters.map(([value, label]) => (
+                    <button
+                        type="button"
+                        data-filter={value}
+                        aria-pressed={value === "all" ? "true" : "false"}
+                        class="rounded-full border border-border px-3 py-1 text-sm transition-colors hover:border-accent aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-bg"
+                    >
+                        {label}
+                    </button>
+                ))
+            }
+            <select
+                data-repo-filter
+                aria-label={t("opensource.statRepos")}
+                class="ml-auto max-w-full rounded-full border border-border bg-bg px-3 py-1 font-mono text-sm"
+            >
+                <option value="">{t("opensource.allRepos")}</option>
+                {repos.map(([repo, items]) => <option value={repo}>{`${repo} (${items.length})`}</option>)}
+            </select>
+        </div>
+
+        <p data-empty hidden class="mt-10 text-muted">{t("opensource.empty")}</p>
+
+        {
+            [...byMonth].map(([key, items]) => (
+                <section id={`m-${key}`} data-month={key} class="mt-10 scroll-mt-24">
+                    <h2 class="mb-3 font-serif text-xl font-semibold">{monthLabel(key, "long")}</h2>
+                    <ContributionList lang={lang} contributions={items} showRepo />
+                </section>
+            ))
+        }
+    </div>
 </Layout>
+
+<script>
+    const root = document.querySelector<HTMLElement>("[data-os]");
+    if (root) {
+        const items = [...root.querySelectorAll<HTMLElement>("[data-item]")];
+        const sections = [...root.querySelectorAll<HTMLElement>("[data-month]")];
+        const bars = [...root.querySelectorAll<HTMLAnchorElement>("[data-bar]")];
+        const chips = [...root.querySelectorAll<HTMLButtonElement>("[data-filter]")];
+        const select = root.querySelector<HTMLSelectElement>("[data-repo-filter]")!;
+        const empty = root.querySelector<HTMLElement>("[data-empty]")!;
+
+        // Filters live in the URL, so a filtered view can be shared.
+        const params = new URLSearchParams(location.search);
+        let filter = params.get("filter") ?? "all";
+        let repo = params.get("repo") ?? "";
+        if (!chips.some((chip) => chip.dataset.filter === filter)) filter = "all";
+        if (![...select.options].some((option) => option.value === repo)) repo = "";
+
+        const apply = () => {
+            const counts = new Map<string, number>();
+            for (const item of items) {
+                const month = item.closest<HTMLElement>("[data-month]")!.dataset.month!;
+                const visible = (filter === "all" || item.dataset.group === filter) && (!repo || item.dataset.repo === repo);
+                item.hidden = !visible;
+                if (visible) counts.set(month, (counts.get(month) ?? 0) + 1);
+            }
+
+            for (const section of sections) section.hidden = !counts.has(section.dataset.month!);
+            empty.hidden = counts.size > 0;
+
+            const max = Math.max(1, ...counts.values());
+            for (const bar of bars) {
+                const count = counts.get(bar.dataset.bar!) ?? 0;
+                (bar.firstElementChild as HTMLElement).style.height = `${(count / max) * 100}%`;
+                bar.querySelector("[data-count]")!.textContent = String(count);
+                bar.setAttribute("aria-label", bar.getAttribute("aria-label")!.replace(/\d+$/, String(count)));
+                if (count) bar.href = `#m-${bar.dataset.bar}`;
+                else bar.removeAttribute("href");
+            }
+
+            for (const chip of chips) chip.setAttribute("aria-pressed", String(chip.dataset.filter === filter));
+            select.value = repo;
+
+            const url = new URL(location.href);
+            if (filter === "all") url.searchParams.delete("filter");
+            else url.searchParams.set("filter", filter);
+            if (repo) url.searchParams.set("repo", repo);
+            else url.searchParams.delete("repo");
+            history.replaceState(null, "", url);
+        };
+
+        for (const chip of chips) {
+            chip.addEventListener("click", () => {
+                filter = chip.dataset.filter!;
+                apply();
+            });
+        }
+        select.addEventListener("change", () => {
+            repo = select.value;
+            apply();
+        });
+
+        apply();
+    }
+</script>
