@@ -4,5 +4,5 @@ kind: pr
 repo: renuo/onlylogs
 url: https://github.com/renuo/onlylogs/pull/102
 date: 2026-11-06
-status: open
+status: merged
 ---
